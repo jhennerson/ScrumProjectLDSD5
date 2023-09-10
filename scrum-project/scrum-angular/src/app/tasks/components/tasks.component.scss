@@ -70,6 +70,18 @@ h2 {
   margin: 10px;
 }
 
+.task-card-top {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.task-card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .task-todo {
   background: #fffc00;
   background: -webkit-linear-gradient(#ffffff, #fffc00);
