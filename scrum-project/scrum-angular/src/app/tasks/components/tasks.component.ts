@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { Task } from '../model/task';
-import { Sprint } from '../../sprints/model/sprint'
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { Sprint } from '../../sprints/model/sprint';
+import { Task } from '../model/task';
 import { TasksService } from '../services/tasks.service';
-import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-tasks',
@@ -11,7 +12,7 @@ import { Observable, tap } from 'rxjs';
   styleUrls: ['./tasks.component.scss']
 })
 
-export class TasksComponent {
+export class TasksComponent implements OnInit{
 
   tasks: Observable<Task[]>;
   todo: Task[] = [];
@@ -41,6 +42,11 @@ export class TasksComponent {
         event.previousIndex,
         event.currentIndex,
       );
+
+      const task = event.container.data[event.currentIndex];
+      task.status = event.container.id;
+
+      this.tasksService.updateTask(task);
     }
   }
 
