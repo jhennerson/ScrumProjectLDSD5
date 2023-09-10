@@ -1,0 +1,8 @@
+{
+  "extends": ["eslint:recommended", "plugin:@angular-eslint/recommended"],
+  "rules": {
+    "@angular-eslint/no-empty-lifecycle-method": "off",
+    "complexity": ["error", 2],
+    "no-undef": "off"
+  }
+}
