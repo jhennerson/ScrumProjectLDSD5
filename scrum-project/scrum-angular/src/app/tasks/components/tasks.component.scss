@@ -70,6 +70,24 @@ h2 {
   margin: 10px;
 }
 
+.task-todo {
+  background: #fffc00;
+  background: -webkit-linear-gradient(#ffffff, #fffc00);
+  background: linear-gradient(to top, #ffffff, #fffc00);
+}
+
+.task-inprogress {
+  background: #2980B9;
+  background: -webkit-linear-gradient(#FFFFFF, #6DD5FA, #2980B9);
+  background: linear-gradient(to top, #FFFFFF, #6DD5FA, #2980B9);
+}
+
+.task-done {
+  background: #A1FFCE;
+  background: -webkit-linear-gradient(#FFFFFF, #A1FFCE);
+  background: linear-gradient(to top, #FFFFFF, #A1FFCE);
+}
+
 .cdk-drag-preview {
   box-sizing: border-box;
   border-radius: 4px;
