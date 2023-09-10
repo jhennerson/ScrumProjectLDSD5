@@ -1,0 +1,76 @@
+  <div class="container">
+    <button mat-raised-button>Nova tarefa</button>
+  </div>
+
+  <mat-card>
+    <div cdkDropListGroup>
+      <div class="task-container">
+        <div class="board-status-header">
+          <h2 class="text-light text-center">A Fazer</h2>
+        </div>
+
+        <div
+          cdkDropList
+          [cdkDropListData]="todo"
+          [cdkDropListConnectedTo]="['list-done']"
+          [cdkDropListConnectedTo]="['list-inprogress']"
+          class="task-list"
+          id="list-todo"
+          (cdkDropListDropped)="drop($event)">
+          <div class="task-box" *ngFor="let item of todo" cdkDrag>
+            <div class="container">
+              <div class="my-1">{{ item.title }}</div>
+              <hr>
+              <div>{{ item.user}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-container">
+        <div class="board-status-header">
+          <h2 class="text-light text-center">Em Progresso</h2>
+        </div>
+
+        <div
+          cdkDropList
+          [cdkDropListData]="inprogress"
+          [cdkDropListConnectedTo]="['list-in-todo']"
+          [cdkDropListConnectedTo]="['list-done']"
+          class="task-list"
+          id="list-inprogress"
+          (cdkDropListDropped)="drop($event)">
+          <div class="task-box" *ngFor="let item of inprogress" cdkDrag>
+            <div class="container">
+              <div class="my-1">{{ item.title }}</div>
+              <hr>
+              <div>{{ item.user}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-container">
+        <div class="board-status-header">
+          <h2 class="text-light text-center">Finalizada</h2>
+        </div>
+
+        <div
+          cdkDropList
+          [cdkDropListData]="done"
+          [cdkDropListConnectedTo]="['list-todo']"
+          [cdkDropListConnectedTo]="['list-inprogress']"
+          class="task-list"
+          id="list-done"
+          (cdkDropListDropped)="drop($event)">
+          <div class="task-box" *ngFor="let item of done" cdkDrag>
+            <div class="container">
+              <div class="my-1">{{ item.title }}</div>
+              <hr>
+              <div>{{ item.user}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card>
