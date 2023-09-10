@@ -1,8 +1,26 @@
-  <div class="container">
-    <button mat-raised-button>Nova tarefa</button>
-  </div>
+  <mat-card class="board-buttons-card" alingn="center">
+    <mat-card-actions>
+      <div>
+        <mat-form-field class="sprint-select">
+          <mat-label>Sprint</mat-label>
+          <mat-select class="sprint-select">
+            <mat-option *ngFor="let sprint of sprints" [value]="sprint.title">
+              {{sprint.title}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
-  <mat-card>
+      <div>
+        <button mat-button class="add-button">
+          <span class="text-nowrap">Nova tarefa</span>
+          <mat-icon>add</mat-icon>
+      </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card align="center" class="board-card">
     <div cdkDropListGroup>
       <div class="task-container">
         <div class="board-status-header">

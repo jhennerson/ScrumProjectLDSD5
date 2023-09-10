@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OptionsComponent } from './options.component';
+import { SprintsComponent } from './sprints.component';
 
-describe('OptionsComponent', () => {
-  let component: OptionsComponent;
-  let fixture: ComponentFixture<OptionsComponent>;
+describe('SprintsComponent', () => {
+  let component: SprintsComponent;
+  let fixture: ComponentFixture<SprintsComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [OptionsComponent]
+      declarations: [SprintsComponent]
     });
-    fixture = TestBed.createComponent(OptionsComponent);
+    fixture = TestBed.createComponent(SprintsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

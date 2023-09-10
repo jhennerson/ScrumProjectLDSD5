@@ -2,10 +2,32 @@ h2 {
   margin: 0;
 }
 
-mat-card {
+.board-buttons-card {
   background-color: white;
-  align-items: center;
+  margin: 20px 100px 10px 50px;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+.board-card {
+  background-color: white;
   margin: 20px 100px 50px 50px;
+}
+
+.add-button {
+  background-color: #595656;
+  display: flex;
+  flex: 1 0 20%;
+  align-items: left;
+  min-height: 56px;
+  width: 220px;
+  margin-left: 20px;
+}
+
+.sprint-select {
+  margin-bottom: -22px;
+  margin-left: 12px;
 }
 
 .board-status-header {
@@ -63,7 +85,6 @@ mat-card {
 .cdk-drag-animating {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
-
 
 .task-list.cdk-drop-list-dragging .task-box:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);

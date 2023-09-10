@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Task } from '../model/task';
+import { Sprint } from '../../sprints/model/sprint'
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
@@ -9,7 +10,17 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 })
 
 export class TasksComponent {
-  tasks: Task[];
+
+  sprintAtual: Sprint = {
+    id: '1',
+    title: 'Sprint atual',
+    assignmentDate: new Date("2023-01-01"),
+    endDate: new Date("2023-01-15"),
+    description: 'Sprint atual',
+    status: 'Em execução'
+  }
+  sprints: Sprint[] = [this.sprintAtual];
+  tasks: Task[] = [];
 
   task1: Task = {
     id: '1',

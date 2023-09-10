@@ -2,20 +2,18 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 import { TasksComponent } from './components/tasks.component';
-import { OptionsComponent } from './options/options/options.component';
 import { TasksRoutingModule } from './tasks-routing.module';
-
-
-
 
 @NgModule({
   declarations: [
-    TasksComponent,
-    OptionsComponent
+    TasksComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +21,10 @@ import { TasksRoutingModule } from './tasks-routing.module';
     DragDropModule,
     MatCardModule,
     MatButtonModule,
-    ScrollingModule
+    ScrollingModule,
+    MatSelectModule,
+    MatIconModule,
+    ReactiveFormsModule
   ]
 })
 export class TasksModule { }

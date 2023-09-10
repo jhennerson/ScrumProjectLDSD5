@@ -13,13 +13,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/components/menu.component';
 import { NavbarComponent } from './navbar/components/navbar.component';
+import { SprintsComponent } from './sprints/component/sprints/sprints.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    MenuComponent
+    MenuComponent,
+    SprintsComponent
   ],
   imports: [
     BrowserModule,
