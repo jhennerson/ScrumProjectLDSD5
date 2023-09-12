@@ -21,17 +21,27 @@ export class TasksService {
     );
   }
 
-  updateTask(task: Task) {
-    const url = '/api/tasks/' + task.id;
+  loadById(id: string) {
+    return this.httpClient.get<Task>(`${this.API}/${id}`);
+  }
 
-    const body = {
-      status: task.status
-    };
+  save(record: Partial<Task>) {
+    if(record.id) {
+      return this.update(record);
+    }
 
-    this.httpClient.post(url, body).subscribe({
-      next: (v) => console.log(v),
-      error: (e) => console.error(e + "Erro ao enviar os dados! STATUS DA TASK = " + task.status),
-      complete: () => console.info("Estado da task alterado com sucesso! STATUS DA TASK = " + task.status)
-    });
+    return this.create(record);
+  }
+
+  remove(id: string) {
+    return this.httpClient.delete(`${this.API}/${id}`).pipe(first());
+  }
+
+  private create(record: Partial<Task>) {
+    return this.httpClient.post<Task>(this.API, record).pipe(first());
+  }
+
+  private update(record: Partial<Task>) {
+    return this.httpClient.put<Task>(`${this.API}/$${record.id}`, record).pipe(first());
   }
 }

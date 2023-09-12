@@ -8,8 +8,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 
+
 import { TasksComponent } from './components/tasks.component';
 import { TasksRoutingModule } from './tasks-routing.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,9 @@ import { TasksRoutingModule } from './tasks-routing.module';
     ScrollingModule,
     MatSelectModule,
     MatIconModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSnackBarModule,
+    MatDialogModule
   ]
 })
 export class TasksModule { }

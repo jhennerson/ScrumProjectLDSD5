@@ -1,10 +1,13 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 
 import { Sprint } from '../../sprints/model/sprint';
 import { Task } from '../model/task';
 import { TasksService } from '../services/tasks.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-tasks',
@@ -19,7 +22,11 @@ export class TasksComponent implements OnInit{
   inprogress: Task[] = [];
   done: Task[] = [];
 
-  constructor(private tasksService: TasksService) {
+  constructor(private tasksService: TasksService,
+    private router: Router,
+    private route: ActivatedRoute,
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar) {
     this.tasks = this.tasksService.list();
   }
 
@@ -43,11 +50,26 @@ export class TasksComponent implements OnInit{
         event.currentIndex,
       );
 
-      const task = event.container.data[event.currentIndex];
+      let task = event.container.data[event.currentIndex];
       task.status = event.container.id;
 
-      this.tasksService.updateTask(task);
+      this.updateTaskStatus(task);
     }
+  }
+
+  private updateTaskStatus(task: Task) {
+    this.tasksService.save(task).subscribe({
+      next: () => this.onSuccess(),
+      error: () => this.onError()
+    });
+  }
+
+  private onSuccess() {
+    this.snackBar.open('Task salva com sucesso!', 'X', {duration: 2000});
+  }
+
+  private onError() {
+    this.snackBar.open('Erro ao salvar task!', 'X', {duration: 2000});
   }
 
   ngOnInit() {
