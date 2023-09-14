@@ -1,0 +1,121 @@
+<mat-card class="board-buttons-card" alingn="center">
+  <mat-card-actions>
+    <div>
+      <mat-form-field class="sprint-select">
+        <mat-label>Sprint</mat-label>
+        <mat-select class="sprint-select">
+          <mat-option *ngFor="let sprint of sprints" [value]="sprint.title">
+            {{sprint.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <button mat-button class="add-button">
+        <span class="text-nowrap">Nova tarefa</span>
+        <mat-icon iconPositionEnd>add</mat-icon>
+    </button>
+    </div>
+  </mat-card-actions>
+</mat-card>
+
+<mat-card align="center" class="board-card">
+  <div cdkDropListGroup>
+    <div class="task-container">
+      <div class="board-status-header">
+        <h2 class="text-light text-center">A Fazer</h2>
+      </div>
+
+      <div
+        cdkDropList
+        [cdkDropListData]="todo"
+        [cdkDropListConnectedTo]="['DONE']"
+        [cdkDropListConnectedTo]="['IN_PROGRESS']"
+        class="task-list task-todo"
+        id="TO_DO"
+        (cdkDropListDropped)="drop($event)">
+        <div class="task-box" *ngFor="let item of todo" cdkDrag>
+          <div class="container">
+            <div class="task">
+              <div class="task-card-top">
+                <div class="my-1 fs-5">{{ item.title }}</div>
+              </div>
+              <hr>
+              <div class="task-card-bottom">
+                {{ item.user }}
+                <button mat-icon-button aria-label="Ver todas as informações">
+                  <mat-icon iconPositionEnd>more_vert</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="task-container">
+      <div class="board-status-header">
+        <h2 class="text-light text-center">Em Progresso</h2>
+      </div>
+
+      <div
+        cdkDropList
+        [cdkDropListData]="inprogress"
+        [cdkDropListConnectedTo]="['TO_DO']"
+        [cdkDropListConnectedTo]="['DONE']"
+        class="task-list task-inprogress"
+        id="IN_PROGRESS"
+        (cdkDropListDropped)="drop($event)">
+        <div class="task-box" *ngFor="let item of inprogress" cdkDrag>
+          <div class="container">
+            <div class="task">
+              <div class="task-card-top">
+                <div class="my-1 fs-5">{{ item.title }}</div>
+              </div>
+              <hr>
+              <div class="task-card-bottom">
+                {{ item.user }}
+                <button mat-icon-button aria-label="Ver todas as informações">
+                  <mat-icon iconPositionEnd>more_vert</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="task-container">
+      <div class="board-status-header">
+        <h2 class="text-light text-center">Finalizada</h2>
+      </div>
+
+      <div
+        cdkDropList
+        [cdkDropListData]="done"
+        [cdkDropListConnectedTo]="['TO_DO']"
+        [cdkDropListConnectedTo]="['IN_PROGRESS']"
+        class="task-list task-done"
+        id="DONE"
+        (cdkDropListDropped)="drop($event)">
+        <div class="task-box" *ngFor="let item of done" cdkDrag>
+          <div class="container">
+            <div class="task">
+              <div class="task-card-top">
+                <div class="my-1 fs-5">{{ item.title }}</div>
+              </div>
+              <hr>
+              <div class="task-card-bottom">
+                {{ item.user }}
+                <button mat-icon-button aria-label="Ver todas as informações">
+                  <mat-icon iconPositionEnd>more_vert</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-card>
