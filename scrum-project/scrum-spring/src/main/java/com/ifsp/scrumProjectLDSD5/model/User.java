@@ -1,4 +1,4 @@
-package com.ifsp.model;
+package com.ifsp.scrumProjectLDSD5.model;
 
 import jakarta.persistence.*;
 
@@ -22,9 +22,14 @@ public class User {
     private String password;
     @Column(name = "email", nullable = false)
     private String email;
-
-    public static Object builder() {
-
-        return null;
-    }
+    
+    
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+    
+    
 }

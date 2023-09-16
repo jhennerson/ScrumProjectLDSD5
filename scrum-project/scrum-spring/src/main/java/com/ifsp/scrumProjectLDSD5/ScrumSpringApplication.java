@@ -1,4 +1,4 @@
-package com.ifsp;
+package com.ifsp.scrumProjectLDSD5;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
