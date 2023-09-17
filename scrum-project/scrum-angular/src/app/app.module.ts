@@ -12,16 +12,20 @@ import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BacklogComponent } from './components/backlog/backlog.component';
 import { BoardComponent } from './components/board/board.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SprintComponent } from './components/sprint/sprint.component';
+import { StatusPipe } from './shared/pipes/status/status.pipe';
+
 
 @NgModule({
   declarations: [
@@ -30,6 +34,8 @@ import { SprintComponent } from './components/sprint/sprint.component';
     MenuComponent,
     BoardComponent,
     SprintComponent,
+    BacklogComponent,
+    StatusPipe
   ],
   imports: [
     BrowserModule,
@@ -49,6 +55,7 @@ import { SprintComponent } from './components/sprint/sprint.component';
     MatDialogModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent],

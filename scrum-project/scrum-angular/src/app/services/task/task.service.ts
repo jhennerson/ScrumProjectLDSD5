@@ -34,14 +34,17 @@ export class TaskService {
   }
 
   remove(id: string) {
-    return this.httpClient.delete(`${this.API}/${id}`).pipe(first());
+    return this.httpClient.delete(`${this.API}/${id}`)
+    .pipe(first());
   }
 
   private create(record: Partial<Task>) {
-    return this.httpClient.post<Task>(this.API, record).pipe(first());
+    return this.httpClient.post<Task>(this.API, record)
+    .pipe(first());
   }
 
   private update(record: Partial<Task>) {
-    return this.httpClient.put<Task>(`${this.API}/$${record.id}`, record).pipe(first());
+    return this.httpClient.put<Task>(`${this.API}/$${record.id}`, record)
+    .pipe(first());
   }
 }

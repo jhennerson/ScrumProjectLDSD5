@@ -12,6 +12,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { TaskRoutingModule } from './task-routing.module';
 import { TaskComponent } from '../../components/task/task.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { TaskComponent } from '../../components/task/task.component';
     MatIconModule,
     ReactiveFormsModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatToolbarModule
   ]
 })
 export class TaskModule { }

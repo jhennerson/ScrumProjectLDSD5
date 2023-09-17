@@ -6,34 +6,20 @@
 
 .menu-mat-card {
   background-color: white;
-  margin-left: -11px;
-  padding: 0;
-  height: 100vh;
-  width: 280px;
+  margin-top: 10px;
+  margin-bottom: 4px;
+  padding: 4px;
 }
 
-.left-menu {
-  display: inline-flex;
-  flex-direction: column;
-  min-width: 180px;
-  max-width: 280px;
-  background-color: rgb(255, 255, 255);
-  padding: 6px 0;
-  align-items: center;
-}
 
 .left-menu-item {
   cursor: pointer;
   border: none;
   user-select: none;
-  min-width: 98%;
-  line-height: 60px;
+  width: 98%;
   margin-bottom: 2px;
-  padding: 0 16px;
   display: flex;
-  align-items: center;
   flex-direction: row;
-  flex: 1;
   background-color: #424242;
 }
 
