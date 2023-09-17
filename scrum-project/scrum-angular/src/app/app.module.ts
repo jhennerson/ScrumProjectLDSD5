@@ -6,8 +6,10 @@ import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -16,18 +18,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MenuComponent } from './menu/components/menu.component';
-import { NavbarComponent } from './navbar/components/navbar.component';
-import { SprintsComponent } from './sprints/components/sprints.component';
-
-
+import { BoardComponent } from './components/board/board.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { SprintComponent } from './components/sprint/sprint.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     MenuComponent,
-    SprintsComponent
+    BoardComponent,
+    SprintComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,9 +46,11 @@ import { SprintsComponent } from './sprints/components/sprints.component';
     MatListModule,
     HttpClientModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatFormFieldModule,
+    MatSelectModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

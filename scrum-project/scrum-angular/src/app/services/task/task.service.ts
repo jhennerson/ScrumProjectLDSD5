@@ -2,12 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { first, tap } from 'rxjs';
 
-import { Task } from '../model/task';
+import { Task } from '../../models/task/task';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TasksService {
+export class TaskService {
 
   private readonly API = '/assets/tasks.json';
 

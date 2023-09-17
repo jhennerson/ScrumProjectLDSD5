@@ -5,22 +5,22 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
-
-
-import { TasksComponent } from './components/tasks.component';
-import { TasksRoutingModule } from './tasks-routing.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatDialogModule } from '@angular/material/dialog';
+
+import { TaskRoutingModule } from './task-routing.module';
+import { TaskComponent } from '../../components/task/task.component';
+
 
 @NgModule({
   declarations: [
-    TasksComponent
+    TaskComponent
   ],
   imports: [
     CommonModule,
-    TasksRoutingModule,
+    TaskRoutingModule,
     DragDropModule,
     MatCardModule,
     MatButtonModule,
@@ -32,4 +32,4 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDialogModule
   ]
 })
-export class TasksModule { }
+export class TaskModule { }
