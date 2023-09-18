@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, map, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
+import { Sprint } from '../../models/sprint/sprint';
 import { Task } from '../../models/task/task';
 import { TaskService } from '../../services/task/task.service';
-import { Sprint } from '../../models/sprint/sprint';
+import { ExtendedTaskModalComponent } from 'src/app/shared/components/extended-task-modal/extended-task-modal.component';
 
 @Component({
   selector: 'app-backlog',
   templateUrl: './backlog.component.html',
-  styleUrls: ['./backlog.component.scss']
+  styleUrls: ['./backlog.component.scss'],
 })
 export class BacklogComponent {
   tasks: Observable<Task[]>;
@@ -36,6 +37,9 @@ export class BacklogComponent {
   ];
 
   onExtend() {
-    console.log('on Extend!');
+    this.dialog.open(ExtendedTaskModalComponent, {
+      width: `80%`,
+      height: `80%`,
+    });
   }
 }

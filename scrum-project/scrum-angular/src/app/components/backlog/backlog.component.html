@@ -5,7 +5,7 @@
         <mat-label>Sprint</mat-label>
         <mat-select class="sprint-select">
           <mat-option *ngFor="let sprint of sprints" [value]="sprint.title">
-            {{sprint.title}}
+            {{ sprint.title }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -23,8 +23,8 @@
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
 
         <mat-cell *matCellDef="let task">
-          <button mat-icon-button aria-label="Ver tudo">
-            <mat-icon (click)="onExtend()">more_vert</mat-icon>
+          <button mat-icon-button aria-label="Ver tudo" (click)="onExtend()">
+            <mat-icon>more_vert</mat-icon>
           </button>
         </mat-cell>
       </ng-container>
@@ -50,17 +50,20 @@
       <ng-container matColumnDef="status">
         <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
 
-        <mat-cell *matCellDef="let task" [ngClass]="{
-          'status-to-do': task.status == 'TO_DO',
-          'status-in-progress': task.status == 'IN_PROGRESS',
-          'status-done': task.status == 'DONE'
-        }">
-          {{ task.status |  status}}
+        <mat-cell
+          *matCellDef="let task"
+          [ngClass]="{
+            'status-to-do': task.status == 'TO_DO',
+            'status-in-progress': task.status == 'IN_PROGRESS',
+            'status-done': task.status == 'DONE'
+          }"
+        >
+          {{ task.status | status }}
         </mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
     </mat-table>
   </mat-card>
 </mat-card>

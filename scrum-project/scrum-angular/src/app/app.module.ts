@@ -25,7 +25,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SprintComponent } from './components/sprint/sprint.component';
 import { StatusPipe } from './shared/pipes/status/status.pipe';
-
+import { ExtendedTaskModalComponent } from './shared/components/extended-task-modal/extended-task-modal.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,8 @@ import { StatusPipe } from './shared/pipes/status/status.pipe';
     BoardComponent,
     SprintComponent,
     BacklogComponent,
-    StatusPipe
+    StatusPipe,
+    ExtendedTaskModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,7 +56,7 @@ import { StatusPipe } from './shared/pipes/status/status.pipe';
     MatDialogModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatTableModule
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
