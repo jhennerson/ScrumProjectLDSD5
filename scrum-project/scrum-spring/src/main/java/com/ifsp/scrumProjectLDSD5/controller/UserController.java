@@ -1,6 +1,6 @@
 package com.ifsp.scrumProjectLDSD5.controller;
 
-import com.ifsp.scrumProjectLDSD5.model.User;
+import com.ifsp.scrumProjectLDSD5.model.Users;
 import com.ifsp.scrumProjectLDSD5.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,14 +18,14 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.getAllUsers();
+    public ResponseEntity<List<Users>> getAllUsers() {
+        List<Users> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        User user = userService.getUserById(id);
+    public ResponseEntity<Users> getUserById(@PathVariable Long id) {
+        Users user = userService.getUserById(id);
         if (user != null) {
             return new ResponseEntity<>(user, HttpStatus.OK);
         } else {
@@ -34,14 +34,14 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User createdUser = userService.createUser(user);
+    public ResponseEntity<Users> createUser(@RequestBody Users user) {
+        Users createdUser = userService.createUser(user);
         return new ResponseEntity<>(createdUser, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
-        User user = userService.updateUser(id, updatedUser);
+    public ResponseEntity<Users> updateUser(@PathVariable Long id, @RequestBody Users updatedUser) {
+        Users user = userService.updateUser(id, updatedUser);
         if (user != null) {
             return new ResponseEntity<>(user, HttpStatus.OK);
         } else {
