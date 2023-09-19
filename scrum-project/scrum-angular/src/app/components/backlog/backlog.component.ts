@@ -7,6 +7,7 @@ import { Sprint } from '../../models/sprint/sprint';
 import { Task } from '../../models/task/task';
 import { TaskService } from '../../services/task/task.service';
 import { ExtendedTaskModalComponent } from 'src/app/shared/components/extended-task-modal/extended-task-modal.component';
+import { TaskFormModalComponent } from 'src/app/shared/components/task-form-modal/task-form-modal.component';
 
 @Component({
   selector: 'app-backlog',
@@ -35,6 +36,13 @@ export class BacklogComponent {
       status: 'Em execução',
     },
   ];
+
+  onAdd() {
+    this.dialog.open(TaskFormModalComponent, {
+      width: `80%`,
+      height: `80%`,
+    });
+  }
 
   onExtend() {
     this.dialog.open(ExtendedTaskModalComponent, {

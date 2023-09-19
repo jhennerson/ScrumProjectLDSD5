@@ -5,12 +5,17 @@
         <mat-label>Sprint</mat-label>
         <mat-select class="sprint-select">
           <mat-option *ngFor="let sprint of sprints" [value]="sprint.title">
-            {{sprint.title}}
+            {{ sprint.title }}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
-      <button mat-button class="add-button">
+      <button
+        mat-button
+        class="add-button"
+        aria-label="Adicionar tarefa"
+        (click)="onAdd()"
+      >
         <span class="text-nowrap">Nova tarefa</span>
         <mat-icon iconPositionEnd>add</mat-icon>
       </button>
@@ -31,17 +36,22 @@
           [cdkDropListConnectedTo]="['IN_PROGRESS']"
           class="task-list task-todo"
           id="TO_DO"
-          (cdkDropListDropped)="drop($event)">
+          (cdkDropListDropped)="drop($event)"
+        >
           <div class="task-box" *ngFor="let task of todo" cdkDrag>
             <div class="container">
               <div class="task">
                 <div class="task-card-top">
                   <div class="my-1 fs-5">{{ task.title }}</div>
                 </div>
-                <hr>
+                <hr />
                 <div class="task-card-bottom">
                   {{ task.assignedTo }}
-                  <button mat-icon-button aria-label="Ver todas as informações">
+                  <button
+                    mat-icon-button
+                    aria-label="Ver tudo"
+                    (click)="onExtend()"
+                  >
                     <mat-icon iconPositionEnd>more_vert</mat-icon>
                   </button>
                 </div>
@@ -63,17 +73,22 @@
           [cdkDropListConnectedTo]="['DONE']"
           class="task-list task-inprogress"
           id="IN_PROGRESS"
-          (cdkDropListDropped)="drop($event)">
+          (cdkDropListDropped)="drop($event)"
+        >
           <div class="task-box" *ngFor="let task of inprogress" cdkDrag>
             <div class="container">
               <div class="task">
                 <div class="task-card-top">
                   <div class="my-1 fs-5">{{ task.title }}</div>
                 </div>
-                <hr>
+                <hr />
                 <div class="task-card-bottom">
                   {{ task.assignedTo }}
-                  <button mat-icon-button aria-label="Ver todas as informações">
+                  <button
+                    mat-icon-button
+                    aria-label="Ver tudo"
+                    (click)="onExtend()"
+                  >
                     <mat-icon iconPositionEnd>more_vert</mat-icon>
                   </button>
                 </div>
@@ -95,17 +110,22 @@
           [cdkDropListConnectedTo]="['IN_PROGRESS']"
           class="task-list task-done"
           id="DONE"
-          (cdkDropListDropped)="drop($event)">
+          (cdkDropListDropped)="drop($event)"
+        >
           <div class="task-box" *ngFor="let task of done" cdkDrag>
             <div class="container">
               <div class="task">
                 <div class="task-card-top">
                   <div class="my-1 fs-5">{{ task.title }}</div>
                 </div>
-                <hr>
+                <hr />
                 <div class="task-card-bottom">
                   {{ task.assignedTo }}
-                  <button mat-icon-button aria-label="Ver todas as informações">
+                  <button
+                    mat-icon-button
+                    aria-label="Ver tudo"
+                    (click)="onExtend()"
+                  >
                     <mat-icon iconPositionEnd>more_vert</mat-icon>
                   </button>
                 </div>

@@ -10,7 +10,12 @@
         </mat-select>
       </mat-form-field>
 
-      <button mat-button class="backlog-menu-operations add-button">
+      <button
+        mat-button
+        class="backlog-menu-operations add-button"
+        aria-label="Adicionar tarefa"
+        (click)="onAdd()"
+      >
         <span class="text-nowrap">Nova tarefa</span>
         <mat-icon iconPositionEnd>add</mat-icon>
       </button>

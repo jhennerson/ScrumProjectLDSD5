@@ -26,6 +26,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SprintComponent } from './components/sprint/sprint.component';
 import { StatusPipe } from './shared/pipes/status/status.pipe';
 import { ExtendedTaskModalComponent } from './shared/components/extended-task-modal/extended-task-modal.component';
+import { TaskFormModalComponent } from './shared/components/task-form-modal/task-form-modal.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ExtendedTaskModalComponent } from './shared/components/extended-task-mo
     BacklogComponent,
     StatusPipe,
     ExtendedTaskModalComponent,
+    TaskFormModalComponent,
   ],
   imports: [
     BrowserModule,
