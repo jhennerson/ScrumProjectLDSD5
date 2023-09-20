@@ -5,19 +5,17 @@ import { first, tap } from 'rxjs';
 import { Task } from '../../models/task/task';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TaskService {
-
   private readonly API = '/assets/tasks.json';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   list() {
-    return this.httpClient.get<Task[]>(this.API)
-    .pipe(
+    return this.httpClient.get<Task[]>(this.API).pipe(
       first(),
-      tap(tasks => console.log(tasks))
+      tap((tasks) => console.log(tasks))
     );
   }
 
@@ -26,7 +24,7 @@ export class TaskService {
   }
 
   save(record: Partial<Task>) {
-    if(record.id) {
+    if (record.id) {
       return this.update(record);
     }
 
@@ -34,17 +32,16 @@ export class TaskService {
   }
 
   remove(id: string) {
-    return this.httpClient.delete(`${this.API}/${id}`)
-    .pipe(first());
+    return this.httpClient.delete(`${this.API}/${id}`).pipe(first());
   }
 
   private create(record: Partial<Task>) {
-    return this.httpClient.post<Task>(this.API, record)
-    .pipe(first());
+    return this.httpClient.post<Task>(this.API, record).pipe(first());
   }
 
   private update(record: Partial<Task>) {
-    return this.httpClient.put<Task>(`${this.API}/$${record.id}`, record)
-    .pipe(first());
+    return this.httpClient
+      .put<Task>(`${this.API}/$${record.id}`, record)
+      .pipe(first());
   }
 }

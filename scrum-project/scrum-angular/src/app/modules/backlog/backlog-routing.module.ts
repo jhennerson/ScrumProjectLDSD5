@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BacklogComponent } from 'src/app/components/backlog/backlog.component';
 
-const routes: Routes = [];
+const routes: Routes = [{ path: '', component: BacklogComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class BacklogRoutingModule { }
+export class BacklogRoutingModule {}
