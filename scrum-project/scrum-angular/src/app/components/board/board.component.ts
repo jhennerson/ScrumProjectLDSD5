@@ -4,15 +4,14 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
+import { TaskFormModalComponent } from 'src/app/shared/components/task-form-modal/task-form-modal.component';
 
 import { Sprint } from '../../models/sprint/sprint';
 import { Task } from '../../models/task/task';
 import { TaskService } from '../../services/task/task.service';
-import { ExtendedTaskModalComponent } from 'src/app/shared/components/extended-task-modal/extended-task-modal.component';
-import { TaskFormModalComponent } from 'src/app/shared/components/task-form-modal/task-form-modal.component';
 
 @Component({
   selector: 'app-board',
@@ -28,7 +27,8 @@ export class BoardComponent implements OnInit {
   constructor(
     private taskService: TaskService,
     public dialog: MatDialog,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    public ref: MatDialogRef<TaskFormModalComponent>
   ) {
     this.tasks = this.taskService.list();
   }
@@ -88,10 +88,20 @@ export class BoardComponent implements OnInit {
     });
   }
 
-  onExtend() {
-    this.dialog.open(ExtendedTaskModalComponent, {
+  onEdit(task: Task) {
+    this.dialog.open(TaskFormModalComponent, {
       width: `80%`,
       height: `80%`,
+      data: {
+        id: task.id,
+        title: task.title,
+        user: task.user,
+        assignmentDate: task.assignmentDate,
+        endDate: task.endDate,
+        effort: task.effort,
+        description: task.description,
+        status: task.status,
+      },
     });
   }
 
