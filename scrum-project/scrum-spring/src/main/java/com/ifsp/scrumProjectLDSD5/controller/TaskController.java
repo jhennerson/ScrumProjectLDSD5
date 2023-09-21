@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +25,7 @@ import com.ifsp.scrumProjectLDSD5.service.TaskService;
 
 
 @RestController
-@RequestMapping("/task")
+@RequestMapping("/api/tasks")
 @CrossOrigin("*")
 public class TaskController {
 
@@ -33,34 +34,34 @@ public class TaskController {
 	private TaskService taskService;
 	
 	@GetMapping
-	@Cacheable(value = "task")
+	@Cacheable(value = "tasks")
 	public ResponseEntity<List<Task>> getAllTasks(){
 		return taskService.getAllTasks();
-	};
+	}
 	
 	@GetMapping("/{id}")
-	@Cacheable(value = "task")
+	@Cacheable(value = "tasks")
 	public ResponseEntity<Task> getTaskById(@PathVariable Long id){
 		return taskService.getTaskById(id);
-	};
+	}
 	
 	
 	@PostMapping()
-	@CacheEvict(value = "task" , allEntries = true)
+	@CacheEvict(value = "tasks" , allEntries = true)
 	public ResponseEntity<Task> create(@RequestBody @Validated TaskForm taskForm){
 		return taskService.create(taskForm);
-	};
+	}
 	
 
 	
-	@PatchMapping("/{id}")
-	@CacheEvict(value = "task" , allEntries = true)
+	@PutMapping("/{id}")
+	@CacheEvict(value = "tasks" , allEntries = true)
 	public ResponseEntity<Task> updateTask(@PathVariable Long id ,@RequestBody @Validated TaskForm taskForm){
 		return taskService.updateTask(id,taskForm);
-	};
+	}
 	
 	@DeleteMapping("/{id}")
-	@CacheEvict(value = "task" , allEntries = true)
+	@CacheEvict(value = "tasks" , allEntries = true)
 	public ResponseEntity<?> deleteTask(@PathVariable Long id){
 		return taskService.deleteTask(id);
 	}

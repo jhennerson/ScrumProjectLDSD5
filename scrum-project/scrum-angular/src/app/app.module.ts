@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -24,9 +25,10 @@ import { BoardComponent } from './components/board/board.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SprintComponent } from './components/sprint/sprint.component';
-import { StatusPipe } from './shared/pipes/status/status.pipe';
 import { ExtendedTaskModalComponent } from './shared/components/extended-task-modal/extended-task-modal.component';
 import { TaskFormModalComponent } from './shared/components/task-form-modal/task-form-modal.component';
+import { StatusPipe } from './shared/pipes/status/status.pipe';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,9 @@ import { TaskFormModalComponent } from './shared/components/task-form-modal/task
     MatFormFieldModule,
     MatSelectModule,
     MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

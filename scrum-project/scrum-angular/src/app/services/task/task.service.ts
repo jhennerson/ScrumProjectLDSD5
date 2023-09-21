@@ -8,7 +8,7 @@ import { Task } from '../../models/task/task';
   providedIn: 'root',
 })
 export class TaskService {
-  private readonly API = '/assets/tasks.json';
+  private readonly API = 'api/tasks';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -41,7 +41,7 @@ export class TaskService {
 
   private update(record: Partial<Task>) {
     return this.httpClient
-      .put<Task>(`${this.API}/$${record.id}`, record)
+      .put<Task>(`${this.API}/${record.id}`, record)
       .pipe(first());
   }
 }
