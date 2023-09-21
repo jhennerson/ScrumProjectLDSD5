@@ -3,8 +3,10 @@ import { CdkMenuModule } from '@angular/cdk/menu';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,7 +30,7 @@ import { SprintComponent } from './components/sprint/sprint.component';
 import { ExtendedTaskModalComponent } from './shared/components/extended-task-modal/extended-task-modal.component';
 import { TaskFormModalComponent } from './shared/components/task-form-modal/task-form-modal.component';
 import { StatusPipe } from './shared/pipes/status/status.pipe';
-import { ReactiveFormsModule } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -64,6 +66,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
