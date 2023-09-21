@@ -1,7 +1,19 @@
-:host {
+.task-form-content {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  margin: 2em auto;
+}
+
+.task-form-actions {
+  margin-right: 26px;
+}
+
+.save-button {
+  background-color: #00dc3e;
+}
+
+.cancel-button {
+  background-color: #d9d9d9;
 }
 
 .task-form {

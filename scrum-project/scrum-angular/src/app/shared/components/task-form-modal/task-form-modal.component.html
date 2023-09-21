@@ -1,5 +1,5 @@
 <h2 mat-dialog-title>Nova tarefa</h2>
-<mat-dialog-content class="mat-typography">
+<mat-dialog-content class="task-form-content">
   <form [formGroup]="form" class="task-form">
     <mat-form-field class="full-width">
       <mat-label>Título</mat-label>
@@ -8,9 +8,8 @@
 
     <mat-form-field class="full-width">
       <mat-label>Responsável</mat-label>
-      <mat-select formControlName="assignedTo">
-        <mat-option value="one">Programador 1</mat-option>
-        <mat-option value="two">Programador 2</mat-option>
+      <mat-select formControlName="user">
+        <mat-option value="null"></mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -20,13 +19,27 @@
     </mat-form-field>
 
     <mat-form-field class="full-width">
-      <mat-label>Data de entrega</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="endDate" />
+      <mat-label>Data de atribuição</mat-label>
+      <input
+        matInput
+        [matDatepicker]="assignmentDate"
+        formControlName="assignmentDate"
+      />
       <mat-datepicker-toggle
         matIconSuffix
-        [for]="picker"
+        [for]="assignmentDate"
       ></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
+      <mat-datepicker #assignmentDate></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Data de entrega</mat-label>
+      <input matInput [matDatepicker]="endDate" formControlName="endDate" />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="endDate"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #endDate></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field class="full-width">
@@ -35,12 +48,24 @@
         matInput
         placeholder="Insira a descrição"
         formControlName="description"
+        rows="3"
       ></textarea>
     </mat-form-field>
   </form>
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancelar</button>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Salvar</button>
+<mat-dialog-actions align="end" class="task-form-actions">
+  <button mat-fab extended mat-dialog-close class="cancel-button">
+    Cancelar
+  </button>
+  <button
+    mat-fab
+    extended
+    [mat-dialog-close]="true"
+    cdkFocusInitial
+    class="save-button"
+    (click)="onSubmit()"
+  >
+    Salvar
+  </button>
 </mat-dialog-actions>

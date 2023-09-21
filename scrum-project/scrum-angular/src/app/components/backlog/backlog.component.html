@@ -43,7 +43,7 @@
       <ng-container matColumnDef="assignedTo">
         <mat-header-cell *matHeaderCellDef> Responsável </mat-header-cell>
 
-        <mat-cell *matCellDef="let task"> {{ task.assignedTo }} </mat-cell>
+        <mat-cell *matCellDef="let task"> {{ task.user.username }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="endDate">
