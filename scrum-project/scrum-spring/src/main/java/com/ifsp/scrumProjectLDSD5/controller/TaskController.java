@@ -54,7 +54,7 @@ public class TaskController {
 	
 
 	
-	@PutMapping("/{id}")
+	@PatchMapping("/{id}")
 	@CacheEvict(value = "tasks" , allEntries = true)
 	public ResponseEntity<Task> updateTask(@PathVariable Long id ,@RequestBody @Validated TaskForm taskForm){
 		return taskService.updateTask(id,taskForm);
