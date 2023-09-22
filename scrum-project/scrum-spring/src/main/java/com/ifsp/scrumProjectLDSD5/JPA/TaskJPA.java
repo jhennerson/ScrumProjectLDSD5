@@ -10,7 +10,9 @@ import org.springframework.stereotype.Component;
 import com.ifsp.scrumProjectLDSD5.dto.TaskDTO;
 import com.ifsp.scrumProjectLDSD5.form.TaskForm;
 import com.ifsp.scrumProjectLDSD5.model.Task;
+import com.ifsp.scrumProjectLDSD5.model.User;
 import com.ifsp.scrumProjectLDSD5.repository.TaskRepository;
+import com.ifsp.scrumProjectLDSD5.repository.UserRepository;
 
 
 @Component
@@ -18,6 +20,9 @@ public class TaskJPA {
 
 	@Autowired
 	private TaskRepository taskRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	public ResponseEntity<List<Task>> getAllTasks() {
 		try {
@@ -43,9 +48,14 @@ public class TaskJPA {
 		}
 	}
 
-	public ResponseEntity<Task> create(TaskForm taskForm) {
+	public ResponseEntity<?> create(TaskForm taskForm) {
 		try {
 			Task entity = taskForm.toEntity(taskForm);
+			Optional<User> userOP = userRepository.findById(taskForm.getUserId());
+			if(userOP.isEmpty()) {
+				return ResponseEntity.notFound().build();
+			}
+			entity.setUser(userOP.get());
 			taskRepository.save(entity);
 			return ResponseEntity.created(null).build();
 		}catch(Exception e) {
@@ -59,8 +69,12 @@ public class TaskJPA {
 			if(!exists) {
 				return ResponseEntity.notFound().build();
 			}
+			Optional<User> userOP = userRepository.findById(taskForm.getUserId());
+			if(userOP.isEmpty()) {
+				return ResponseEntity.notFound().build();
+			}
 			Task task = taskForm.toEntity(taskForm);
-			task.setId(id);
+			task.setUser(userOP.get());
 			task = taskRepository.save(task);
 			return ResponseEntity.ok(task);
 		}catch(Exception e) {
