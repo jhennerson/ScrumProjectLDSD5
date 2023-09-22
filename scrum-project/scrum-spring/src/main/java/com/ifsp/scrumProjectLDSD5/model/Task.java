@@ -24,7 +24,7 @@ public class Task {
 	
 	private String title;
 	@ManyToOne
-	private Users user;
+	private User user;
 	private LocalDateTime assignmentDate;
 	private LocalDateTime endDate;
 	private Integer effort;
@@ -38,8 +38,7 @@ public class Task {
 	
 	public Task(TaskForm taskForm) {
 		this.title = taskForm.getTitle();
-		this.user = new Users();
-		this.user.setId(taskForm.getId());
+		this.user = new User();
 		this.assignmentDate = taskForm.getAssignmentDate();
 		this.endDate = taskForm.getEndDate();
 		this.effort = taskForm.getEffort();
@@ -61,10 +60,10 @@ public class Task {
 	public void setTttle(String title) {
 		this.title = title;
 	}
-	public Users getUser() {
+	public User getUser() {
 		return user;
 	}
-	public void setUser(Users user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 	public LocalDateTime getAssignmentDate() {

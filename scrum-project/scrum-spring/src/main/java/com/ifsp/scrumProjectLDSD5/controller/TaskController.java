@@ -47,7 +47,7 @@ public class TaskController {
 	
 	@PostMapping()
 	@CacheEvict(value = "task" , allEntries = true)
-	public ResponseEntity<Task> create(@RequestBody @Validated TaskForm taskForm){
+	public ResponseEntity<?> create(@RequestBody @Validated TaskForm taskForm){
 		return taskService.create(taskForm);
 	};
 	
