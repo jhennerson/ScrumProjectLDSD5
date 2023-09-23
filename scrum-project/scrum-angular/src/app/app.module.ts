@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -27,10 +28,8 @@ import { BoardComponent } from './components/board/board.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SprintComponent } from './components/sprint/sprint.component';
-import { ExtendedTaskModalComponent } from './shared/components/extended-task-modal/extended-task-modal.component';
 import { TaskFormModalComponent } from './shared/components/task-form-modal/task-form-modal.component';
 import { StatusPipe } from './shared/pipes/status/status.pipe';
-import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -41,7 +40,6 @@ import { MatNativeDateModule } from '@angular/material/core';
     SprintComponent,
     BacklogComponent,
     StatusPipe,
-    ExtendedTaskModalComponent,
     TaskFormModalComponent,
   ],
   imports: [

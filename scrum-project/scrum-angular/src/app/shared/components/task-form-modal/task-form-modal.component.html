@@ -1,15 +1,17 @@
 <h2 mat-dialog-title>Nova tarefa</h2>
 <mat-dialog-content class="task-form-content">
-  <form [formGroup]="form" class="task-form">
+  <p>Campos marcados com * são obrigatórios</p>
+  <form [formGroup]="taskForm" class="task-form">
     <mat-form-field class="full-width">
       <mat-label>Título</mat-label>
-      <input matInput formControlName="title" />
+      <input matInput type="text" formControlName="title" />
     </mat-form-field>
 
     <mat-form-field class="full-width">
       <mat-label>Responsável</mat-label>
       <mat-select formControlName="user">
-        <mat-option value="null"></mat-option>
+        <mat-option value="null"> </mat-option>
+        <mat-option value="usuario1">Usuário #1</mat-option>
       </mat-select>
     </mat-form-field>
 

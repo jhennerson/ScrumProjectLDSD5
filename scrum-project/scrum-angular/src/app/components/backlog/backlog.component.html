@@ -46,6 +46,20 @@
         <mat-cell *matCellDef="let task"> {{ task.user.username }} </mat-cell>
       </ng-container>
 
+      <ng-container matColumnDef="effort">
+        <mat-header-cell *matHeaderCellDef> Esforço atribuído </mat-header-cell>
+
+        <mat-cell *matCellDef="let task"> {{ task.effort }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="assignmentDate">
+        <mat-header-cell *matHeaderCellDef>
+          Data de atribuição
+        </mat-header-cell>
+
+        <mat-cell *matCellDef="let task"> {{ task.assignmentDate }} </mat-cell>
+      </ng-container>
+
       <ng-container matColumnDef="endDate">
         <mat-header-cell *matHeaderCellDef> Data de entrega </mat-header-cell>
 
