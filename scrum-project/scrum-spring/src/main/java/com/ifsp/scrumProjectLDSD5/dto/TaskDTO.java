@@ -3,7 +3,7 @@ package com.ifsp.scrumProjectLDSD5.dto;
 import java.time.LocalDateTime;
 
 import com.ifsp.scrumProjectLDSD5.enumeration.Status;
-import com.ifsp.scrumProjectLDSD5.model.Users;
+import com.ifsp.scrumProjectLDSD5.model.User;
 
 
 
@@ -11,7 +11,7 @@ public class TaskDTO {
 	
 	private Long id;
 	private String tittle;
-	private Users user;
+	private User user;
 	private LocalDateTime assignmentDate;
 	private LocalDateTime EndDate;
 	private Integer effort;
@@ -31,10 +31,10 @@ public class TaskDTO {
 	public void setTittle(String tittle) {
 		this.tittle = tittle;
 	}
-	public Users getUser() {
+	public User getUser() {
 		return user;
 	}
-	public void setUser(Users user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 	public LocalDateTime getAssignmentDate() {

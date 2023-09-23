@@ -25,7 +25,7 @@ public class TaskService {
 		return taskJPA.getTaskById(id);
 	}
 
-	public ResponseEntity<Task> create(TaskForm taskForm) {
+	public ResponseEntity<?> create(TaskForm taskForm) {
 		return taskJPA.create(taskForm);
 	}
 
