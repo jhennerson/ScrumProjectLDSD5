@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'tasks' },
-  { path: 'tasks', loadChildren: () => import('./tasks/tasks.module').then(m => m.TasksModule) }
+  { path: '', pathMatch: 'full', redirectTo: 'board' },
+  //{ path: 'board', loadChildren: () => import('./modules/board/board.module').then((m) => m.BoardModule) },
+  //{ path: 'backlog', loadChildren: () => import('./modules/backlog/backlog.module').then((m) => m.BacklogModule) },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

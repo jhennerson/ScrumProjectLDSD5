@@ -25,4 +25,38 @@ public class Backlog {
     @Column(name = "endDate", nullable = false)
     private LocalDateTime endDate;
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public LocalDateTime getAssignmentDate() {
+		return assignmentDate;
+	}
+
+	public void setAssignmentDate(LocalDateTime assignmentDate) {
+		this.assignmentDate = assignmentDate;
+	}
+
+	public LocalDateTime getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(LocalDateTime endDate) {
+		this.endDate = endDate;
+	}
+    
+    
+
 }

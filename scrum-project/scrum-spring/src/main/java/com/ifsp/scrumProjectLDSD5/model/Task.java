@@ -12,8 +12,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name="TASK")
 public class Task {
 
 	
@@ -37,7 +39,6 @@ public class Task {
 	public Task(TaskForm taskForm) {
 		this.title = taskForm.getTitle();
 		this.user = new User();
-		this.user.setId(taskForm.getId());
 		this.assignmentDate = taskForm.getAssignmentDate();
 		this.endDate = taskForm.getEndDate();
 		this.effort = taskForm.getEffort();

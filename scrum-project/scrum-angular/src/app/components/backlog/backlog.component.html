@@ -1,0 +1,69 @@
+<mat-card align="center" class="backlog-mat-card">
+  <div class="backlog-menu">
+    <mat-toolbar class="backlog-mat-toolbar">
+      <mat-form-field class="backlog-menu-operations sprint-select">
+        <mat-label>Sprint</mat-label>
+        <mat-select class="sprint-select">
+          <mat-option *ngFor="let sprint of sprints" [value]="sprint.title">
+            {{ sprint.title }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-button class="backlog-menu-operations add-button">
+        <span class="text-nowrap">Nova tarefa</span>
+        <mat-icon iconPositionEnd>add</mat-icon>
+      </button>
+    </mat-toolbar>
+  </div>
+
+  <mat-card class="backlog-content">
+    <mat-table [dataSource]="tasks" class="mat-elevation-z8">
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+
+        <mat-cell *matCellDef="let task">
+          <button mat-icon-button aria-label="Ver tudo" (click)="onExtend()">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef> Título </mat-header-cell>
+
+        <mat-cell *matCellDef="let task"> {{ task.title }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="assignedTo">
+        <mat-header-cell *matHeaderCellDef> Responsável </mat-header-cell>
+
+        <mat-cell *matCellDef="let task"> {{ task.assignedTo }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="endDate">
+        <mat-header-cell *matHeaderCellDef> Data de entrega </mat-header-cell>
+
+        <mat-cell *matCellDef="let task"> {{ task.endDate }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+
+        <mat-cell
+          *matCellDef="let task"
+          [ngClass]="{
+            'status-to-do': task.status == 'TO_DO',
+            'status-in-progress': task.status == 'IN_PROGRESS',
+            'status-done': task.status == 'DONE'
+          }"
+        >
+          {{ task.status | status }}
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  </mat-card>
+</mat-card>
