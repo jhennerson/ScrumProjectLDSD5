@@ -3,11 +3,15 @@ import { CdkMenuModule } from '@angular/cdk/menu';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -24,8 +28,8 @@ import { BoardComponent } from './components/board/board.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SprintComponent } from './components/sprint/sprint.component';
+import { TaskFormModalComponent } from './shared/components/task-form-modal/task-form-modal.component';
 import { StatusPipe } from './shared/pipes/status/status.pipe';
-import { ExtendedTaskModalComponent } from './shared/components/extended-task-modal/extended-task-modal.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,7 @@ import { ExtendedTaskModalComponent } from './shared/components/extended-task-mo
     SprintComponent,
     BacklogComponent,
     StatusPipe,
-    ExtendedTaskModalComponent,
+    TaskFormModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,8 +61,18 @@ import { ExtendedTaskModalComponent } from './shared/components/extended-task-mo
     MatFormFieldModule,
     MatSelectModule,
     MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: MatDialogRef,
+      useValue: {},
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,6 +1,10 @@
 <mat-card class="menu-mat-card">
   <div class="left-menu" cdkMenu>
-    <button mat-button class="left-menu-item" cdkMenuItem>Tarefas</button>
-    <button mat-button class="left-menu-item" cdkMenuItem>Backlogs</button>
+    <button mat-button class="left-menu-item" cdkMenuItem (click)="toBoard()">
+      Tarefas
+    </button>
+    <button mat-button class="left-menu-item" cdkMenuItem (click)="toBacklog()">
+      Backlogs
+    </button>
   </div>
 </mat-card>

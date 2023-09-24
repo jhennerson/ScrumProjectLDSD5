@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { FormBuilder } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
+import { TaskFormModalComponent } from 'src/app/shared/components/task-form-modal/task-form-modal.component';
 
 import { Sprint } from '../../models/sprint/sprint';
 import { Task } from '../../models/task/task';
 import { TaskService } from '../../services/task/task.service';
-import { ExtendedTaskModalComponent } from 'src/app/shared/components/extended-task-modal/extended-task-modal.component';
 
 @Component({
   selector: 'app-backlog',
@@ -15,12 +16,22 @@ import { ExtendedTaskModalComponent } from 'src/app/shared/components/extended-t
 })
 export class BacklogComponent {
   tasks: Observable<Task[]>;
-  displayedColumns = ['actions', 'title', 'assignedTo', 'endDate', 'status'];
+  displayedColumns = [
+    'actions',
+    'title',
+    'assignedTo',
+    'effort',
+    'assignmentDate',
+    'endDate',
+    'status',
+  ];
 
   constructor(
     private taskService: TaskService,
     public dialog: MatDialog,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private modalRef: MatDialogRef<TaskFormModalComponent>,
+    private formBuilder: FormBuilder
   ) {
     this.tasks = this.taskService.list();
   }
@@ -36,10 +47,13 @@ export class BacklogComponent {
     },
   ];
 
-  onExtend() {
-    this.dialog.open(ExtendedTaskModalComponent, {
-      width: `80%`,
-      height: `80%`,
+  onAdd() {
+    this.dialog.open(TaskFormModalComponent, {});
+  }
+
+  onEdit(task: Task) {
+    this.dialog.open(TaskFormModalComponent, {
+      data: task,
     });
   }
 }

@@ -1,0 +1,30 @@
+.task-form-content {
+  display: flex;
+  flex-direction: column;
+  margin: 2em auto;
+}
+
+.task-form-actions {
+  margin-right: 26px;
+  margin-bottom: 26px;
+}
+
+.save-button {
+  background-color: #00dc3e;
+}
+
+.cancel-button {
+  background-color: #d9d9d9;
+}
+
+.task-form {
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+textarea {
+  resize: none;
+}

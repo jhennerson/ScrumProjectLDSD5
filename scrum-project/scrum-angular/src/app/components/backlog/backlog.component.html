@@ -10,7 +10,12 @@
         </mat-select>
       </mat-form-field>
 
-      <button mat-button class="backlog-menu-operations add-button">
+      <button
+        mat-button
+        class="backlog-menu-operations add-button"
+        aria-label="Adicionar tarefa"
+        (click)="onAdd()"
+      >
         <span class="text-nowrap">Nova tarefa</span>
         <mat-icon iconPositionEnd>add</mat-icon>
       </button>
@@ -23,7 +28,7 @@
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
 
         <mat-cell *matCellDef="let task">
-          <button mat-icon-button aria-label="Ver tudo" (click)="onExtend()">
+          <button mat-icon-button aria-label="Ver tudo" (click)="onEdit(task)">
             <mat-icon>more_vert</mat-icon>
           </button>
         </mat-cell>
@@ -38,7 +43,21 @@
       <ng-container matColumnDef="assignedTo">
         <mat-header-cell *matHeaderCellDef> Responsável </mat-header-cell>
 
-        <mat-cell *matCellDef="let task"> {{ task.assignedTo }} </mat-cell>
+        <mat-cell *matCellDef="let task"> {{ task.user.username }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="effort">
+        <mat-header-cell *matHeaderCellDef> Esforço atribuído </mat-header-cell>
+
+        <mat-cell *matCellDef="let task"> {{ task.effort }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="assignmentDate">
+        <mat-header-cell *matHeaderCellDef>
+          Data de atribuição
+        </mat-header-cell>
+
+        <mat-cell *matCellDef="let task"> {{ task.assignmentDate }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="endDate">
