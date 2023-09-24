@@ -30,7 +30,7 @@ export class TaskFormModalComponent {
       title: ['', [Validators.required]],
       user: [''],
       assignmentDate: [''],
-      endDate: ['', [Validators.required]],
+      endDate: [''],
       effort: [''],
       description: [''],
       status: ['TO_DO'],

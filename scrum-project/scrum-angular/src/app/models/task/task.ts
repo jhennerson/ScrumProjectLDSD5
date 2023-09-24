@@ -1,7 +1,7 @@
 import { User } from '../user/user';
 
 export interface Task {
-  id: string;
+  id: number;
   title: string;
   user: User;
   assignmentDate: Date;

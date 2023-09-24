@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import com.ifsp.scrumProjectLDSD5.dto.TaskDTO;
 import com.ifsp.scrumProjectLDSD5.form.TaskForm;
 import com.ifsp.scrumProjectLDSD5.model.Task;
 import com.ifsp.scrumProjectLDSD5.model.User;
