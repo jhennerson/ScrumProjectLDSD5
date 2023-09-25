@@ -1,31 +1,34 @@
-import { Location } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Task } from 'src/app/models/task/task';
+import { User } from 'src/app/models/user/user';
 import { TaskService } from 'src/app/services/task/task.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-task-form-modal',
   templateUrl: './task-form-modal.component.html',
   styleUrls: ['./task-form-modal.component.scss'],
 })
-export class TaskFormModalComponent {
-  taskForm: FormGroup;
-  selectedUserName = 'user1';
+export class TaskFormModalComponent implements OnInit {
+  form: FormGroup;
+  users: Observable<User[]>;
+  userOptions: User[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
-    private service: TaskService,
+    private taskService: TaskService,
+    private userService: UserService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
-    private location: Location,
-    private route: ActivatedRoute,
     @Inject(MAT_DIALOG_DATA) public data: Task
   ) {
-    this.taskForm = this.formBuilder.group({
+    this.users = this.userService.list();
+
+    this.form = this.formBuilder.group({
       id: ['', [Validators.required]],
       title: ['', [Validators.required]],
       user: [''],
@@ -37,9 +40,10 @@ export class TaskFormModalComponent {
     });
 
     if (data) {
-      this.taskForm.patchValue({
+      this.form.patchValue({
+        id: data.id,
         title: data.title,
-        user: data.user.username,
+        user: data.user,
         assignmentDate: data.assignmentDate,
         endDate: data.endDate,
         effort: data.effort,
@@ -49,6 +53,23 @@ export class TaskFormModalComponent {
   }
 
   onSubmit() {
-    console.log(this.taskForm.value);
+    this.taskService.save(this.form.value).subscribe(
+      (result) => this.onSuccess(),
+      (error) => this.onError()
+    );
+  }
+
+  private onSuccess() {
+    this.snackBar.open('Tarefa salva com sucesso!', 'X', { duration: 2000 });
+  }
+
+  private onError() {
+    this.snackBar.open('Erro ao salvar tarefa!', 'X', { duration: 2000 });
+  }
+
+  ngOnInit() {
+    this.userService
+      .list()
+      .subscribe((options) => (this.userOptions = options));
   }
 }
