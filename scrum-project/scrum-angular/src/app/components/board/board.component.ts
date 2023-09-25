@@ -3,8 +3,8 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { Component, OnInit, Optional } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { TaskFormModalComponent } from 'src/app/shared/components/task-form-modal/task-form-modal.component';
@@ -27,8 +27,7 @@ export class BoardComponent implements OnInit {
   constructor(
     private taskService: TaskService,
     public dialog: MatDialog,
-    public snackBar: MatSnackBar,
-    @Optional() public dialogRef: MatDialogRef<TaskFormModalComponent>
+    public snackBar: MatSnackBar
   ) {
     this.tasks = this.taskService.list();
   }

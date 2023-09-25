@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { first, tap } from 'rxjs';
+import { first } from 'rxjs';
 
 import { Task } from '../../models/task/task';
 
@@ -13,10 +13,7 @@ export class TaskService {
   constructor(private httpClient: HttpClient) {}
 
   list() {
-    return this.httpClient.get<Task[]>(this.API).pipe(
-      first(),
-      tap((tasks) => console.log(tasks))
-    );
+    return this.httpClient.get<Task[]>(this.API).pipe(first());
   }
 
   loadById(id: string) {

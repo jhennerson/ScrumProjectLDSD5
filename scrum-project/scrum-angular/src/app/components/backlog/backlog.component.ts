@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { TaskFormModalComponent } from 'src/app/shared/components/task-form-modal/task-form-modal.component';
@@ -29,9 +28,7 @@ export class BacklogComponent {
   constructor(
     private taskService: TaskService,
     public dialog: MatDialog,
-    public snackBar: MatSnackBar,
-    private modalRef: MatDialogRef<TaskFormModalComponent>,
-    private formBuilder: FormBuilder
+    public snackBar: MatSnackBar
   ) {
     this.tasks = this.taskService.list();
   }
