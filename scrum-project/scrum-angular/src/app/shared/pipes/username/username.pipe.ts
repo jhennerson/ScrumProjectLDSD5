@@ -9,7 +9,7 @@ import { UserService } from 'src/app/services/user/user.service';
 export class UsernamePipe implements PipeTransform {
   constructor(private userService: UserService) {}
 
-  transform(userId: number): Observable<string> {
+  transform(userId: string): Observable<string> {
     return this.userService
       .loadById(userId)
       .pipe(map((user: User) => user.username));

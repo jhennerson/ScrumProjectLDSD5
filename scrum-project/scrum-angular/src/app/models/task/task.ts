@@ -1,12 +1,10 @@
-// import { User } from '../user/user';
-
 export interface Task {
-  id: number;
+  id: string;
   title: string;
-  userId: number;
+  userId: string;
   assignmentDate: Date;
   endDate: Date;
-  effort: number;
+  effort: string;
   description: string;
   status: string;
 }

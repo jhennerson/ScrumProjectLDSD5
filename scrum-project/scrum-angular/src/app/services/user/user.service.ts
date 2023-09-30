@@ -15,7 +15,7 @@ export class UserService {
     return this.httpClient.get<User[]>(this.API).pipe(first());
   }
 
-  loadById(id: number) {
+  loadById(id: string) {
     return this.httpClient.get<User>(`${this.API}/${id}`);
   }
 }

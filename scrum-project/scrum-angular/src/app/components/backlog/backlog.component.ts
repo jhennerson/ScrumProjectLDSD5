@@ -20,9 +20,9 @@ export class BacklogComponent {
     'actions',
     'title',
     'assignedTo',
-    'effort',
     'assignmentDate',
     'endDate',
+    'effort',
     'status',
   ];
 
