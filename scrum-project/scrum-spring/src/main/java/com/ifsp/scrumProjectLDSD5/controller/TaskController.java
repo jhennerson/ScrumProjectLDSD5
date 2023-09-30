@@ -32,31 +32,26 @@ public class TaskController {
 	private TaskService taskService;
 	
 	@GetMapping
-	@Cacheable(value = "tasks")
 	public ResponseEntity<List<Task>> getAllTasks(){
 		return taskService.getAllTasks();
 	};
 	
 	@GetMapping("/{id}")
-	@Cacheable(value = "tasks")
 	public ResponseEntity<Task> getTaskById(@PathVariable Long id){
 		return taskService.getTaskById(id);
 	};	
 	
 	@PostMapping()
-	@CacheEvict(value = "tasks" , allEntries = true)
 	public ResponseEntity<?> create(@RequestBody @Validated TaskForm taskForm){
 		return taskService.create(taskForm);
 	};
 	
 	@PatchMapping("/{id}")
-	@CacheEvict(value = "tasks" , allEntries = true)
 	public ResponseEntity<Task> updateTask(@PathVariable Long id ,@RequestBody @Validated TaskForm taskForm){
 		return taskService.updateTask(id,taskForm);
 	};
 	
 	@DeleteMapping("/{id}")
-	@CacheEvict(value = "tasks" , allEntries = true)
 	public ResponseEntity<?> deleteTask(@PathVariable Long id){
 		return taskService.deleteTask(id);
 	}

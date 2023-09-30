@@ -8,7 +8,6 @@ import org.springframework.validation.annotation.Validated;
 
 @Validated
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
-@EnableCaching
 public class ScrumSpringApplication {
 
 	public static void main(String[] args) {
