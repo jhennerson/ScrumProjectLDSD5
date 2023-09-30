@@ -20,6 +20,7 @@ import { TaskService } from '../../services/task/task.service';
 })
 export class BoardComponent implements OnInit {
   tasks: Observable<Task[]>;
+
   todo: Task[] = [];
   inprogress: Task[] = [];
   done: Task[] = [];
@@ -94,7 +95,7 @@ export class BoardComponent implements OnInit {
       data: {
         id: task.id,
         title: task.title,
-        user: task.user,
+        userId: task.userId,
         assignmentDate: task.assignmentDate,
         endDate: task.endDate,
         effort: task.effort,

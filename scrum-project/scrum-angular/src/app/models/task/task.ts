@@ -1,9 +1,9 @@
-import { User } from '../user/user';
+// import { User } from '../user/user';
 
 export interface Task {
   id: number;
   title: string;
-  user: User;
+  userId: number;
   assignmentDate: Date;
   endDate: Date;
   effort: number;

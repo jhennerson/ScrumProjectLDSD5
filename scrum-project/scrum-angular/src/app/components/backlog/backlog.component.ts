@@ -15,6 +15,7 @@ import { TaskService } from '../../services/task/task.service';
 })
 export class BacklogComponent {
   tasks: Observable<Task[]>;
+
   displayedColumns = [
     'actions',
     'title',

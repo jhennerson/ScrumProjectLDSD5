@@ -30,6 +30,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SprintComponent } from './components/sprint/sprint.component';
 import { TaskFormModalComponent } from './shared/components/task-form-modal/task-form-modal.component';
 import { StatusPipe } from './shared/pipes/status/status.pipe';
+import { UsernamePipe } from './shared/pipes/username/username.pipe';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { StatusPipe } from './shared/pipes/status/status.pipe';
     BacklogComponent,
     StatusPipe,
     TaskFormModalComponent,
+    UsernamePipe,
   ],
   imports: [
     BrowserModule,
