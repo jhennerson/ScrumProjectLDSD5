@@ -16,7 +16,7 @@ public class TaskForm {
 	private String title;
 	private Long userId;
 	private LocalDateTime assignmentDate;
-	private LocalDateTime EndDate;
+	private LocalDateTime endDate;
 	private Integer effort;
 	private String description;
 	private Status status;
@@ -45,10 +45,10 @@ public class TaskForm {
 		this.assignmentDate = assignmentDate;
 	}
 	public LocalDateTime getEndDate() {
-		return EndDate;
+		return endDate;
 	}
 	public void setEndDate(LocalDateTime endDate) {
-		EndDate = endDate;
+		this.endDate = endDate;
 	}
 	public Integer getEffort() {
 		return effort;

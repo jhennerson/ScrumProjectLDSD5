@@ -1,8 +1,13 @@
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
+import { TaskFormModalComponent } from 'src/app/shared/components/task-form-modal/task-form-modal.component';
 
 import { Sprint } from '../../models/sprint/sprint';
 import { Task } from '../../models/task/task';
@@ -73,6 +78,30 @@ export class BoardComponent implements OnInit {
 
   private onError() {
     this.snackBar.open('Erro ao salvar tarefa!', 'X', { duration: 2000 });
+  }
+
+  onAdd() {
+    this.dialog.open(TaskFormModalComponent, {
+      width: `80%`,
+      height: `80%`,
+    });
+  }
+
+  onEdit(task: Task) {
+    this.dialog.open(TaskFormModalComponent, {
+      width: `80%`,
+      height: `80%`,
+      data: {
+        id: task.id,
+        title: task.title,
+        user: task.user,
+        assignmentDate: task.assignmentDate,
+        endDate: task.endDate,
+        effort: task.effort,
+        description: task.description,
+        status: task.status,
+      },
+    });
   }
 
   ngOnInit() {

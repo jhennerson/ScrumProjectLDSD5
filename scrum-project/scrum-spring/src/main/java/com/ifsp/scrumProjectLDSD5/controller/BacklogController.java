@@ -19,7 +19,7 @@ import com.ifsp.scrumProjectLDSD5.service.BacklogService;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/backlog")
+@RequestMapping("/api/backlog")
 public class BacklogController {
     @Autowired
     private BacklogService backlogService;
