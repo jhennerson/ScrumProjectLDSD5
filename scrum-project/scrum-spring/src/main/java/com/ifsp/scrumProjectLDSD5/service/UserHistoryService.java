@@ -43,9 +43,7 @@ public class UserHistoryService {
     	om = new ObjectMapper();
     	om.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
     	om.addMixIn(UserDTO.class, UserDTOPasswordEmailMixin.class);
-    }
-	
-	
+    }	
 
     public ResponseEntity<IUserHistory> create(UserHistoryForm form){
     	
@@ -67,11 +65,8 @@ public class UserHistoryService {
         	entity.setReporter(reporterOP.get());
     	}
     	
-
-    	
     	UserHistory create = userHistoryJPA.create(entity);
-    	UserHistoryDTO dto = om.convertValue(create, UserHistoryDTO.class);
-    	
+    	UserHistoryDTO dto = om.convertValue(create, UserHistoryDTO.class);    	
     	
     	return ResponseEntity.status(HttpStatus.OK).body(dto);
     }
@@ -85,8 +80,7 @@ public class UserHistoryService {
     	}
     	List<UserHistoryDTO> listDTO = om.convertValue(list, new TypeReference<List<UserHistoryDTO>>() {});
     	return ResponseEntity.status(HttpStatus.OK).body(listDTO);
-    }
-    
+    }    
     
     public ResponseEntity<IUserHistory> findById(Long id){
     	Optional<UserHistory> userHistory = userHistoryJPA.findById(id);
@@ -134,9 +128,4 @@ public class UserHistoryService {
     	userHistoryJPA.delete(id);
     	return ResponseEntity.status(HttpStatus.OK).body(uhDTO);
     }
-
-
-
-
-
 }

@@ -18,7 +18,6 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="TASK")
 public class Task  {
-
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -31,9 +30,7 @@ public class Task  {
 	private Integer effort;
 	private String description;
 	@Enumerated(EnumType.STRING)
-	private Status status;
-	
-	
+	private Status status;	
 	
 	public Task() {}
 	
@@ -46,8 +43,6 @@ public class Task  {
 		this.description = taskForm.getDescription();
 		this.status = taskForm.getStatus();
 	}
-	
-
 
 	public Long getId() {
 		return id;
@@ -58,7 +53,7 @@ public class Task  {
 	public String getTitle() {
 		return title;
 	}
-	public void setTttle(String title) {
+	public void setTitle(String title) {
 		this.title = title;
 	}
 	public User getUser() {
@@ -97,10 +92,4 @@ public class Task  {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	
-	
-	
-	
-	
-	
 }

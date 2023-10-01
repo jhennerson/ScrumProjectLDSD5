@@ -15,7 +15,7 @@ import com.ifsp.scrumProjectLDSD5.interfaces.ITask;
 public class TaskDTO implements ITask{
 	
 	private Long id;
-	private String tittle;
+	private String title;
 	private UserDTO user;
 	private LocalDateTime assignmentDate;
 	private LocalDateTime EndDate;
@@ -37,11 +37,11 @@ public class TaskDTO implements ITask{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getTittle() {
-		return tittle;
+	public String getTitle() {
+		return title;
 	}
-	public void setTittle(String tittle) {
-		this.tittle = tittle;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	public UserDTO getUser() {
 		return user;
@@ -79,6 +79,4 @@ public class TaskDTO implements ITask{
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	
-	
 }

@@ -21,7 +21,6 @@ import com.ifsp.scrumProjectLDSD5.service.TaskService;
 @RestController
 @RequestMapping("/api/tasks")
 public class TaskController {
-
 	
 	@Autowired
 	private TaskService taskService;

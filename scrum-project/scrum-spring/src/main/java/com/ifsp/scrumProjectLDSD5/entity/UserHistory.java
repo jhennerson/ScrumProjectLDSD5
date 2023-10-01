@@ -25,6 +25,7 @@ public class UserHistory {
 	@ManyToOne
 	private User reporter;
 	private String description;
+
 	public Long getId() {
 		return id;
 	}
@@ -54,12 +55,5 @@ public class UserHistory {
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	
-	
-	
-	
-	
-	
-	
+	}	
 }
