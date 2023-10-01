@@ -87,10 +87,6 @@ export class BoardComponent implements OnInit {
     });
   }
 
-  loadTasks() {
-    this.tasks = this.taskService.list();
-  }
-
   onAdd() {
     let _modal = this.dialog.open(TaskFormModalComponent, {
       width: `80%`,
@@ -98,7 +94,7 @@ export class BoardComponent implements OnInit {
     });
 
     _modal.afterClosed().subscribe((task) => {
-      this.loadTasks();
+      this.ngOnInit();
     });
   }
 
@@ -109,7 +105,7 @@ export class BoardComponent implements OnInit {
       data: {
         id: task.id,
         title: task.title,
-        userId: task.userId,
+        userId: task.user.id,
         assignmentDate: task.assignmentDate,
         endDate: task.endDate,
         effort: task.effort,
@@ -119,15 +115,19 @@ export class BoardComponent implements OnInit {
     });
 
     _modal.afterClosed().subscribe((task) => {
-      this.loadTasks();
+      this.ngOnInit();
     });
   }
 
-  ngOnInit() {
+  loadTasks() {
     this.tasks.subscribe((tasks) => {
       this.todo = tasks.filter((task) => task.status === 'TO_DO');
       this.inprogress = tasks.filter((task) => task.status === 'IN_PROGRESS');
       this.done = tasks.filter((task) => task.status === 'DONE');
     });
+  }
+
+  ngOnInit() {
+    this.loadTasks();
   }
 }

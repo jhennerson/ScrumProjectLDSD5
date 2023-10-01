@@ -1,4 +1,3 @@
-<h2 mat-dialog-title>Nova tarefa</h2>
 <mat-dialog-content class="task-form-content">
   <p>Campos marcados com * são obrigatórios</p>
   <form [formGroup]="form" class="task-form">
@@ -9,9 +8,9 @@
 
     <mat-form-field class="full-width">
       <mat-label>Responsável</mat-label>
-      <mat-select formControlName="userId">
+      <mat-select formControlName="user">
         <mat-option value="null"></mat-option>
-        <mat-option *ngFor="let option of userOptions" [value]="option.id">
+        <mat-option *ngFor="let option of userOptions" [value]="option">
           {{ option.username }}
         </mat-option>
       </mat-select>

@@ -32,7 +32,7 @@ export class TaskFormModalComponent implements OnInit {
     this.form = this.formBuilder.group({
       id: ['', [Validators.required]],
       title: ['', [Validators.required]],
-      userId: [''],
+      user: [''],
       assignmentDate: [''],
       endDate: [''],
       effort: [''],
@@ -44,7 +44,7 @@ export class TaskFormModalComponent implements OnInit {
       this.form.patchValue({
         id: data.id,
         title: data.title,
-        userId: data.userId,
+        user: data.user,
         assignmentDate: data.assignmentDate,
         endDate: data.endDate,
         effort: data.effort,
@@ -74,9 +74,13 @@ export class TaskFormModalComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  loadUsers() {
     this.userService
       .list()
       .subscribe((options) => (this.userOptions = options));
+  }
+
+  ngOnInit() {
+    this.loadUsers();
   }
 }
