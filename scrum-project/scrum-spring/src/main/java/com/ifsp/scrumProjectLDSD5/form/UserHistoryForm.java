@@ -35,8 +35,7 @@ public class UserHistoryForm {
         userHistory.setReporter(reporter);
         userHistory.setDescription(this.description);
         return userHistory;
-    }
-	
+    }	
 	
 	public Long getId() {
 		return id;
@@ -67,7 +66,5 @@ public class UserHistoryForm {
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	
-	
+	}	
 }

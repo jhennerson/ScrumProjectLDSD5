@@ -31,9 +31,7 @@ public class Task  {
 	private Integer effort;
 	private String description;
 	@Enumerated(EnumType.STRING)
-	private Status status;
-	
-	
+	private Status status;	
 	
 	public Task() {}
 	
@@ -46,8 +44,6 @@ public class Task  {
 		this.description = taskForm.getDescription();
 		this.status = taskForm.getStatus();
 	}
-	
-
 
 	public Long getId() {
 		return id;
@@ -97,10 +93,4 @@ public class Task  {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	
-	
-	
-	
-	
-	
 }

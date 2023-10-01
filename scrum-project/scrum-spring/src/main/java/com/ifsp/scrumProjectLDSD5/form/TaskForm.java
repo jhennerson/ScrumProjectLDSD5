@@ -23,8 +23,7 @@ public class TaskForm {
 	
 	public Task toEntity(TaskForm taskform) {
 		return new Task(taskform);
-	}
-	
+	}	
 	public Long getId() {
 		return id;
 	}
@@ -34,10 +33,9 @@ public class TaskForm {
 	public String getTitle() {
 		return title;
 	}
-	public void setTittle(String title) {
+	public void setTitle(String title) {
 		this.title = title;
 	}
-
 	public LocalDateTime getAssignmentDate() {
 		return assignmentDate;
 	}
@@ -73,6 +71,5 @@ public class TaskForm {
 	}
 	public void setUserId(Long userId) {
 		this.userId = userId;
-	}
-	
+	}	
 }
