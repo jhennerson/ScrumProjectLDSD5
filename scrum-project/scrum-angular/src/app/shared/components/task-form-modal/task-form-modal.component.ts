@@ -61,11 +61,17 @@ export class TaskFormModalComponent implements OnInit {
   }
 
   private onSuccess() {
-    this.snackBar.open('Tarefa salva com sucesso!', 'X', { duration: 2000 });
+    this.snackBar.open('Tarefa salva com sucesso!', 'X', {
+      duration: 2000,
+      panelClass: 'task-status-snackbar',
+    });
   }
 
   private onError() {
-    this.snackBar.open('Erro ao salvar tarefa!', 'X', { duration: 2000 });
+    this.snackBar.open('Erro ao salvar tarefa!', 'X', {
+      duration: 2000,
+      panelClass: 'task-status-snackbar',
+    });
   }
 
   ngOnInit() {
