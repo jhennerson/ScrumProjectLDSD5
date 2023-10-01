@@ -456,7 +456,11 @@ org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-21
 2023-09-24 13:43:18 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-214]
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 2023-09-30 23:15:56 database: flush
+=======
+2023-09-30 20:10:57 database: flush
+>>>>>>> Stashed changes
 =======
 2023-09-30 20:10:57 database: flush
 >>>>>>> Stashed changes
@@ -574,7 +578,11 @@ Caused by: org.h2.mvstore.MVStoreException: File is corrupted - unable to recove
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:463)
 	... 97 more
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 2023-09-30 23:15:56 database: opening C:/Users/augus/Documents/GitHub/ScrumProjectLDSD5/scrum-project/scrum-spring/data/teste
+=======
+2023-09-30 20:10:57 database: opening C:/Users/augus/Documents/GitHub/ScrumProjectLDSD5/scrum-project/scrum-spring/data/teste
+>>>>>>> Stashed changes
 =======
 2023-09-30 20:10:57 database: opening C:/Users/augus/Documents/GitHub/ScrumProjectLDSD5/scrum-project/scrum-spring/data/teste
 >>>>>>> Stashed changes
@@ -689,7 +697,11 @@ Caused by: org.h2.mvstore.MVStoreException: File is corrupted - unable to recove
 	at org.h2.mvstore.db.Store.<init>(Store.java:136)
 	... 95 more
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 2023-09-30 23:15:57 database: flush
+=======
+2023-09-30 20:10:58 database: flush
+>>>>>>> Stashed changes
 =======
 2023-09-30 20:10:58 database: flush
 >>>>>>> Stashed changes
@@ -768,7 +780,11 @@ Caused by: org.h2.mvstore.MVStoreException: File is corrupted - unable to recove
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:463)
 	... 58 more
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 2023-09-30 23:15:57 database: opening C:/Users/augus/Documents/GitHub/ScrumProjectLDSD5/scrum-project/scrum-spring/data/teste
+=======
+2023-09-30 20:10:58 database: opening C:/Users/augus/Documents/GitHub/ScrumProjectLDSD5/scrum-project/scrum-spring/data/teste
+>>>>>>> Stashed changes
 =======
 2023-09-30 20:10:58 database: opening C:/Users/augus/Documents/GitHub/ScrumProjectLDSD5/scrum-project/scrum-spring/data/teste
 >>>>>>> Stashed changes
@@ -844,8 +860,11 @@ Caused by: org.h2.mvstore.MVStoreException: File is corrupted - unable to recove
 	at org.h2.mvstore.db.Store.<init>(Store.java:136)
 	... 56 more
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 2023-09-30 23:16:26 database: flush
 =======
+=======
+>>>>>>> Stashed changes
 2023-09-30 20:10:59 database: flush
 org.h2.message.DbException: General error: "org.h2.mvstore.MVStoreException: File is corrupted - unable to recover a valid set of chunks [2.1.214/6]" [50000-214]
 	at org.h2.message.DbException.get(DbException.java:212)
@@ -1006,6 +1025,9 @@ Caused by: org.h2.mvstore.MVStoreException: File is corrupted - unable to recove
 	at org.h2.mvstore.db.Store.<init>(Store.java:136)
 	... 62 more
 2023-09-30 20:11:47 database: flush
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 org.h2.message.DbException: General error: "org.h2.mvstore.MVStoreException: File is corrupted - unable to recover a valid set of chunks [2.1.214/6]" [50000-214]
 	at org.h2.message.DbException.get(DbException.java:212)
@@ -1121,7 +1143,11 @@ Caused by: org.h2.mvstore.MVStoreException: File is corrupted - unable to recove
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:463)
 	... 97 more
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 2023-09-30 23:16:26 database: opening C:/Users/augus/Documents/GitHub/ScrumProjectLDSD5/scrum-project/scrum-spring/data/teste
+=======
+2023-09-30 20:11:47 database: opening C:/Users/augus/Documents/GitHub/ScrumProjectLDSD5/scrum-project/scrum-spring/data/teste
+>>>>>>> Stashed changes
 =======
 2023-09-30 20:11:47 database: opening C:/Users/augus/Documents/GitHub/ScrumProjectLDSD5/scrum-project/scrum-spring/data/teste
 >>>>>>> Stashed changes
@@ -1236,7 +1262,11 @@ Caused by: org.h2.mvstore.MVStoreException: File is corrupted - unable to recove
 	at org.h2.mvstore.db.Store.<init>(Store.java:136)
 	... 95 more
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 2023-09-30 23:16:28 database: flush
+=======
+2023-09-30 20:11:48 database: flush
+>>>>>>> Stashed changes
 =======
 2023-09-30 20:11:48 database: flush
 >>>>>>> Stashed changes
@@ -1315,7 +1345,11 @@ Caused by: org.h2.mvstore.MVStoreException: File is corrupted - unable to recove
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:463)
 	... 58 more
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 2023-09-30 23:16:28 database: opening C:/Users/augus/Documents/GitHub/ScrumProjectLDSD5/scrum-project/scrum-spring/data/teste
+=======
+2023-09-30 20:11:48 database: opening C:/Users/augus/Documents/GitHub/ScrumProjectLDSD5/scrum-project/scrum-spring/data/teste
+>>>>>>> Stashed changes
 =======
 2023-09-30 20:11:48 database: opening C:/Users/augus/Documents/GitHub/ScrumProjectLDSD5/scrum-project/scrum-spring/data/teste
 >>>>>>> Stashed changes
@@ -1391,7 +1425,10 @@ Caused by: org.h2.mvstore.MVStoreException: File is corrupted - unable to recove
 	at org.h2.mvstore.db.Store.<init>(Store.java:136)
 	... 56 more
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 2023-09-30 20:11:49 database: flush
 org.h2.message.DbException: General error: "org.h2.mvstore.MVStoreException: File is corrupted - unable to recover a valid set of chunks [2.1.214/6]" [50000-214]
 	at org.h2.message.DbException.get(DbException.java:212)
@@ -4998,4 +5035,7 @@ org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-21
 org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-214]
 2023-09-30 23:09:57 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-214]
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
