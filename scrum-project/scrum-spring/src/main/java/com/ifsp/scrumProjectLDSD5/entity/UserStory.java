@@ -12,8 +12,8 @@ import lombok.Setter;
 
 @Entity
 
-@Table(name = "USERHISTORY")
-public class UserHistory {
+@Table(name = "USER_STORY")
+public class UserStory {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,7 +21,7 @@ public class UserHistory {
 	private Long id;
 	private String title;
 	@ManyToOne
-	private User user;
+	private User assignee;
 	@ManyToOne
 	private User reporter;
 	private String description;
@@ -38,11 +38,11 @@ public class UserHistory {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public User getUser() {
-		return user;
+	public User getAssignee() {
+		return assignee;
 	}
-	public void setUser(User user) {
-		this.user = user;
+	public void setAssignee(User assignee) {
+		this.assignee = assignee;
 	}
 	public User getReporter() {
 		return reporter;

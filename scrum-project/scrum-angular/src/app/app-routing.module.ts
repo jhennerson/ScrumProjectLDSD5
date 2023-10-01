@@ -13,6 +13,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/backlog/backlog.module').then((m) => m.BacklogModule),
   },
+  {
+    path: 'user-story',
+    loadChildren: () =>
+      import('./modules/user-story/user-story.module').then(
+        (m) => m.UserStoryModule
+      ),
+  },
 ];
 
 @NgModule({
