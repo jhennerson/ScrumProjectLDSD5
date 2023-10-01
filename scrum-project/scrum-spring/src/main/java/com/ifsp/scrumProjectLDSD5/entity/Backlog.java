@@ -1,4 +1,4 @@
-package com.ifsp.scrumProjectLDSD5.model;
+package com.ifsp.scrumProjectLDSD5.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

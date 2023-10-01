@@ -1,9 +1,10 @@
-package com.ifsp.scrumProjectLDSD5.model;
+package com.ifsp.scrumProjectLDSD5.entity;
 
 import java.time.LocalDateTime;
 
 import com.ifsp.scrumProjectLDSD5.enumeration.Status;
 import com.ifsp.scrumProjectLDSD5.form.TaskForm;
+import com.ifsp.scrumProjectLDSD5.interfaces.ITask;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -16,7 +17,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="TASK")
-public class Task {
+public class Task  {
 
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)

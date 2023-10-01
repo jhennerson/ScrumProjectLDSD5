@@ -3,7 +3,7 @@ package com.ifsp.scrumProjectLDSD5.dto.mapper;
 import org.springframework.stereotype.Component;
 
 import com.ifsp.scrumProjectLDSD5.dto.TaskDTO;
-import com.ifsp.scrumProjectLDSD5.model.Task;
+import com.ifsp.scrumProjectLDSD5.entity.Task;
 
 @Component
 public class TaskMapper {

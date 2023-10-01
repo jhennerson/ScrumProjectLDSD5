@@ -4,7 +4,7 @@ package com.ifsp.scrumProjectLDSD5.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ifsp.scrumProjectLDSD5.model.Backlog;
+import com.ifsp.scrumProjectLDSD5.entity.Backlog;
 import com.ifsp.scrumProjectLDSD5.repository.BacklogRepository;
 
 import java.util.List;

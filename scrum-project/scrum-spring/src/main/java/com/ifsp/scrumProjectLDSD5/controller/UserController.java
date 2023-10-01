@@ -1,6 +1,6 @@
 package com.ifsp.scrumProjectLDSD5.controller;
 
-import com.ifsp.scrumProjectLDSD5.model.User;
+import com.ifsp.scrumProjectLDSD5.entity.User;
 import com.ifsp.scrumProjectLDSD5.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
