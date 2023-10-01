@@ -81,15 +81,23 @@ export class BoardComponent implements OnInit {
     this.snackBar.open('Erro ao salvar tarefa!', 'X', { duration: 2000 });
   }
 
+  loadTasks() {
+    this.tasks = this.taskService.list();
+  }
+
   onAdd() {
-    this.dialog.open(TaskFormModalComponent, {
+    let _modal = this.dialog.open(TaskFormModalComponent, {
       width: `80%`,
       height: `80%`,
+    });
+
+    _modal.afterClosed().subscribe((item) => {
+      this.loadTasks();
     });
   }
 
   onEdit(task: Task) {
-    this.dialog.open(TaskFormModalComponent, {
+    let _modal = this.dialog.open(TaskFormModalComponent, {
       width: `80%`,
       height: `80%`,
       data: {
@@ -102,6 +110,10 @@ export class BoardComponent implements OnInit {
         description: task.description,
         status: task.status,
       },
+    });
+
+    _modal.afterClosed().subscribe((item) => {
+      this.loadTasks();
     });
   }
 

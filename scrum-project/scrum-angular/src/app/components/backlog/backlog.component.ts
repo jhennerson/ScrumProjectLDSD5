@@ -45,13 +45,25 @@ export class BacklogComponent {
     },
   ];
 
+  loadTasks() {
+    this.tasks = this.taskService.list();
+  }
+
   onAdd() {
-    this.dialog.open(TaskFormModalComponent, {});
+    let _modal = this.dialog.open(TaskFormModalComponent, {});
+
+    _modal.afterClosed().subscribe((item) => {
+      this.loadTasks();
+    });
   }
 
   onEdit(task: Task) {
-    this.dialog.open(TaskFormModalComponent, {
+    let _modal = this.dialog.open(TaskFormModalComponent, {
       data: task,
+    });
+
+    _modal.afterClosed().subscribe((item) => {
+      this.loadTasks();
     });
   }
 }
