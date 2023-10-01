@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.ifsp.scrumProjectLDSD5.dto.ExceptionDTO;
+import com.ifsp.scrumProjectLDSD5.exception.EmptyRecordException;
 import com.ifsp.scrumProjectLDSD5.exception.RecordNotFoundException;
 import com.ifsp.scrumProjectLDSD5.exception.UsuarioNaoEncontradoException;
 import com.ifsp.scrumProjectLDSD5.filter.RequestPathFilter;
@@ -40,6 +41,25 @@ public class ApplicationControllerAdvice {
     	
     	
     	alterarMensagemAleatoriamente(exception);
+    	return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception);
+    }
+    
+    
+    @ExceptionHandler(EmptyRecordException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<ExceptionDTO> EmptyRecordException(EmptyRecordException e){
+    	ExceptionDTO exception = new ExceptionDTO();
+    	exception.setStatus(Integer.valueOf(HttpStatus.NOT_FOUND.value()));
+    	exception.setPath(RequestPathFilter.getRequestPath());
+    	exception.setError(HttpStatus.NOT_FOUND.getReasonPhrase());
+    	
+    	if(e.getId() == null) {
+        	exception.setMessage("Nenhum resultado foi encontrado");  		
+    	}else {
+    		exception.setMessage("Nenhum resultado com ID " + e.getId() + " foi encontrado");
+    	}
+  		
+    
     	return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception);
     }
     

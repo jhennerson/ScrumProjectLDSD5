@@ -1,6 +1,7 @@
 package com.ifsp.scrumProjectLDSD5.JPA;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,28 +22,34 @@ public class UserHistoryJPA {
 	private UserHistoryRepository uhr;
 	
     
-    public UserHistory create(){
-    	return null;
+    public UserHistory create(UserHistory uh){
+    	return uhr.save(uh);
     }
     
     
     public List<UserHistory> list(){
-    	return null;
+    	return uhr.findAll();
     }
     
     
     
-    public UserHistory findById(){
-    	return null;
+    public Optional<UserHistory> findById(Long id){
+    	return uhr.findById(id);
     }
     
     
-    public UserHistory update(){
-    	return null;
+    public UserHistory update(UserHistory entity){
+    	return uhr.save(entity);
     }
     
     
-    public UserHistory delete(){
-    	return null;
+    public void delete(Long id){
+    	uhr.deleteById(id);
     }
+
+
+	public boolean exist(UserHistory entity) {
+		return uhr.existsById(entity.getId());
+		
+	}
 }

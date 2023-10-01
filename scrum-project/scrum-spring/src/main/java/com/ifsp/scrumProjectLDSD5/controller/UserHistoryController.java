@@ -44,7 +44,7 @@ public class UserHistoryController {
     
     @GetMapping("/{id}")
     public ResponseEntity<IUserHistory> findById(@PathVariable Long id){
-    	return userHistoryService.findById();
+    	return userHistoryService.findById(id);
     }
     
     @PutMapping()
@@ -54,7 +54,7 @@ public class UserHistoryController {
     
     @DeleteMapping("/{id}")
     public ResponseEntity<IUserHistory> delete(@PathVariable Long id){
-    	return userHistoryService.delete();
+    	return userHistoryService.delete(id);
     }
     
     
