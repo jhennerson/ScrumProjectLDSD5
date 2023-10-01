@@ -52,7 +52,7 @@ export class BacklogComponent {
   onAdd() {
     let _modal = this.dialog.open(TaskFormModalComponent, {});
 
-    _modal.afterClosed().subscribe((item) => {
+    _modal.afterClosed().subscribe((task) => {
       this.loadTasks();
     });
   }
@@ -62,7 +62,7 @@ export class BacklogComponent {
       data: task,
     });
 
-    _modal.afterClosed().subscribe((item) => {
+    _modal.afterClosed().subscribe((task) => {
       this.loadTasks();
     });
   }
