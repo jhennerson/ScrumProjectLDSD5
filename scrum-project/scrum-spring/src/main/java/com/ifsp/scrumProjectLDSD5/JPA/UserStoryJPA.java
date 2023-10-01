@@ -11,34 +11,34 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
-import com.ifsp.scrumProjectLDSD5.entity.UserHistory;
-import com.ifsp.scrumProjectLDSD5.repository.UserHistoryRepository;
+import com.ifsp.scrumProjectLDSD5.entity.UserStory;
+import com.ifsp.scrumProjectLDSD5.repository.UserStoryRepository;
 
 
 @Component
-public class UserHistoryJPA {
+public class UserStoryJPA {
 	
 	@Autowired
-	private UserHistoryRepository uhr;
+	private UserStoryRepository uhr;
 	
     
-    public UserHistory create(UserHistory uh){
+    public UserStory create(UserStory uh){
     	return uhr.save(uh);
     }
     
     
-    public List<UserHistory> list(){
+    public List<UserStory> list(){
     	return uhr.findAll();
     }
     
     
     
-    public Optional<UserHistory> findById(Long id){
+    public Optional<UserStory> findById(Long id){
     	return uhr.findById(id);
     }
     
     
-    public UserHistory update(UserHistory entity){
+    public UserStory update(UserStory entity){
     	return uhr.save(entity);
     }
     
@@ -48,7 +48,7 @@ public class UserHistoryJPA {
     }
 
 
-	public boolean exist(UserHistory entity) {
+	public boolean exist(UserStory entity) {
 		return uhr.existsById(entity.getId());
 		
 	}
