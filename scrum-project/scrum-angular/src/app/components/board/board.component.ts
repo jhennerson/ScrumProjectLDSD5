@@ -105,7 +105,7 @@ export class BoardComponent implements OnInit {
       data: {
         id: task.id,
         title: task.title,
-        userId: task.user.id,
+        user: task.user,
         assignmentDate: task.assignmentDate,
         endDate: task.endDate,
         effort: task.effort,

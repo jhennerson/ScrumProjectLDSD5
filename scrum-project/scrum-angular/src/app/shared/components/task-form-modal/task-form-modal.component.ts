@@ -44,7 +44,7 @@ export class TaskFormModalComponent implements OnInit {
       this.form.patchValue({
         id: data.id,
         title: data.title,
-        user: data.user,
+        user: data.user.id,
         assignmentDate: data.assignmentDate,
         endDate: data.endDate,
         effort: data.effort,
@@ -54,10 +54,27 @@ export class TaskFormModalComponent implements OnInit {
   }
 
   onSubmit() {
-    this.taskService.save(this.form.value).subscribe(
-      (result) => this.onSuccess(),
-      (error) => this.onError()
-    );
+    const userId = this.form.get('user')?.value;
+
+    if (userId) {
+      this.userService.loadById(userId).subscribe(
+        (user: User) => {
+          this.form.get('user')?.setValue(user);
+
+          this.taskService.save(this.form?.value).subscribe(
+            (result) => this.onSuccess(),
+            (error) => this.onError()
+          );
+
+          console.log(this.form.value);
+        },
+        (error) => {
+          this.onError();
+        }
+      );
+    } else {
+      this.onSuccess();
+    }
   }
 
   private onSuccess() {
