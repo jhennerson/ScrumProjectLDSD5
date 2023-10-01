@@ -31,6 +31,7 @@ import { SprintComponent } from './components/sprint/sprint.component';
 import { TaskFormModalComponent } from './shared/components/task-form-modal/task-form-modal.component';
 import { StatusPipe } from './shared/pipes/status/status.pipe';
 import { UsernamePipe } from './shared/pipes/username/username.pipe';
+import { UserHistoryComponent } from './components/user-history/user-history.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { UsernamePipe } from './shared/pipes/username/username.pipe';
     StatusPipe,
     TaskFormModalComponent,
     UsernamePipe,
+    UserHistoryComponent,
   ],
   imports: [
     BrowserModule,

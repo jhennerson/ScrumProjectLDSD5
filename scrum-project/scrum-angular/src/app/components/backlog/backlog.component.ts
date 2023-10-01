@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
@@ -13,7 +13,7 @@ import { TaskService } from '../../services/task/task.service';
   templateUrl: './backlog.component.html',
   styleUrls: ['./backlog.component.scss'],
 })
-export class BacklogComponent {
+export class BacklogComponent implements OnInit {
   tasks: Observable<Task[]>;
 
   displayedColumns = [
@@ -45,15 +45,11 @@ export class BacklogComponent {
     },
   ];
 
-  loadTasks() {
-    this.tasks = this.taskService.list();
-  }
-
   onAdd() {
     let _modal = this.dialog.open(TaskFormModalComponent, {});
 
     _modal.afterClosed().subscribe((task) => {
-      this.loadTasks();
+      this.ngOnInit();
     });
   }
 
@@ -63,7 +59,15 @@ export class BacklogComponent {
     });
 
     _modal.afterClosed().subscribe((task) => {
-      this.loadTasks();
+      this.ngOnInit();
     });
+  }
+
+  loadTasks() {
+    this.tasks = this.taskService.list();
+  }
+
+  ngOnInit() {
+    this.loadTasks();
   }
 }

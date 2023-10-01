@@ -74,9 +74,13 @@ export class TaskFormModalComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  loadUsers() {
     this.userService
       .list()
       .subscribe((options) => (this.userOptions = options));
+  }
+
+  ngOnInit() {
+    this.loadUsers();
   }
 }
