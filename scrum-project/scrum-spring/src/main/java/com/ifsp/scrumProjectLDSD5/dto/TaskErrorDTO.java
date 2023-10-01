@@ -5,7 +5,13 @@ import java.time.OffsetDateTime;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-public class TaskErrorDTO {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.ifsp.scrumProjectLDSD5.interfaces.ITask;
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(Include.NON_NULL)
+public class TaskErrorDTO implements ITask {
 	private OffsetDateTime timeStamp;
 	private Integer status;
 	private String error;

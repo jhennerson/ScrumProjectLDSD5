@@ -2,16 +2,21 @@ package com.ifsp.scrumProjectLDSD5.dto;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.ifsp.scrumProjectLDSD5.entity.User;
 import com.ifsp.scrumProjectLDSD5.enumeration.Status;
-import com.ifsp.scrumProjectLDSD5.model.User;
+import com.ifsp.scrumProjectLDSD5.interfaces.ITask;
 
 
-
-public class TaskDTO {
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(Include.NON_NULL)
+public class TaskDTO implements ITask{
 	
 	private Long id;
 	private String tittle;
-	private User user;
+	private UserDTO user;
 	private LocalDateTime assignmentDate;
 	private LocalDateTime EndDate;
 	private Integer effort;
@@ -19,6 +24,13 @@ public class TaskDTO {
 	private Status status;
 	
 	
+	
+	public void removePassword() {
+		try {
+			this.getUser().removePassword();
+		}catch (Exception e) {
+		}
+	}
 	public Long getId() {
 		return id;
 	}
@@ -31,10 +43,10 @@ public class TaskDTO {
 	public void setTittle(String tittle) {
 		this.tittle = tittle;
 	}
-	public User getUser() {
+	public UserDTO getUser() {
 		return user;
 	}
-	public void setUser(User user) {
+	public void setUser(UserDTO user) {
 		this.user = user;
 	}
 	public LocalDateTime getAssignmentDate() {

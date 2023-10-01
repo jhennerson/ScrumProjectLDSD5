@@ -2,8 +2,8 @@ package com.ifsp.scrumProjectLDSD5.form;
 
 import java.time.LocalDateTime;
 
+import com.ifsp.scrumProjectLDSD5.entity.Task;
 import com.ifsp.scrumProjectLDSD5.enumeration.Status;
-import com.ifsp.scrumProjectLDSD5.model.Task;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

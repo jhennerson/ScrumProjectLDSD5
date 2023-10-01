@@ -1,6 +1,6 @@
 package com.ifsp.scrumProjectLDSD5.service;
 
-import com.ifsp.scrumProjectLDSD5.model.User;
+import com.ifsp.scrumProjectLDSD5.entity.User;
 import com.ifsp.scrumProjectLDSD5.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
