@@ -15,13 +15,14 @@ import { TaskService } from '../../services/task/task.service';
 })
 export class BacklogComponent {
   tasks: Observable<Task[]>;
+
   displayedColumns = [
     'actions',
     'title',
     'assignedTo',
-    'effort',
     'assignmentDate',
     'endDate',
+    'effort',
     'status',
   ];
 
@@ -44,13 +45,25 @@ export class BacklogComponent {
     },
   ];
 
+  loadTasks() {
+    this.tasks = this.taskService.list();
+  }
+
   onAdd() {
-    this.dialog.open(TaskFormModalComponent, {});
+    let _modal = this.dialog.open(TaskFormModalComponent, {});
+
+    _modal.afterClosed().subscribe((task) => {
+      this.loadTasks();
+    });
   }
 
   onEdit(task: Task) {
-    this.dialog.open(TaskFormModalComponent, {
+    let _modal = this.dialog.open(TaskFormModalComponent, {
       data: task,
+    });
+
+    _modal.afterClosed().subscribe((task) => {
+      this.loadTasks();
     });
   }
 }

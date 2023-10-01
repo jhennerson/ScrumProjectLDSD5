@@ -20,6 +20,7 @@ import { TaskService } from '../../services/task/task.service';
 })
 export class BoardComponent implements OnInit {
   tasks: Observable<Task[]>;
+
   todo: Task[] = [];
   inprogress: Task[] = [];
   done: Task[] = [];
@@ -73,34 +74,52 @@ export class BoardComponent implements OnInit {
   }
 
   private onSuccess() {
-    this.snackBar.open('Tarefa salva com sucesso!', 'X', { duration: 2000 });
+    this.snackBar.open('Tarefa salva com sucesso!', 'X', {
+      duration: 2000,
+      panelClass: 'task-status-snackbar',
+    });
   }
 
   private onError() {
-    this.snackBar.open('Erro ao salvar tarefa!', 'X', { duration: 2000 });
+    this.snackBar.open('Erro ao salvar tarefa!', 'X', {
+      duration: 2000,
+      panelClass: 'task-status-snackbar',
+    });
+  }
+
+  loadTasks() {
+    this.tasks = this.taskService.list();
   }
 
   onAdd() {
-    this.dialog.open(TaskFormModalComponent, {
+    let _modal = this.dialog.open(TaskFormModalComponent, {
       width: `80%`,
       height: `80%`,
+    });
+
+    _modal.afterClosed().subscribe((task) => {
+      this.loadTasks();
     });
   }
 
   onEdit(task: Task) {
-    this.dialog.open(TaskFormModalComponent, {
+    let _modal = this.dialog.open(TaskFormModalComponent, {
       width: `80%`,
       height: `80%`,
       data: {
         id: task.id,
         title: task.title,
-        user: task.user,
+        userId: task.userId,
         assignmentDate: task.assignmentDate,
         endDate: task.endDate,
         effort: task.effort,
         description: task.description,
         status: task.status,
       },
+    });
+
+    _modal.afterClosed().subscribe((task) => {
+      this.loadTasks();
     });
   }
 

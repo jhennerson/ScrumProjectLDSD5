@@ -16,6 +16,7 @@ import { UserService } from 'src/app/services/user/user.service';
 export class TaskFormModalComponent implements OnInit {
   form: FormGroup;
   users: Observable<User[]>;
+
   userOptions: User[] = [];
 
   constructor(
@@ -31,7 +32,7 @@ export class TaskFormModalComponent implements OnInit {
     this.form = this.formBuilder.group({
       id: ['', [Validators.required]],
       title: ['', [Validators.required]],
-      user: [''],
+      userId: [''],
       assignmentDate: [''],
       endDate: [''],
       effort: [''],
@@ -43,7 +44,7 @@ export class TaskFormModalComponent implements OnInit {
       this.form.patchValue({
         id: data.id,
         title: data.title,
-        user: data.user,
+        userId: data.userId,
         assignmentDate: data.assignmentDate,
         endDate: data.endDate,
         effort: data.effort,
