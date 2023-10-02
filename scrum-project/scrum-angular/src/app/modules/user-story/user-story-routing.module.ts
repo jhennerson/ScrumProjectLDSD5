@@ -5,9 +5,9 @@ import { BoardComponent } from 'src/app/components/board/board.component';
 import { UserStoryComponent } from 'src/app/components/user-story/user-story.component';
 
 const routes: Routes = [
-  { path: '', component: BacklogComponent },
+  { path: '', component: UserStoryComponent },
   { path: 'board', component: BoardComponent },
-  { path: 'user-story', component: UserStoryComponent },
+  { path: 'backlog', component: BacklogComponent },
 ];
 
 @NgModule({
