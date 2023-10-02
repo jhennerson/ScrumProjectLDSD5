@@ -7,7 +7,7 @@ import { UserStory } from 'src/app/models/user-story/user-story';
   providedIn: 'root',
 })
 export class UserStoryService {
-  private readonly API = 'api/user-histories';
+  private readonly API = 'api/user-stories';
 
   constructor(private httpClient: HttpClient) {}
 

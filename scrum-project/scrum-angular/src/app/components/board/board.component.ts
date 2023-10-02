@@ -93,28 +93,17 @@ export class BoardComponent implements OnInit {
       height: `80%`,
     });
 
-    _modal.afterClosed().subscribe((task) => {
+    _modal.afterClosed().subscribe(() => {
       this.ngOnInit();
     });
   }
 
   onEdit(task: Task) {
     let _modal = this.dialog.open(TaskFormModalComponent, {
-      width: `80%`,
-      height: `80%`,
-      data: {
-        id: task.id,
-        title: task.title,
-        userId: task.user.id,
-        assignmentDate: task.assignmentDate,
-        endDate: task.endDate,
-        effort: task.effort,
-        description: task.description,
-        status: task.status,
-      },
+      data: task,
     });
 
-    _modal.afterClosed().subscribe((task) => {
+    _modal.afterClosed().subscribe(() => {
       this.ngOnInit();
     });
   }

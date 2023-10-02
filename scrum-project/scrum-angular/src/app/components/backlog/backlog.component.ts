@@ -48,7 +48,7 @@ export class BacklogComponent implements OnInit {
   onAdd() {
     let _modal = this.dialog.open(TaskFormModalComponent, {});
 
-    _modal.afterClosed().subscribe((task) => {
+    _modal.afterClosed().subscribe(() => {
       this.ngOnInit();
     });
   }
@@ -58,7 +58,7 @@ export class BacklogComponent implements OnInit {
       data: task,
     });
 
-    _modal.afterClosed().subscribe((task) => {
+    _modal.afterClosed().subscribe(() => {
       this.ngOnInit();
     });
   }

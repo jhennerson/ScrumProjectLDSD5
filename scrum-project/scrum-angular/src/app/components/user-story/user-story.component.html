@@ -1,7 +1,7 @@
-<mat-card align="center" class="backlog-mat-card">
-  <div class="backlog-menu">
-    <mat-toolbar class="backlog-mat-toolbar">
-      <mat-form-field class="backlog-menu-operations sprint-select">
+<mat-card align="center" class="user-story-mat-card">
+  <div class="user-story-menu">
+    <mat-toolbar class="user-story-mat-toolbar">
+      <mat-form-field class="user-story-menu-operations sprint-select">
         <mat-label>Sprint</mat-label>
         <mat-select class="sprint-select">
           <mat-option *ngFor="let sprint of sprints" [value]="sprint.title">
@@ -12,23 +12,27 @@
 
       <button
         mat-button
-        class="backlog-menu-operations add-button"
+        class="user-story-menu-operations add-button"
         aria-label="Adicionar tarefa"
         (click)="onAdd()"
       >
-        <span class="text-nowrap">Nova tarefa</span>
+        <span class="text-nowrap">Nova História</span>
         <mat-icon iconPositionEnd>add</mat-icon>
       </button>
     </mat-toolbar>
   </div>
 
-  <mat-card class="backlog-content">
-    <mat-table [dataSource]="tasks" class="mat-elevation-z8">
+  <mat-card class="user-story-content">
+    <mat-table [dataSource]="userStories" class="mat-elevation-z8">
       <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>Operações</mat-header-cell>
 
-        <mat-cell *matCellDef="let task">
-          <button mat-icon-button aria-label="Ver tudo" (click)="onEdit(task)">
+        <mat-cell *matCellDef="let userStory">
+          <button
+            mat-icon-button
+            aria-label="Ver tudo"
+            (click)="onEdit(userStory)"
+          >
             <mat-icon>more_vert</mat-icon>
           </button>
         </mat-cell>
@@ -37,49 +41,34 @@
       <ng-container matColumnDef="title">
         <mat-header-cell *matHeaderCellDef> Título </mat-header-cell>
 
-        <mat-cell *matCellDef="let task"> {{ task.title }} </mat-cell>
+        <mat-cell *matCellDef="let userStory"> {{ userStory.title }} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="assignedTo">
+      <ng-container matColumnDef="assignee">
         <mat-header-cell *matHeaderCellDef> Responsável </mat-header-cell>
 
-        <mat-cell *matCellDef="let task">
-          {{ task.user.id | username | async }}
+        <mat-cell *matCellDef="let userStory">
+          {{ userStory.assignee.id | username | async }}
         </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="effort">
-        <mat-header-cell *matHeaderCellDef> Esforço atribuído </mat-header-cell>
+      <ng-container matColumnDef="reporter">
+        <mat-header-cell *matHeaderCellDef> Relator </mat-header-cell>
 
-        <mat-cell *matCellDef="let task"> {{ task.effort }} </mat-cell>
+        <mat-cell *matCellDef="let userStory">
+          {{ userStory.reporter.id | username | async }}
+        </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="assignmentDate">
-        <mat-header-cell *matHeaderCellDef>
-          Data de atribuição
-        </mat-header-cell>
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef> Descrição </mat-header-cell>
 
-        <mat-cell *matCellDef="let task"> {{ task.assignmentDate }} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="endDate">
-        <mat-header-cell *matHeaderCellDef> Data de entrega </mat-header-cell>
-
-        <mat-cell *matCellDef="let task"> {{ task.endDate }} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="status">
-        <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
-
-        <mat-cell
-          *matCellDef="let task"
-          [ngClass]="{
-            'status-to-do': task.status == 'TO_DO',
-            'status-in-progress': task.status == 'IN_PROGRESS',
-            'status-done': task.status == 'DONE'
-          }"
-        >
-          {{ task.status | status }}
+        <mat-cell *matCellDef="let userStory" class="user-story-description">
+          {{
+            userStory.description.length > 32
+              ? (userStory.description | slice : 0 : 32) + "..."
+              : userStory.description
+          }}
         </mat-cell>
       </ng-container>
 

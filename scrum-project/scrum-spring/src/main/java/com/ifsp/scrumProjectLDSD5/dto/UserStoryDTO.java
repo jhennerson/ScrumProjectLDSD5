@@ -15,7 +15,7 @@ import lombok.Setter;
 public class UserStoryDTO implements IUserStory {
 	private Long id;
 	private String title;
-	private UserDTO user;
+	private UserDTO assignee;
 	private UserDTO reporter;
 	private String description;
 	
