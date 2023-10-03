@@ -10,7 +10,7 @@
       <mat-label>Responsável</mat-label>
       <mat-select formControlName="user">
         <mat-option value="null"></mat-option>
-        <mat-option *ngFor="let option of userOptions" [value]="option">
+        <mat-option *ngFor="let option of userOptions" [value]="option.id">
           {{ option.username }}
         </mat-option>
       </mat-select>

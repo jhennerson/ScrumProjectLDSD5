@@ -44,7 +44,7 @@ export class TaskFormModalComponent implements OnInit {
       this.form.patchValue({
         id: data.id,
         title: data.title,
-        user: data.user,
+        user: data.user.id,
         assignmentDate: data.assignmentDate,
         endDate: data.endDate,
         effort: data.effort,
@@ -54,31 +54,7 @@ export class TaskFormModalComponent implements OnInit {
   }
 
   onSubmit() {
-    /*Para deixar marcado o selected a maneira encontrada foi deixar option.id no html e data.user.id no patchValue*/
-
-    // const userId = this.form.get('user')?.value;
-
-    // if (userId) {
-    //   this.userService.loadById(userId).subscribe(
-    //     (user: User) => {
-    //       this.form.get('user')?.setValue(user);
-
-    //       this.taskService.save(this.form?.value).subscribe(
-    //         (result) => this.onSuccess(),
-    //         (error) => this.onError()
-    //       );
-
-    //       console.log(this.form.value);
-    //     },
-    //     (error) => {
-    //       this.onSuccess();
-    //     }
-    //   );
-    // } else {
-    //   this.onError();
-    // }
-
-    this.taskService.save(this.form?.value).subscribe(
+    this.taskService.save(this.form.value).subscribe(
       (result) => this.onSuccess(),
       (error) => this.onError()
     );
