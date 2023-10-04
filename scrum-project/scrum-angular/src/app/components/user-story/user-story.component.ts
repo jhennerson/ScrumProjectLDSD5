@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
+import { Observable, first } from 'rxjs';
 import { Sprint } from 'src/app/models/sprint/sprint';
 import { UserStory } from 'src/app/models/user-story/user-story';
 import { UserStoryService } from 'src/app/services/user-story/user-story.service';
@@ -28,7 +28,7 @@ export class UserStoryComponent implements OnInit {
     public dialog: MatDialog,
     public snackBar: MatSnackBar
   ) {
-    this.userStories = this.userStoryService.list();
+    this.userStories = this.userStoryService.list().pipe(first());
   }
 
   sprints: Sprint[] = [
@@ -61,7 +61,7 @@ export class UserStoryComponent implements OnInit {
   }
 
   loadTasks() {
-    this.userStories = this.userStoryService.list();
+    this.userStories = this.userStoryService.list().pipe(first());
   }
 
   ngOnInit() {

@@ -58,9 +58,16 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end" class="task-form-actions">
+  <ng-container *ngIf="data.task && data.disableable">
+    <button mat-fab extended (click)="onRestore()" class="restore-button">
+      Restaurar
+    </button>
+  </ng-container>
+
   <button mat-fab extended mat-dialog-close class="cancel-button">
     Cancelar
   </button>
+
   <button
     mat-fab
     extended

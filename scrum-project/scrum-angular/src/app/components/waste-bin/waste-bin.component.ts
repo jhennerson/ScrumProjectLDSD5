@@ -1,20 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, first } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Sprint } from 'src/app/models/sprint/sprint';
+import { Task } from 'src/app/models/task/task';
+import { TaskService } from 'src/app/services/task/task.service';
 import { TaskFormModalComponent } from 'src/app/shared/components/task-form-modal/task-form-modal.component';
 
-import { Sprint } from '../../models/sprint/sprint';
-import { Task } from '../../models/task/task';
-import { TaskService } from '../../services/task/task.service';
-
 @Component({
-  selector: 'app-backlog',
-  templateUrl: './backlog.component.html',
-  styleUrls: ['./backlog.component.scss'],
+  selector: 'app-waste-bin',
+  templateUrl: './waste-bin.component.html',
+  styleUrls: ['./waste-bin.component.scss'],
 })
-export class BacklogComponent implements OnInit {
+export class WasteBinComponent {
   tasks: Observable<Task[]>;
+
+  disabled: Task[] = [];
 
   displayedColumns = [
     'actions',
@@ -32,7 +33,7 @@ export class BacklogComponent implements OnInit {
     public dialog: MatDialog,
     public snackBar: MatSnackBar
   ) {
-    this.tasks = this.taskService.list().pipe(first());
+    this.tasks = this.taskService.list();
   }
 
   sprints: Sprint[] = [
@@ -58,7 +59,7 @@ export class BacklogComponent implements OnInit {
     let _modal = this.dialog.open(TaskFormModalComponent, {
       data: {
         task: task,
-        disableable: false,
+        disableable: true,
       },
     });
 
@@ -68,7 +69,9 @@ export class BacklogComponent implements OnInit {
   }
 
   loadTasks() {
-    this.tasks = this.taskService.list().pipe(first());
+    this.tasks.subscribe((tasks) => {
+      this.disabled = tasks.filter((task) => task.status === 'DISABLED');
+    });
   }
 
   ngOnInit() {

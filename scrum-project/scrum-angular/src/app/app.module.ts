@@ -33,6 +33,7 @@ import { TaskFormModalComponent } from './shared/components/task-form-modal/task
 import { UserStoryFormModalComponent } from './shared/components/user-story-form-modal/user-story-form-modal.component';
 import { StatusPipe } from './shared/pipes/status/status.pipe';
 import { UsernamePipe } from './shared/pipes/username/username.pipe';
+import { WasteBinComponent } from './components/waste-bin/waste-bin.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { UsernamePipe } from './shared/pipes/username/username.pipe';
     UsernamePipe,
     UserStoryComponent,
     UserStoryFormModalComponent,
+    WasteBinComponent,
   ],
   imports: [
     BrowserModule,

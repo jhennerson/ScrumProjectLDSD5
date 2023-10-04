@@ -20,4 +20,8 @@ export class MenuComponent {
   toUserStory() {
     this.router.navigate(['user-story'], { relativeTo: this.route });
   }
+
+  toWasteBin() {
+    this.router.navigate(['waste-bin'], { relativeTo: this.route });
+  }
 }

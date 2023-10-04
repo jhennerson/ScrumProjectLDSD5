@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -25,7 +25,7 @@ export class TaskFormModalComponent implements OnInit {
     private userService: UserService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public data: Task
+    @Inject(MAT_DIALOG_DATA) public data: { task: Task; disableable: boolean }
   ) {
     this.users = this.userService.list();
 
@@ -38,17 +38,19 @@ export class TaskFormModalComponent implements OnInit {
       effort: [''],
       description: [''],
       status: ['TO_DO'],
+      userStory: [''],
     });
 
     if (data) {
       this.form.patchValue({
-        id: data.id,
-        title: data.title,
-        user: data.user.id,
-        assignmentDate: data.assignmentDate,
-        endDate: data.endDate,
-        effort: data.effort,
-        description: data.description,
+        id: data.task.id,
+        title: data.task.title,
+        user: data.task.user.id,
+        assignmentDate: data.task.assignmentDate,
+        endDate: data.task.endDate,
+        effort: data.task.effort,
+        description: data.task.description,
+        userStory: data.task.userStory,
       });
     }
   }
@@ -58,6 +60,10 @@ export class TaskFormModalComponent implements OnInit {
       (result) => this.onSuccess(),
       (error) => this.onError()
     );
+  }
+
+  onRestore() {
+    this.form.patchValue({ status: 'TO_DO' });
   }
 
   private onSuccess() {
