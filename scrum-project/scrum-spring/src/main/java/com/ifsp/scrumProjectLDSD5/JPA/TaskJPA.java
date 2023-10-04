@@ -18,17 +18,12 @@ public class TaskJPA {
 	@Autowired
 	private TaskRepository taskRepository;
 	
-	@Autowired
-	private UserRepository userRepository;
-	
-	
 	public List<Task> getAllTask(){
 		return taskRepository.findAll();
 	}
 	
 	public Optional<Task> getTaskById(Long id) {
-		Optional<Task> opEntity = taskRepository.findById(id);
-		return opEntity;
+		return taskRepository.findById(id);
 	}
 	
 	public Task create(Task task) {
