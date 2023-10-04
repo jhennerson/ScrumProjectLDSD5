@@ -6,14 +6,14 @@ import { UserStoryComponent } from 'src/app/components/user-story/user-story.com
 import { WasteBinComponent } from 'src/app/components/waste-bin/waste-bin.component';
 
 const routes: Routes = [
-  { path: 'backlog', component: BacklogComponent },
+  { path: '', component: WasteBinComponent },
   { path: 'board', component: BoardComponent },
+  { path: 'backlog', component: BacklogComponent },
   { path: 'user-story', component: UserStoryComponent },
-  { path: 'waste-bin', component: WasteBinComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class MenuRoutingModule {}
+export class WasteBinRoutingModule {}

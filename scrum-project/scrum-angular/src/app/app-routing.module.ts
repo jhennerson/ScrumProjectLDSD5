@@ -20,6 +20,13 @@ const routes: Routes = [
         (m) => m.UserStoryModule
       ),
   },
+  {
+    path: 'waste-bin',
+    loadChildren: () =>
+      import('./modules/waste-bin/waste-bin.module').then(
+        (m) => m.WasteBinModule
+      ),
+  },
 ];
 
 @NgModule({
