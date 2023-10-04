@@ -2,23 +2,25 @@ package com.ifsp.scrumProjectLDSD5.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.ifsp.scrumProjectLDSD5.JPA.TaskJPA;
 import com.ifsp.scrumProjectLDSD5.JPA.UserJPA;
 import com.ifsp.scrumProjectLDSD5.dto.TaskDTO;
 import com.ifsp.scrumProjectLDSD5.dto.TaskErrorDTO;
 import com.ifsp.scrumProjectLDSD5.dto.UserDTO;
+import com.ifsp.scrumProjectLDSD5.dto.mixin.UserDTOPasswordEmailMixin;
 import com.ifsp.scrumProjectLDSD5.entity.Task;
 import com.ifsp.scrumProjectLDSD5.entity.User;
+import com.ifsp.scrumProjectLDSD5.exception.EmptyRecordException;
+import com.ifsp.scrumProjectLDSD5.exception.UsuarioNaoEncontradoException;
 import com.ifsp.scrumProjectLDSD5.form.TaskForm;
 import com.ifsp.scrumProjectLDSD5.interfaces.ITask;
 
@@ -31,25 +33,25 @@ public class TaskService {
 	@Autowired
 	private UserJPA userJPA;
 	
-	@Autowired
-	private ObjectMapper om;
+	private ObjectMapper om; 
+
+    public TaskService() {
+    	om = new ObjectMapper();
+    	om.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+    	om.addMixIn(UserDTO.class, UserDTOPasswordEmailMixin.class);
+    }	
 	
 	public ResponseEntity<?> getAllTasks(){
-		try {
-			List<Task> tasks = taskJPA.getAllTask();
-			if(tasks.isEmpty()) {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(TaskErrorDTO.set(HttpStatus.NOT_FOUND, "Não há tarefas cadastradas", "/api/tasks"));
-			}
+
+		List<Task> tasks = taskJPA.getAllTask();
+		if(tasks.isEmpty()) {
+			throw new EmptyRecordException();
+		}
 					
-			List<TaskDTO> tasksDTO = om.convertValue(tasks, new TypeReference<List<TaskDTO>>() {});
-			tasksDTO.stream()
-					.forEach(task -> task.removePassword());
+		List<TaskDTO> tasksDTO = om.convertValue(tasks, new TypeReference<List<TaskDTO>>() {});
 					
 			
-			return ResponseEntity.status(HttpStatus.OK).body(tasksDTO);
-		}catch(Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(TaskErrorDTO.set(HttpStatus.INTERNAL_SERVER_ERROR,"Erro interno","/api/tasks",e.getMessage()));
-		}
+		return ResponseEntity.status(HttpStatus.OK).body(tasksDTO);
 	}
 	
 	public ResponseEntity<ITask> findTaskById(Long id){
@@ -96,22 +98,19 @@ public class TaskService {
 	}
 	
 	public ResponseEntity<ITask> create(TaskForm taskForm){
-		try {
-			Task entity = taskForm.toEntity(taskForm);
-			entity.setUser(null);
-			if(!(taskForm.getUserId() == null)) {
-				Optional<User> userById = userJPA.getUserById(taskForm.getUserId());
-				if(userById.isEmpty()) {
-					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(TaskErrorDTO.set(HttpStatus.BAD_REQUEST,"Não foi possivel encontrar um user com id " + taskForm.getUserId(),"/api/tasks"));
-				}
-				entity.setUser(userById.get());
+		Task entity = taskForm.toEntity(taskForm);
+		entity.setUser(null);
+		if(!(taskForm.getUserId() == null)) {
+			Optional<User> userById = userJPA.getUserById(taskForm.getUserId());
+			if(userById.isEmpty()) {
+				throw new UsuarioNaoEncontradoException(taskForm.getUserId());
 			}
-			Task create = taskJPA.create(entity);
-			TaskDTO convertValue = om.convertValue(create, TaskDTO.class);
-			return ResponseEntity.status(HttpStatus.CREATED).body(convertValue);
-		}catch(Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(TaskErrorDTO.set(HttpStatus.INTERNAL_SERVER_ERROR,"Erro interno","/api/tasks",e.getMessage()));
+			entity.setUser(userById.get());
 		}
+		Task create = taskJPA.create(entity);
+		TaskDTO convertValue = om.convertValue(create, TaskDTO.class);
+		return ResponseEntity.status(HttpStatus.CREATED).body(convertValue);
+
 	}
 
 	public ResponseEntity<ITask> deleteById(Long id) {
