@@ -5,13 +5,13 @@ import { BoardComponent } from 'src/app/components/board/board.component';
 import { UserStoryComponent } from 'src/app/components/user-story/user-story.component';
 
 const routes: Routes = [
-  { path: '', component: BoardComponent },
+  { path: '', component: UserStoryComponent },
+  { path: 'board', component: BoardComponent },
   { path: 'backlog', component: BacklogComponent },
-  { path: 'user-story', component: UserStoryComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class BoardRoutingModule {}
+export class UserStoryRoutingModule {}

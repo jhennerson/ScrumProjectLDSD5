@@ -14,47 +14,47 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ifsp.scrumProjectLDSD5.exception.UsuarioNaoEncontradoException;
-import com.ifsp.scrumProjectLDSD5.form.UserHistoryForm;
-import com.ifsp.scrumProjectLDSD5.interfaces.IUserHistory;
-import com.ifsp.scrumProjectLDSD5.service.UserHistoryService;
+import com.ifsp.scrumProjectLDSD5.form.UserStoryForm;
+import com.ifsp.scrumProjectLDSD5.interfaces.IUserStory;
+import com.ifsp.scrumProjectLDSD5.service.UserStoryService;
 import com.ifsp.scrumProjectLDSD5.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/userHistory")
-public class UserHistoryController {
+@RequestMapping("/api/user-stories")
+public class UserStoryController {
 	
 	
     @Autowired(required=true)
-    private UserHistoryService userHistoryService;
+    private UserStoryService userStoryService;
     
     
     @PostMapping()
-    public ResponseEntity<IUserHistory> create(@RequestBody @Validated UserHistoryForm userHistoryForm){
-    	return userHistoryService.create(userHistoryForm);
+    public ResponseEntity<IUserStory> create(@RequestBody @Validated UserStoryForm userStoryForm){
+    	return userStoryService.create(userStoryForm);
     }
     
     @GetMapping
     public ResponseEntity<?> list(){
-    	return userHistoryService.list();
+    	return userStoryService.list();
     }
     
     
     @GetMapping("/{id}")
-    public ResponseEntity<IUserHistory> findById(@PathVariable Long id){
-    	return userHistoryService.findById(id);
+    public ResponseEntity<IUserStory> findById(@PathVariable Long id){
+    	return userStoryService.findById(id);
     }
     
     @PutMapping()
-    public ResponseEntity<IUserHistory> update(@RequestBody @Validated UserHistoryForm userHistoryForm){
-    	return userHistoryService.update(userHistoryForm);
+    public ResponseEntity<IUserStory> update(@RequestBody @Validated UserStoryForm userStoryForm){
+    	return userStoryService.update(userStoryForm);
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<IUserHistory> delete(@PathVariable Long id){
-    	return userHistoryService.delete(id);
+    public ResponseEntity<IUserStory> delete(@PathVariable Long id){
+    	return userStoryService.delete(id);
     }
     
     

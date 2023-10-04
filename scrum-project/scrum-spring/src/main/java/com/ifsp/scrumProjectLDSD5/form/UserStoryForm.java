@@ -1,7 +1,7 @@
 package com.ifsp.scrumProjectLDSD5.form;
 
 import com.ifsp.scrumProjectLDSD5.entity.User;
-import com.ifsp.scrumProjectLDSD5.entity.UserHistory;
+import com.ifsp.scrumProjectLDSD5.entity.UserStory;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-public class UserHistoryForm {
+public class UserStoryForm {
 
 	private Long id;
 	@NotNull
@@ -19,23 +19,23 @@ public class UserHistoryForm {
 	private Long reporterId;
 	private String description;
 	
-    public UserHistory toEntity() {
+    public UserStory toEntity() {
     	
-        UserHistory userHistory = new UserHistory();
-        userHistory.setId(this.id);
-        userHistory.setTitle(this.title);
-        userHistory.setDescription(this.description);
-        return userHistory;
+        UserStory userStory = new UserStory();
+        userStory.setId(this.id);
+        userStory.setTitle(this.title);
+        userStory.setDescription(this.description);
+        return userStory;
     }
     
-    public UserHistory toEntity(User user,User reporter) {
-        UserHistory userHistory = new UserHistory();
-        userHistory.setTitle(this.title);
-        userHistory.setUser(user);
-        userHistory.setReporter(reporter);
-        userHistory.setDescription(this.description);
-        return userHistory;
-    }	
+    public UserStory toEntity(User user,User reporter) {
+        UserStory userStory = new UserStory();
+        userStory.setTitle(this.title);
+        userStory.setAssignee(user);
+        userStory.setReporter(reporter);
+        userStory.setDescription(this.description);
+        return userStory;
+    }
 	
 	public Long getId() {
 		return id;

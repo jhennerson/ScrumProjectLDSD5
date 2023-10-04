@@ -1,10 +1,10 @@
-.task-form-content {
+.user-story-form-content {
   display: flex;
   flex-direction: column;
   margin: 1em auto;
 }
 
-.task-form-actions {
+.user-story-form-actions {
   margin-right: 26px;
   margin-bottom: 26px;
 }
@@ -17,11 +17,7 @@
   background-color: #d9d9d9;
 }
 
-.restore-button {
-  background-color: #0079dc;
-}
-
-.task-form {
+.user-story-form {
   width: 100%;
 }
 

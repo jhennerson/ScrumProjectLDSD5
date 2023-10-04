@@ -16,4 +16,12 @@ export class MenuComponent {
   toBacklog() {
     this.router.navigate(['backlog'], { relativeTo: this.route });
   }
+
+  toUserStory() {
+    this.router.navigate(['user-story'], { relativeTo: this.route });
+  }
+
+  toWasteBin() {
+    this.router.navigate(['waste-bin'], { relativeTo: this.route });
+  }
 }

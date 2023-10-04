@@ -1,7 +1,7 @@
-<mat-card align="center" class="backlog-mat-card">
-  <div class="backlog-menu">
-    <mat-toolbar class="backlog-mat-toolbar">
-      <mat-form-field class="backlog-menu-operations sprint-select">
+<mat-card align="center" class="waste-bin-mat-card">
+  <div class="waste-bin-menu">
+    <mat-toolbar class="waste-bin-mat-toolbar">
+      <mat-form-field class="waste-bin-menu-operations sprint-select">
         <mat-label>Sprint</mat-label>
         <mat-select class="sprint-select">
           <mat-option *ngFor="let sprint of sprints" [value]="sprint.title">
@@ -9,20 +9,10 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-
-      <button
-        mat-button
-        class="backlog-menu-operations add-button"
-        aria-label="Adicionar tarefa"
-        (click)="onAdd()"
-      >
-        <span class="text-nowrap">Nova tarefa</span>
-        <mat-icon iconPositionEnd>add</mat-icon>
-      </button>
     </mat-toolbar>
   </div>
 
-  <mat-card class="backlog-content">
+  <mat-card class="waste-bin-content">
     <mat-table [dataSource]="tasks" class="mat-elevation-z8">
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef>Operações</mat-header-cell>

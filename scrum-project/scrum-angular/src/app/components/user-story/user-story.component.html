@@ -1,0 +1,79 @@
+<mat-card align="center" class="user-story-mat-card">
+  <div class="user-story-menu">
+    <mat-toolbar class="user-story-mat-toolbar">
+      <mat-form-field class="user-story-menu-operations sprint-select">
+        <mat-label>Sprint</mat-label>
+        <mat-select class="sprint-select">
+          <mat-option *ngFor="let sprint of sprints" [value]="sprint.title">
+            {{ sprint.title }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button
+        mat-button
+        class="user-story-menu-operations add-button"
+        aria-label="Adicionar tarefa"
+        (click)="onAdd()"
+      >
+        <span class="text-nowrap">Nova História</span>
+        <mat-icon iconPositionEnd>add</mat-icon>
+      </button>
+    </mat-toolbar>
+  </div>
+
+  <mat-card class="user-story-content">
+    <mat-table [dataSource]="userStories" class="mat-elevation-z8">
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Operações</mat-header-cell>
+
+        <mat-cell *matCellDef="let userStory">
+          <button
+            mat-icon-button
+            aria-label="Ver tudo"
+            (click)="onEdit(userStory)"
+          >
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef> Título </mat-header-cell>
+
+        <mat-cell *matCellDef="let userStory"> {{ userStory.title }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="assignee">
+        <mat-header-cell *matHeaderCellDef> Responsável </mat-header-cell>
+
+        <mat-cell *matCellDef="let userStory">
+          {{ userStory.assignee.id | username | async }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="reporter">
+        <mat-header-cell *matHeaderCellDef> Relator </mat-header-cell>
+
+        <mat-cell *matCellDef="let userStory">
+          {{ userStory.reporter.id | username | async }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef> Descrição </mat-header-cell>
+
+        <mat-cell *matCellDef="let userStory" class="user-story-description">
+          {{
+            userStory.description.length > 32
+              ? (userStory.description | slice : 0 : 32) + "..."
+              : userStory.description
+          }}
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  </mat-card>
+</mat-card>

@@ -28,10 +28,12 @@ import { BoardComponent } from './components/board/board.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SprintComponent } from './components/sprint/sprint.component';
+import { UserStoryComponent } from './components/user-story/user-story.component';
 import { TaskFormModalComponent } from './shared/components/task-form-modal/task-form-modal.component';
+import { UserStoryFormModalComponent } from './shared/components/user-story-form-modal/user-story-form-modal.component';
 import { StatusPipe } from './shared/pipes/status/status.pipe';
 import { UsernamePipe } from './shared/pipes/username/username.pipe';
-import { UserHistoryComponent } from './components/user-history/user-history.component';
+import { WasteBinComponent } from './components/waste-bin/waste-bin.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { UserHistoryComponent } from './components/user-history/user-history.com
     StatusPipe,
     TaskFormModalComponent,
     UsernamePipe,
-    UserHistoryComponent,
+    UserStoryComponent,
+    UserStoryFormModalComponent,
+    WasteBinComponent,
   ],
   imports: [
     BrowserModule,

@@ -13,6 +13,20 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/backlog/backlog.module').then((m) => m.BacklogModule),
   },
+  {
+    path: 'user-story',
+    loadChildren: () =>
+      import('./modules/user-story/user-story.module').then(
+        (m) => m.UserStoryModule
+      ),
+  },
+  {
+    path: 'waste-bin',
+    loadChildren: () =>
+      import('./modules/waste-bin/waste-bin.module').then(
+        (m) => m.WasteBinModule
+      ),
+  },
 ];
 
 @NgModule({

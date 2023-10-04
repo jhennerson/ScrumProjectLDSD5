@@ -1,3 +1,4 @@
+import { UserStory } from '../user-story/user-story';
 import { User } from '../user/user';
 
 export interface Task {
@@ -9,4 +10,5 @@ export interface Task {
   effort: string;
   description: string;
   status: string;
+  userStory: UserStory;
 }

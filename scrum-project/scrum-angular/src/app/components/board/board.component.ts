@@ -6,7 +6,7 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
+import { Observable, first } from 'rxjs';
 import { TaskFormModalComponent } from 'src/app/shared/components/task-form-modal/task-form-modal.component';
 
 import { Sprint } from '../../models/sprint/sprint';
@@ -30,7 +30,7 @@ export class BoardComponent implements OnInit {
     public dialog: MatDialog,
     public snackBar: MatSnackBar
   ) {
-    this.tasks = this.taskService.list();
+    this.tasks = this.taskService.list().pipe(first());
   }
 
   sprints: Sprint[] = [
@@ -88,33 +88,22 @@ export class BoardComponent implements OnInit {
   }
 
   onAdd() {
-    let _modal = this.dialog.open(TaskFormModalComponent, {
-      width: `80%`,
-      height: `80%`,
-    });
+    let _modal = this.dialog.open(TaskFormModalComponent, {});
 
-    _modal.afterClosed().subscribe((task) => {
+    _modal.afterClosed().subscribe(() => {
       this.ngOnInit();
     });
   }
 
   onEdit(task: Task) {
     let _modal = this.dialog.open(TaskFormModalComponent, {
-      width: `80%`,
-      height: `80%`,
       data: {
-        id: task.id,
-        title: task.title,
-        userId: task.user.id,
-        assignmentDate: task.assignmentDate,
-        endDate: task.endDate,
-        effort: task.effort,
-        description: task.description,
-        status: task.status,
+        task: task,
+        disableable: false,
       },
     });
 
-    _modal.afterClosed().subscribe((task) => {
+    _modal.afterClosed().subscribe(() => {
       this.ngOnInit();
     });
   }
