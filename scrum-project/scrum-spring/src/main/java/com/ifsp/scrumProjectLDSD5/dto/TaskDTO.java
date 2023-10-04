@@ -22,7 +22,7 @@ public class TaskDTO implements ITask{
 	private Integer effort;
 	private String description;
 	private Status status;
-	
+	private UserStoryDTO userStory;
 	
 	
 	public void removePassword() {
@@ -78,5 +78,11 @@ public class TaskDTO implements ITask{
 	}
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+	public UserStoryDTO getUserStory() {
+		return userStory;
+	}
+	public void setUserStory(UserStoryDTO userStory) {
+		this.userStory = userStory;
 	}
 }

@@ -29,6 +29,8 @@ public class Task  {
 	private LocalDateTime endDate;
 	private Integer effort;
 	private String description;
+	@ManyToOne
+	private UserStory userStory;
 	@Enumerated(EnumType.STRING)
 	private Status status;	
 	
@@ -91,5 +93,13 @@ public class Task  {
 	}
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public UserStory getUserStory() {
+		return userStory;
+	}
+
+	public void setUserStory(UserStory userStory) {
+		this.userStory = userStory;
 	}
 }
