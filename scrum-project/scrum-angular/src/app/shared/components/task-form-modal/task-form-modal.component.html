@@ -46,6 +46,16 @@
     </mat-form-field>
 
     <mat-form-field class="full-width">
+      <mat-label>História de usuário</mat-label>
+      <mat-select formControlName="userStory">
+        <mat-option value="null"></mat-option>
+        <mat-option *ngFor="let option of userStoryOptions" [value]="option.id">
+          {{ option.title }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
       <mat-label>Descrição</mat-label>
       <textarea
         matInput
@@ -58,11 +68,11 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end" class="task-form-actions">
-  <ng-container *ngIf="data.task && data.disableable">
+  <!-- <ng-container *ngIf="data.task && data.enableable">
     <button mat-fab extended (click)="onRestore()" class="restore-button">
-      Restaurar
+      Excluir
     </button>
-  </ng-container>
+  </ng-container> -->
 
   <button mat-fab extended mat-dialog-close class="cancel-button">
     Cancelar

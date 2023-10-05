@@ -34,7 +34,7 @@
         <mat-header-cell *matHeaderCellDef> Responsável </mat-header-cell>
 
         <mat-cell *matCellDef="let task">
-          {{ task.user.id | username | async }}
+          {{ task.userId | username | async }}
         </mat-cell>
       </ng-container>
 
@@ -66,21 +66,6 @@
         <mat-header-cell *matHeaderCellDef> Data de entrega </mat-header-cell>
 
         <mat-cell *matCellDef="let task"> {{ task.endDate }} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="status">
-        <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
-
-        <mat-cell
-          *matCellDef="let task"
-          [ngClass]="{
-            'status-to-do': task.status == 'TO_DO',
-            'status-in-progress': task.status == 'IN_PROGRESS',
-            'status-done': task.status == 'DONE'
-          }"
-        >
-          {{ task.status | status }}
-        </mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

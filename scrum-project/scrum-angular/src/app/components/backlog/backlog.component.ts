@@ -58,7 +58,7 @@ export class BacklogComponent implements OnInit {
     let _modal = this.dialog.open(TaskFormModalComponent, {
       data: {
         task: task,
-        disableable: false,
+        enableable: false,
       },
     });
 
