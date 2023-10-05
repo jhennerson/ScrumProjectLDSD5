@@ -4,8 +4,10 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { Task } from 'src/app/models/task/task';
+import { UserStory } from 'src/app/models/user-story/user-story';
 import { User } from 'src/app/models/user/user';
 import { TaskService } from 'src/app/services/task/task.service';
+import { UserStoryService } from 'src/app/services/user-story/user-story.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -16,18 +18,22 @@ import { UserService } from 'src/app/services/user/user.service';
 export class TaskFormModalComponent implements OnInit {
   form: FormGroup;
   users: Observable<User[]>;
+  userStories: Observable<UserStory[]>;
 
   userOptions: User[] = [];
+  userStoryOptions: UserStory[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private taskService: TaskService,
     private userService: UserService,
+    private userStoryService: UserStoryService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public data: { task: Task; disableable: boolean }
+    @Inject(MAT_DIALOG_DATA) public data: { task: Task; enableable: boolean }
   ) {
     this.users = this.userService.list();
+    this.userStories = this.userStoryService.list();
 
     this.form = this.formBuilder.group({
       id: ['', [Validators.required]],
@@ -45,7 +51,7 @@ export class TaskFormModalComponent implements OnInit {
       this.form.patchValue({
         id: data.task.id,
         title: data.task.title,
-        user: data.task.user.id,
+        user: data.task.userId,
         assignmentDate: data.task.assignmentDate,
         endDate: data.task.endDate,
         effort: data.task.effort,
@@ -84,6 +90,10 @@ export class TaskFormModalComponent implements OnInit {
     this.userService
       .list()
       .subscribe((options) => (this.userOptions = options));
+
+    this.userStoryService
+      .list()
+      .subscribe((options) => (this.userStoryOptions = options));
   }
 
   ngOnInit() {

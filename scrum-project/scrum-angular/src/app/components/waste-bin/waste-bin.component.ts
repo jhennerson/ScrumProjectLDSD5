@@ -25,7 +25,6 @@ export class WasteBinComponent {
     'endDate',
     'effort',
     'userStory',
-    'status',
   ];
 
   constructor(
@@ -59,7 +58,7 @@ export class WasteBinComponent {
     let _modal = this.dialog.open(TaskFormModalComponent, {
       data: {
         task: task,
-        disableable: true,
+        enableable: true,
       },
     });
 
