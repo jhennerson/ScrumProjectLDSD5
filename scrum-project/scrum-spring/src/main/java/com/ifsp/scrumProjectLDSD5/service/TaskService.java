@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.ifsp.scrumProjectLDSD5.JPA.TaskJPA;
 import com.ifsp.scrumProjectLDSD5.JPA.UserJPA;
 import com.ifsp.scrumProjectLDSD5.dto.TaskDTO;
@@ -39,6 +40,7 @@ public class TaskService {
     	om = new ObjectMapper();
     	om.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
     	om.addMixIn(UserDTO.class, UserDTOPasswordEmailMixin.class);
+    	om.registerModule(new JavaTimeModule());
     }	
 	
 	public ResponseEntity<?> getAllTasks(){
