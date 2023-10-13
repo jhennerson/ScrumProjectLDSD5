@@ -30,7 +30,6 @@ public class ApplicationControllerAdvice {
     public ResponseEntity<ExceptionDTO> usuarioNaoEncontrado(UsuarioNaoEncontradoException e){
     	ExceptionDTO exception = new ExceptionDTO();
     	exception.setStatus(Integer.valueOf(HttpStatus.NOT_FOUND.value()));
-//    	exception.setPath(RequestPathFilter.getRequestPath());
     	exception.setError(HttpStatus.NOT_FOUND.getReasonPhrase());
     	
     	if(e.getId() == null) {
@@ -50,7 +49,6 @@ public class ApplicationControllerAdvice {
     public ResponseEntity<ExceptionDTO> EmptyRecordException(EmptyRecordException e){
     	ExceptionDTO exception = new ExceptionDTO();
     	exception.setStatus(Integer.valueOf(HttpStatus.NOT_FOUND.value()));
-//    	exception.setPath(RequestPathFilter.getRequestPath());
     	exception.setError(HttpStatus.NOT_FOUND.getReasonPhrase());
     	
     	if(e.getId() == null) {

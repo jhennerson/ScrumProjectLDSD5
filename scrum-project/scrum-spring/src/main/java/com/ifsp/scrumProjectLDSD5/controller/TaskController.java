@@ -37,7 +37,12 @@ public class TaskController {
 	
 	@PostMapping
 	public ResponseEntity<ITask> createTask(@RequestBody @Validated TaskForm taskForm){
-		return taskService.create(taskForm);
+		try {
+			return taskService.create(taskForm);			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	@PutMapping()
