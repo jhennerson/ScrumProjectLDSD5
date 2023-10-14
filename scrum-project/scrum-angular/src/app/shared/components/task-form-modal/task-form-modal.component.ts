@@ -38,13 +38,13 @@ export class TaskFormModalComponent implements OnInit {
     this.form = this.formBuilder.group({
       id: ['', [Validators.required]],
       title: ['', [Validators.required]],
-      user: [''],
+      person: [''],
       assignmentDate: [''],
       endDate: [''],
       storyPoints: [''],
       description: [''],
       status: ['TO_DO'],
-      userStory: [''],
+      userStory: ['', [Validators.required]],
     });
 
     if (data) {
@@ -62,6 +62,7 @@ export class TaskFormModalComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.form.value);
     this.taskService.save(this.form.value).subscribe(
       (result) => this.onSuccess(),
       (error) => this.onError()
