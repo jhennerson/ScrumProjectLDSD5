@@ -1,21 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { first } from 'rxjs';
-import { User } from 'src/app/models/user/user';
+import { Person } from 'src/app/models/person/person';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
-  private readonly API = 'api/users';
+export class PersonService {
+  private readonly API = 'api/persons';
 
   constructor(private httpClient: HttpClient) {}
 
   list() {
-    return this.httpClient.get<User[]>(this.API).pipe(first());
+    return this.httpClient.get<Person[]>(this.API).pipe(first());
   }
 
   loadById(id: string) {
-    return this.httpClient.get<User>(`${this.API}/${id}`);
+    return this.httpClient.get<Person>(`${this.API}/${id}`);
   }
 }
