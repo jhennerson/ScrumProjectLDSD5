@@ -1,19 +1,15 @@
 package com.ifsp.scrumProjectLDSD5.controller;
 
+import com.ifsp.scrumProjectLDSD5.exception.RecordNotFoundException;
+
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.util.Random;
-
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.ifsp.scrumProjectLDSD5.dto.ExceptionDTO;
-import com.ifsp.scrumProjectLDSD5.exception.EmptyRecordException;
-import com.ifsp.scrumProjectLDSD5.exception.RecordNotFoundException;
-import com.ifsp.scrumProjectLDSD5.exception.UsuarioNaoEncontradoException;
-import com.ifsp.scrumProjectLDSD5.filter.RequestPathFilter;
+import jakarta.validation.ConstraintViolationException;
 
 @RestControllerAdvice
 public class ApplicationControllerAdvice {
@@ -23,55 +19,32 @@ public class ApplicationControllerAdvice {
     public String handleNotFoundException(RecordNotFoundException ex) {
         return ex.getMessage();
     }
-    
-    
-    @ExceptionHandler(UsuarioNaoEncontradoException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<ExceptionDTO> usuarioNaoEncontrado(UsuarioNaoEncontradoException e){
-    	ExceptionDTO exception = new ExceptionDTO();
-    	exception.setStatus(Integer.valueOf(HttpStatus.NOT_FOUND.value()));
-    	exception.setPath(RequestPathFilter.getRequestPath());
-    	exception.setError(HttpStatus.NOT_FOUND.getReasonPhrase());
-    	
-    	if(e.getId() == null) {
-    		exception.setMessage("Usuario não encontrado");    		
-    	}else {
-    		exception.setMessage("Usuario de ID " + e.getId() + " não foi encontrado");
-    	}
-    	
-    	
-    	alterarMensagemAleatoriamente(exception);
-    	return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception);
-    }
-    
-    
-    @ExceptionHandler(EmptyRecordException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<ExceptionDTO> EmptyRecordException(EmptyRecordException e){
-    	ExceptionDTO exception = new ExceptionDTO();
-    	exception.setStatus(Integer.valueOf(HttpStatus.NOT_FOUND.value()));
-    	exception.setPath(RequestPathFilter.getRequestPath());
-    	exception.setError(HttpStatus.NOT_FOUND.getReasonPhrase());
-    	
-    	if(e.getId() == null) {
-        	exception.setMessage("Nenhum resultado foi encontrado");  		
-    	}else {
-    		exception.setMessage("Nenhum resultado com ID " + e.getId() + " foi encontrado");
-    	}
-  		
-    
-    	return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception);
-    }
-    
-    private static void alterarMensagemAleatoriamente(ExceptionDTO exceptionDTO) {
-        int randomNumber = new Random().nextInt(1000) + 1;
-        if (randomNumber <= 1) {
-        	exceptionDTO.setCamposComoNulo();
-            exceptionDTO.setMessage("Eu sabo");
-            exceptionDTO.setPath("https://imgur.com/a/58qqgQO");
-        }
-    }
-    
-    
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+        return ex.getBindingResult().getFieldErrors().stream()
+                .map(error -> error.getField() + " " + error.getDefaultMessage())
+                .reduce("", (acc, error) -> acc + error + "\n");
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleConstraintViolationException(ConstraintViolationException ex) {
+        return ex.getConstraintViolations().stream()
+                .map(error -> error.getPropertyPath() + " " + error.getMessage())
+                .reduce("", (acc, error) -> acc + error + "\n");
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
+        if (ex != null && ex.getRequiredType() != null) {
+            String type = ex.getRequiredType().getName();
+            String[] typeParts = type.split("\\.");
+            String typeName = typeParts[typeParts.length - 1];
+            return ex.getName() + " should be of type " + typeName;
+        }
+        return "Argument type not valid";
+    }
 }
