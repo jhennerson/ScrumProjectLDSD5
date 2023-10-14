@@ -1,11 +1,8 @@
 package com.ifsp.scrumProjectLDSD5.entity;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import com.ifsp.scrumProjectLDSD5.enumeration.Status;
-import com.ifsp.scrumProjectLDSD5.form.TaskForm;
-import com.ifsp.scrumProjectLDSD5.interfaces.ITask;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -14,83 +11,111 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name="TASK")
+@Table(name="tasks")
 public class Task  {
 	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotBlank
+	@NotNull
 	private String title;
+
 	@ManyToOne
-	private User user;
-	private LocalDateTime assignmentDate;
-	private LocalDateTime endDate;
-	private Integer effort;
+	private Person person;
+
+	private Date assignmentDate;
+
+	private Date endDate;
+
+	private Integer storyPoints;
+
 	private String description;
+
 	@ManyToOne
 	private UserStory userStory;
+
 	@Enumerated(EnumType.STRING)
 	private Status status;	
 	
 	public Task() {}
 	
-	public Task(TaskForm taskForm) {
-		this.title = taskForm.getTitle();
-		this.user = new User();
-		this.assignmentDate = taskForm.getAssignmentDate();
-		this.endDate = taskForm.getEndDate();
-		this.effort = taskForm.getEffort();
-		this.description = taskForm.getDescription();
-		this.status = taskForm.getStatus();
+	public Task(Task task) {
+		this.title = task.getTitle();
+		this.person = task.getPerson();
+		this.assignmentDate = task.getAssignmentDate();
+		this.endDate = task.getEndDate();
+		this.storyPoints = task.getStoryPoints();
+		this.description = task.getDescription();
+		this.userStory = task.getUserStory();
+		this.status = task.getStatus();
 	}
 
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public User getUser() {
-		return user;
+
+	public Person getPerson() {
+		return person;
 	}
-	public void setUser(User user) {
-		this.user = user;
+
+	public void setPerson(Person person) {
+		this.person = person;
 	}
-	public LocalDateTime getAssignmentDate() {
+
+	public Date getAssignmentDate() {
 		return assignmentDate;
 	}
-	public void setAssignmentDate(LocalDateTime assignmentDate) {
+
+	public void setAssignmentDate(Date assignmentDate) {
 		this.assignmentDate = assignmentDate;
 	}
-	public LocalDateTime getEndDate() {
+
+	public Date getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(LocalDateTime endDate) {
+
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	public Integer getEffort() {
-		return effort;
+
+	public Integer getStoryPoints() {
+		return storyPoints;
 	}
-	public void setEffort(Integer effort) {
-		this.effort = effort;
+
+	public void setStoryPoints(Integer storyPoints) {
+		this.storyPoints = storyPoints;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	public Status getStatus() {
 		return status;
 	}
+
 	public void setStatus(Status status) {
 		this.status = status;
 	}
