@@ -41,6 +41,7 @@ public class TaskMapper {
         task.setEndDate(taskDTO.endDate());
         task.setStoryPoints(taskDTO.storyPoints());
         task.setDescription(taskDTO.description());
+        task.setUserStory(taskDTO.userStory());
         task.setStatus(taskDTO.status());
 
         return task;

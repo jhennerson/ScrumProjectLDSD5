@@ -1,7 +1,7 @@
 import { Person } from '../person/person';
 
 export interface UserStory {
-  id: string;
+  id: number;
   title: string;
   assignee: Person;
   reporter: Person;
