@@ -1,52 +1,61 @@
 package com.ifsp.scrumProjectLDSD5.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ifsp.scrumProjectLDSD5.form.TaskForm;
-import com.ifsp.scrumProjectLDSD5.interfaces.ITask;
+import com.ifsp.scrumProjectLDSD5.dto.TaskDTO;
 import com.ifsp.scrumProjectLDSD5.service.TaskService;
 
-@CrossOrigin("*")
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
+@Validated
 @RestController
 @RequestMapping("/api/tasks")
 public class TaskController {
 	
-	@Autowired
-	private TaskService taskService;
+	private final TaskService taskService;
 	
+	public TaskController(TaskService taskService) {
+		this.taskService = taskService;
+	}
+
 	@GetMapping
-	public ResponseEntity<?> getAllTasks(){
-		return taskService.getAllTasks();
+	public List<TaskDTO> list() {
+		return taskService.list();
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<ITask> getTaskById(@PathVariable Long id){
-		return taskService.findTaskById(id);
+	public TaskDTO findById(@PathVariable @NotNull @Positive Long id) {
+		return taskService.findById(id);
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<ITask> createTask(@RequestBody @Validated TaskForm taskForm){
-		return taskService.create(taskForm);
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public TaskDTO create(@RequestBody @Valid @NotNull TaskDTO task) {
+		return taskService.create(task);
 	}
-	
-	@PutMapping()
-	public ResponseEntity<ITask> updateTask(@RequestBody @Validated TaskForm taskForm){
-		return taskService.update(taskForm);
+
+	@PatchMapping("/{id}")
+	public TaskDTO update(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid @NotNull TaskDTO task) {
+		return taskService.update(id, task);
 	}
-	
+
 	@DeleteMapping("/{id}")
-	public ResponseEntity<ITask> deleteTaskById(@PathVariable Long id){
-		return taskService.deleteById(id);
+	@ResponseStatus(code = HttpStatus.NO_CONTENT)
+	public void delete(@PathVariable @NotNull @Positive Long id) {
+		taskService.delete(id);
 	}
-}
+} 
