@@ -44,14 +44,14 @@
         <mat-header-cell *matHeaderCellDef> Responsável </mat-header-cell>
 
         <mat-cell *matCellDef="let task">
-          {{ task.user.id | username | async }}
+          {{ task.person.id | username | async }}
         </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="effort">
+      <ng-container matColumnDef="storyPoints">
         <mat-header-cell *matHeaderCellDef> Esforço atribuído </mat-header-cell>
 
-        <mat-cell *matCellDef="let task"> {{ task.effort }} </mat-cell>
+        <mat-cell *matCellDef="let task"> {{ task.storyPoints }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="userStory">

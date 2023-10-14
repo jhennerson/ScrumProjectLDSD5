@@ -1,6 +1,6 @@
 import { UsernamePipe } from './username.pipe';
-import { User } from 'src/app/models/user/user';
-import { UserService } from 'src/app/services/user/user.service';
+import { User } from 'src/app/models/person/person';
+import { UserService } from 'src/app/services/person/person.service';
 import { of } from 'rxjs';
 
 describe('UsernamePipe', () => {

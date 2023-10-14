@@ -1,17 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { User } from 'src/app/models/user/user';
-import { UserService } from 'src/app/services/user/user.service';
+import { Person } from 'src/app/models/person/person';
+import { PersonService } from 'src/app/services/person/person.service';
 
 @Pipe({
   name: 'username',
 })
 export class UsernamePipe implements PipeTransform {
-  constructor(private userService: UserService) {}
+  constructor(private personService: PersonService) {}
 
-  transform(userId: string): Observable<string> {
-    return this.userService
-      .loadById(userId)
-      .pipe(map((user: User) => user.username));
+  transform(id: string): Observable<string> {
+    return this.personService
+      .loadById(id)
+      .pipe(map((person: Person) => person.username));
   }
 }

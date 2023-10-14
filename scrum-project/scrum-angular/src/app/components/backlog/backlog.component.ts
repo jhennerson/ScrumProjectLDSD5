@@ -22,7 +22,7 @@ export class BacklogComponent implements OnInit {
     'assignedTo',
     'assignmentDate',
     'endDate',
-    'effort',
+    'storyPoints',
     'userStory',
     'status',
   ];

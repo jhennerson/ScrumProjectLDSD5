@@ -5,10 +5,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { Task } from 'src/app/models/task/task';
 import { UserStory } from 'src/app/models/user-story/user-story';
-import { User } from 'src/app/models/user/user';
+import { Person } from 'src/app/models/person/person';
 import { TaskService } from 'src/app/services/task/task.service';
 import { UserStoryService } from 'src/app/services/user-story/user-story.service';
-import { UserService } from 'src/app/services/user/user.service';
+import { PersonService } from 'src/app/services/person/person.service';
 
 @Component({
   selector: 'app-task-form-modal',
@@ -17,22 +17,22 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class TaskFormModalComponent implements OnInit {
   form: FormGroup;
-  users: Observable<User[]>;
+  users: Observable<Person[]>;
   userStories: Observable<UserStory[]>;
 
-  userOptions: User[] = [];
+  userOptions: Person[] = [];
   userStoryOptions: UserStory[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private taskService: TaskService,
-    private userService: UserService,
+    private personService: PersonService,
     private userStoryService: UserStoryService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: { task: Task; enableable: boolean }
   ) {
-    this.users = this.userService.list();
+    this.users = this.personService.list();
     this.userStories = this.userStoryService.list();
 
     this.form = this.formBuilder.group({
@@ -41,7 +41,7 @@ export class TaskFormModalComponent implements OnInit {
       user: [''],
       assignmentDate: [''],
       endDate: [''],
-      effort: [''],
+      storyPoints: [''],
       description: [''],
       status: ['TO_DO'],
       userStory: [''],
@@ -51,10 +51,10 @@ export class TaskFormModalComponent implements OnInit {
       this.form.patchValue({
         id: data.task.id,
         title: data.task.title,
-        user: data.task.userId,
+        person: data.task.person,
         assignmentDate: data.task.assignmentDate,
         endDate: data.task.endDate,
-        effort: data.task.effort,
+        storyPoints: data.task.storyPoints,
         description: data.task.description,
         userStory: data.task.userStory,
       });
@@ -87,7 +87,7 @@ export class TaskFormModalComponent implements OnInit {
   }
 
   loadUsers() {
-    this.userService
+    this.personService
       .list()
       .subscribe((options) => (this.userOptions = options));
 
