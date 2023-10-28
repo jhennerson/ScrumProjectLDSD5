@@ -13,7 +13,7 @@
   </div>
 
   <mat-card class="waste-bin-content">
-    <mat-table [dataSource]="tasks" class="mat-elevation-z8">
+    <mat-table [dataSource]="disabledTasks" class="mat-elevation-z8">
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef>Operações</mat-header-cell>
 
@@ -38,10 +38,10 @@
         </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="effort">
+      <ng-container matColumnDef="storyPoints">
         <mat-header-cell *matHeaderCellDef> Esforço atribuído </mat-header-cell>
 
-        <mat-cell *matCellDef="let task"> {{ task.effort }} </mat-cell>
+        <mat-cell *matCellDef="let task"> {{ task.storyPoints }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="userStory">
@@ -66,6 +66,19 @@
         <mat-header-cell *matHeaderCellDef> Data de entrega </mat-header-cell>
 
         <mat-cell *matCellDef="let task"> {{ task.endDate }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+
+        <mat-cell
+          *matCellDef="let task"
+          [ngClass]="{
+            'status-to-do': task.status == 'DISABLED',
+          }"
+        >
+          {{ task.status | status }}
+        </mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

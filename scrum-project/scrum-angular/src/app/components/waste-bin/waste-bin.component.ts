@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
+import { Observable, first, map } from 'rxjs';
 import { Sprint } from 'src/app/models/sprint/sprint';
 import { Task } from 'src/app/models/task/task';
 import { TaskService } from 'src/app/services/task/task.service';
@@ -13,9 +13,7 @@ import { TaskFormModalComponent } from 'src/app/shared/components/task-form-moda
   styleUrls: ['./waste-bin.component.scss'],
 })
 export class WasteBinComponent {
-  tasks: Observable<Task[]>;
-
-  disabled: Task[] = [];
+  disabledTasks: Observable<Task[]>;
 
   displayedColumns = [
     'actions',
@@ -23,8 +21,9 @@ export class WasteBinComponent {
     'assignedTo',
     'assignmentDate',
     'endDate',
-    'effort',
+    'storyPoints',
     'userStory',
+    'status',
   ];
 
   constructor(
@@ -32,7 +31,7 @@ export class WasteBinComponent {
     public dialog: MatDialog,
     public snackBar: MatSnackBar
   ) {
-    this.tasks = this.taskService.list();
+    this.disabledTasks = this.taskService.list().pipe(first());
   }
 
   sprints: Sprint[] = [
@@ -68,9 +67,10 @@ export class WasteBinComponent {
   }
 
   loadTasks() {
-    this.tasks.subscribe((tasks) => {
-      this.disabled = tasks.filter((task) => task.status === 'DISABLED');
-    });
+    this.disabledTasks = this.taskService.list().pipe(
+      first(),
+      map((tasks) => tasks.filter((task) => task.status === 'DISABLED'))
+    );
   }
 
   ngOnInit() {
