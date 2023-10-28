@@ -1,10 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'status'
+  name: 'status',
 })
 export class StatusPipe implements PipeTransform {
-
   transform(value: string): string {
     switch (value) {
       case 'TO_DO':
@@ -13,6 +12,8 @@ export class StatusPipe implements PipeTransform {
         return 'Em progresso';
       case 'DONE':
         return 'Finalizada';
+      case 'DISABLED':
+        return 'Excluída';
       default:
         throw new Error(`Status inválido: ${value}`);
     }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, first } from 'rxjs';
+import { Observable, first, map } from 'rxjs';
 import { TaskFormModalComponent } from 'src/app/shared/components/task-form-modal/task-form-modal.component';
 
 import { Sprint } from '../../models/sprint/sprint';
@@ -14,7 +14,7 @@ import { TaskService } from '../../services/task/task.service';
   styleUrls: ['./backlog.component.scss'],
 })
 export class BacklogComponent implements OnInit {
-  tasks: Observable<Task[]>;
+  enabledTasks: Observable<Task[]>;
 
   displayedColumns = [
     'actions',
@@ -32,7 +32,7 @@ export class BacklogComponent implements OnInit {
     public dialog: MatDialog,
     public snackBar: MatSnackBar
   ) {
-    this.tasks = this.taskService.list().pipe(first());
+    this.enabledTasks = this.taskService.list().pipe(first());
   }
 
   sprints: Sprint[] = [
@@ -68,7 +68,10 @@ export class BacklogComponent implements OnInit {
   }
 
   loadTasks() {
-    this.tasks = this.taskService.list().pipe(first());
+    this.enabledTasks = this.taskService.list().pipe(
+      first(),
+      map((tasks) => tasks.filter((task) => task.status !== 'DISABLED'))
+    );
   }
 
   ngOnInit() {
