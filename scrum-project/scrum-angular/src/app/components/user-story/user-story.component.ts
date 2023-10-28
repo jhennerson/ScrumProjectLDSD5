@@ -16,11 +16,11 @@ export class UserStoryComponent implements OnInit {
   userStories: Observable<UserStory[]>;
 
   displayedColumns = [
-    'actions',
     'title',
     'assignee',
     'reporter',
     'description',
+    'actions',
   ];
 
   constructor(

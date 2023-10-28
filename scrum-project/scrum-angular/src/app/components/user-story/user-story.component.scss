@@ -87,3 +87,9 @@ mat-cell {
   border-bottom: 1px solid #2c2c2c;
   color: #2c2c2c;
 }
+
+.mat-column-actions {
+  flex: 0 0 12%;
+  text-align: center;
+  justify-content: center;
+}

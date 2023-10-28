@@ -17,7 +17,6 @@ export class BacklogComponent implements OnInit {
   enabledTasks: Observable<Task[]>;
 
   displayedColumns = [
-    'actions',
     'title',
     'assignedTo',
     'assignmentDate',
@@ -25,6 +24,7 @@ export class BacklogComponent implements OnInit {
     'storyPoints',
     'userStory',
     'status',
+    'actions',
   ];
 
   constructor(
