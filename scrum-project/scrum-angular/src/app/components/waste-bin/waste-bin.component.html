@@ -14,16 +14,6 @@
 
   <mat-card class="waste-bin-content">
     <mat-table [dataSource]="disabledTasks" class="mat-elevation-z8">
-      <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef>Operações</mat-header-cell>
-
-        <mat-cell *matCellDef="let task">
-          <button mat-icon-button aria-label="Ver tudo" (click)="onEdit(task)">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-        </mat-cell>
-      </ng-container>
-
       <ng-container matColumnDef="title">
         <mat-header-cell *matHeaderCellDef> Título </mat-header-cell>
 
@@ -78,6 +68,16 @@
           }"
         >
           {{ task.status | status }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Operações</mat-header-cell>
+
+        <mat-cell *matCellDef="let task">
+          <button mat-icon-button aria-label="Ver tudo" (click)="onEdit(task)">
+            <mat-icon>more_vert</mat-icon>
+          </button>
         </mat-cell>
       </ng-container>
 

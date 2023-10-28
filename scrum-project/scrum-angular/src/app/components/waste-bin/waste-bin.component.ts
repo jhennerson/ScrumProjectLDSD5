@@ -16,7 +16,6 @@ export class WasteBinComponent {
   disabledTasks: Observable<Task[]>;
 
   displayedColumns = [
-    'actions',
     'title',
     'assignedTo',
     'assignmentDate',
@@ -24,6 +23,7 @@ export class WasteBinComponent {
     'storyPoints',
     'userStory',
     'status',
+    'actions',
   ];
 
   constructor(
