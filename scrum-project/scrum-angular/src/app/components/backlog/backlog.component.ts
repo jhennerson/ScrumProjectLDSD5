@@ -7,6 +7,8 @@ import { TaskFormModalComponent } from 'src/app/shared/components/task-form-moda
 import { Sprint } from '../../models/sprint/sprint';
 import { Task } from '../../models/task/task';
 import { TaskService } from '../../services/task/task.service';
+import { Status } from 'src/app/enum/status.enum';
+import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-backlog',
@@ -55,22 +57,59 @@ export class BacklogComponent implements OnInit {
   }
 
   onEdit(task: Task) {
-    let _modal = this.dialog.open(TaskFormModalComponent, {
+    const dialogRef = this.dialog.open(TaskFormModalComponent, {
       data: {
         task: task,
         enableable: false,
       },
     });
 
-    _modal.afterClosed().subscribe(() => {
-      this.ngOnInit();
+    dialogRef.afterClosed().subscribe(() => {
+      this.loadTasks();
+    });
+  }
+
+  onDisable(task: Task) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: 'Deseja realmente apagar essa tarefa?',
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        task.status = Status.Disabled;
+        this.updateTaskStatus(task);
+      }
+    });
+  }
+
+  private updateTaskStatus(task: Task) {
+    this.taskService.save(task).subscribe({
+      next: () => {
+        this.onSuccess();
+        this.loadTasks();
+      },
+      error: () => this.onError(),
+    });
+  }
+
+  private onSuccess() {
+    this.snackBar.open('Tarefa salva com sucesso!', 'X', {
+      duration: 2000,
+      panelClass: 'task-status-snackbar',
+    });
+  }
+
+  private onError() {
+    this.snackBar.open('Erro ao salvar tarefa!', 'X', {
+      duration: 2000,
+      panelClass: 'task-status-snackbar',
     });
   }
 
   loadTasks() {
     this.enabledTasks = this.taskService.list().pipe(
       first(),
-      map((tasks) => tasks.filter((task) => task.status !== 'DISABLED'))
+      map((tasks) => tasks.filter((task) => task.status !== Status.Disabled))
     );
   }
 

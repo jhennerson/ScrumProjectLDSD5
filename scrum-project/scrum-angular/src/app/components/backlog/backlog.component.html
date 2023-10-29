@@ -87,13 +87,16 @@
         <mat-header-cell *matHeaderCellDef>Operações</mat-header-cell>
 
         <mat-cell *matCellDef="let task">
+          <button mat-icon-button aria-label="Ver tudo" (click)="onEdit(task)">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+
           <button
             mat-icon-button
-            class="actions-column"
-            aria-label="Ver tudo"
-            (click)="onEdit(task)"
+            aria-label="Mover para a lixeira"
+            (click)="onDisable(task)"
           >
-            <mat-icon>more_vert</mat-icon>
+            <mat-icon>delete</mat-icon>
           </button>
         </mat-cell>
       </ng-container>

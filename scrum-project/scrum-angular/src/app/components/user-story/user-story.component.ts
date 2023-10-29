@@ -43,20 +43,20 @@ export class UserStoryComponent implements OnInit {
   ];
 
   onAdd() {
-    let _modal = this.dialog.open(UserStoryFormModalComponent, {});
+    const dialogRef = this.dialog.open(UserStoryFormModalComponent, {});
 
-    _modal.afterClosed().subscribe(() => {
-      this.ngOnInit();
+    dialogRef.afterClosed().subscribe(() => {
+      this.loadTasks();
     });
   }
 
   onEdit(userStory: UserStory) {
-    let _modal = this.dialog.open(UserStoryFormModalComponent, {
+    const dialogRef = this.dialog.open(UserStoryFormModalComponent, {
       data: userStory,
     });
 
-    _modal.afterClosed().subscribe(() => {
-      this.ngOnInit();
+    dialogRef.afterClosed().subscribe(() => {
+      this.loadTasks();
     });
   }
 
