@@ -19,7 +19,8 @@ export class WasteBinComponent {
 
   displayedColumns = [
     'title',
-    'assignedTo',
+    'assignee',
+    'reporter',
     'assignmentDate',
     'endDate',
     'storyPoints',
