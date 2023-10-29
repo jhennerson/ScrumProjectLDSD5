@@ -49,6 +49,7 @@ public class TaskService {
 		return taskRepository.findById(id)
 				.map(recordFound -> {
 					recordFound.setTitle(task.title());
+					recordFound.setSprint(task.sprint());
 					recordFound.setPerson(task.person());
 					recordFound.setAssignmentDate(task.assignmentDate());
 					recordFound.setEndDate(task.endDate());
