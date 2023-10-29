@@ -1,0 +1,8 @@
+
+Instalar o WSL, Docker e DBeaver
+
+Criar as pastas C:\postgres
+
+Criar a pastas C:\scripts > ou qualquer outro diretorio de sua preferencias e deixar o arquivo db.sql
+
+apenas rodar o docker compose

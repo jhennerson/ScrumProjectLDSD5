@@ -1,0 +1,12 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_PASSWORD: dba2023
+    ports:
+      - "5432:5432"
+    volumes:
+      - C:/WorkSpace/script:/docker-entrypoint-initdb.d
+      - C:/postgres:/var/lib/postgresql/data
