@@ -29,6 +29,16 @@ public class UserStory {
 
 	private String description;
 
+	public UserStory() {
+	}
+
+	public UserStory(UserStory userStory) {
+		this.title = userStory.getTitle();
+		this.assignee = userStory.getAssignee();
+		this.reporter = userStory.getReporter();
+		this.description = userStory.getDescription();
+	}
+
 	public Long getId() {
 		return id;
 	}

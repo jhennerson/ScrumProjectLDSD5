@@ -1,8 +1,17 @@
 package com.ifsp.scrumProjectLDSD5.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.validator.constraints.Length;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -36,10 +45,10 @@ public class Person {
 	public Person() {}
 
 	public Person(Person person) {
-		this.id = person.id;
-		this.username = person.username;
-		this.password = person.password;
-		this.email = person.email;
+		this.id = person.getId();
+		this.username = person.getUsername();
+		this.password = person.getPassword();
+		this.email = person.getEmail();
 	}
 
 	public String getUsername() {
