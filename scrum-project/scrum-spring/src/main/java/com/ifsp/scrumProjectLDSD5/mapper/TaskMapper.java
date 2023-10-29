@@ -15,6 +15,7 @@ public class TaskMapper {
 
         return new TaskDTO(task.getId(),
                 task.getTitle(),
+                task.getSprint(),
                 task.getPerson(),
                 task.getAssignmentDate(),
                 task.getEndDate(),
@@ -36,6 +37,7 @@ public class TaskMapper {
         }
 
         task.setTitle(taskDTO.title());
+        task.setSprint(taskDTO.sprint());
         task.setPerson(taskDTO.person());
         task.setAssignmentDate(taskDTO.assignmentDate());
         task.setEndDate(taskDTO.endDate());

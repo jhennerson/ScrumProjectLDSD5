@@ -15,7 +15,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name="tasks")
+@Table(name="task")
 public class Task  {
 	
 	@Id
@@ -25,6 +25,9 @@ public class Task  {
 	@NotBlank
 	@NotNull
 	private String title;
+
+	@ManyToOne
+	private Sprint sprint;	
 
 	@ManyToOne
 	private Person person;
@@ -47,6 +50,7 @@ public class Task  {
 	
 	public Task(Task task) {
 		this.title = task.getTitle();
+		this.sprint = task.getSprint();
 		this.person = task.getPerson();
 		this.assignmentDate = task.getAssignmentDate();
 		this.endDate = task.getEndDate();
@@ -70,6 +74,14 @@ public class Task  {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public Sprint getSprint() {
+		return sprint;
+	}
+
+	public void setSprint(Sprint sprint) {
+		this.sprint = sprint;
 	}
 
 	public Person getPerson() {
