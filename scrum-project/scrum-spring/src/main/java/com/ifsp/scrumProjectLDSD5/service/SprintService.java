@@ -49,11 +49,10 @@ public class SprintService {
         return sprintRepository.findById(id)
                 .map(recordFound -> {
                     recordFound.setTitle(sprint.title());
-                    recordFound.setAssignee(sprint.assignee());
+                    recordFound.setReporter(sprint.reporter());
                     recordFound.setDescription(sprint.description());
                     recordFound.setAssignmentDate(sprint.assignmentDate());
                     recordFound.setEndDate(sprint.endDate());
-                    recordFound.setTasks(sprint.tasks());
 
                     return sprintMapper.toDTO(sprintRepository.save(recordFound));
                 }).orElseThrow(() -> new RecordNotFoundException(id));

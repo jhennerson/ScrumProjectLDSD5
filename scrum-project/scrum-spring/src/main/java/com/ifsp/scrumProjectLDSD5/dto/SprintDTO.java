@@ -19,14 +19,11 @@ public record SprintDTO(
     @NotNull
     String title,
     
-    Person assignee,
+    Person reporter,
 
     String description,
 
     Date assignmentDate,
 
-	Date endDate,
-
-    @Valid
-    List<Task> tasks
+	Date endDate
 ) {}

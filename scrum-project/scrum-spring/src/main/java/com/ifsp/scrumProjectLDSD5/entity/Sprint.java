@@ -28,7 +28,7 @@ public class Sprint {
     private String title;
 
     @ManyToOne
-    private Person assignee;
+    private Person reporter;
 
     private String description;
 
@@ -36,17 +36,12 @@ public class Sprint {
 
 	private Date endDate;
 
-    @Valid
-    @OneToMany
-    private List<Task> tasks = new ArrayList<>();
-
     public Sprint() {}
 
     public Sprint(Sprint sprint) {
         this.title = sprint.getTitle();
-        this.assignee = sprint.getAssignee();
+        this.reporter = sprint.getReporter();
         this.description = sprint.getDescription();
-        this.tasks = sprint.getTasks();
     }
 
     public Long getId() {
@@ -65,12 +60,12 @@ public class Sprint {
         this.title = title;
     }
 
-    public Person getAssignee() {
-        return assignee;
+    public Person getReporter() {
+        return reporter;
     }
 
-    public void setAssignee(Person assignee) {
-        this.assignee = assignee;
+    public void setReporter(Person reporter) {
+        this.reporter = reporter;
     }
 
     public String getDescription() {
@@ -96,12 +91,4 @@ public class Sprint {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-
-    public List<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-    }
 }

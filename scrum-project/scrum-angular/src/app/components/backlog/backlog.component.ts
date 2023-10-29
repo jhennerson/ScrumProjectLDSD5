@@ -20,7 +20,8 @@ export class BacklogComponent implements OnInit {
 
   displayedColumns = [
     'title',
-    'assignedTo',
+    'assignee',
+    'reporter',
     'assignmentDate',
     'endDate',
     'storyPoints',

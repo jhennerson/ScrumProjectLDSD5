@@ -30,11 +30,19 @@
         <mat-cell *matCellDef="let task"> {{ task.title }} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="assignedTo">
+      <ng-container matColumnDef="assignee">
         <mat-header-cell *matHeaderCellDef> Responsável </mat-header-cell>
 
         <mat-cell *matCellDef="let task">
-          {{ task.person.id | username | async }}
+          {{ task.assignee.id | username | async }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="reporter">
+        <mat-header-cell *matHeaderCellDef> Relator </mat-header-cell>
+
+        <mat-cell *matCellDef="let task">
+          {{ task.reporter.id | username | async }}
         </mat-cell>
       </ng-container>
 

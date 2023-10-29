@@ -2,6 +2,7 @@ package com.ifsp.scrumProjectLDSD5.dto;
 
 
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ifsp.scrumProjectLDSD5.entity.Person;
@@ -23,9 +24,11 @@ public record TaskDTO(
 	@NotNull
 	String title,
 
-	Sprint sprint,
+	Sprint sprint,	
 
-	Person person,
+	Person assignee,
+
+	Person reporter,
 
 	Date assignmentDate,
 

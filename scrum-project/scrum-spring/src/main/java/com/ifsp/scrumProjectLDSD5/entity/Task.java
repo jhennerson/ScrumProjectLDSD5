@@ -3,6 +3,7 @@ package com.ifsp.scrumProjectLDSD5.entity;
 import java.util.Date;
 
 import com.ifsp.scrumProjectLDSD5.enumeration.Status;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -27,10 +28,13 @@ public class Task  {
 	private String title;
 
 	@ManyToOne
-	private Sprint sprint;	
+	private Sprint sprint;
 
 	@ManyToOne
-	private Person person;
+	private Person assignee;
+
+	@ManyToOne
+	private Person reporter;	
 
 	private Date assignmentDate;
 
@@ -51,7 +55,8 @@ public class Task  {
 	public Task(Task task) {
 		this.title = task.getTitle();
 		this.sprint = task.getSprint();
-		this.person = task.getPerson();
+		this.assignee = task.getAssignee();
+		this.reporter = task.getReporter();		
 		this.assignmentDate = task.getAssignmentDate();
 		this.endDate = task.getEndDate();
 		this.storyPoints = task.getStoryPoints();
@@ -83,14 +88,22 @@ public class Task  {
 	public void setSprint(Sprint sprint) {
 		this.sprint = sprint;
 	}
-
-	public Person getPerson() {
-		return person;
+	
+	public void setAssignee(Person assignee) {
+		this.assignee = assignee;
 	}
 
-	public void setPerson(Person person) {
-		this.person = person;
+	public Person getAssignee() {
+		return assignee;
 	}
+
+	public Person getReporter() {
+		return reporter;
+	}
+
+	public void setReporter(Person reporter) {
+		this.reporter = reporter;
+	}	
 
 	public Date getAssignmentDate() {
 		return assignmentDate;

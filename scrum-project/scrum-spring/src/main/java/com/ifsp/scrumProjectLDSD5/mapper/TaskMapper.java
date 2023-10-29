@@ -16,7 +16,8 @@ public class TaskMapper {
         return new TaskDTO(task.getId(),
                 task.getTitle(),
                 task.getSprint(),
-                task.getPerson(),
+                task.getAssignee(),
+                task.getReporter(),                
                 task.getAssignmentDate(),
                 task.getEndDate(),
                 task.getStoryPoints(),
@@ -38,7 +39,8 @@ public class TaskMapper {
 
         task.setTitle(taskDTO.title());
         task.setSprint(taskDTO.sprint());
-        task.setPerson(taskDTO.person());
+        task.setAssignee(taskDTO.assignee());
+        task.setReporter(taskDTO.reporter());        
         task.setAssignmentDate(taskDTO.assignmentDate());
         task.setEndDate(taskDTO.endDate());
         task.setStoryPoints(taskDTO.storyPoints());

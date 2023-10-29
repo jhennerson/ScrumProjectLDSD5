@@ -125,7 +125,7 @@ export class WasteBinComponent {
   loadTasks() {
     this.disabledTasks = this.taskService.list().pipe(
       first(),
-      map((tasks) => tasks.filter((task) => task.status === 'DISABLED'))
+      map((tasks) => tasks.filter((task) => task.status === Status.Disabled))
     );
   }
 

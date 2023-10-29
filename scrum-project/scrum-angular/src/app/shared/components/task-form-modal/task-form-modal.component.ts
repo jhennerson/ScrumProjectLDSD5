@@ -38,7 +38,8 @@ export class TaskFormModalComponent implements OnInit {
     this.form = this.formBuilder.group({
       id: ['', [Validators.required]],
       title: ['', [Validators.required]],
-      person: [''],
+      assignee: [''],
+      reporter: [''],
       assignmentDate: [''],
       endDate: [''],
       storyPoints: [''],
@@ -51,7 +52,8 @@ export class TaskFormModalComponent implements OnInit {
       this.form.patchValue({
         id: data.task.id,
         title: data.task.title,
-        person: data.task.person,
+        assignee: data.task.assignee,
+        reporter: data.task.reporter,
         assignmentDate: data.task.assignmentDate,
         endDate: data.task.endDate,
         storyPoints: data.task.storyPoints,
