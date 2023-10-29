@@ -28,7 +28,7 @@ export class TaskService {
     return this.create(record);
   }
 
-  remove(id: string) {
+  remove(id: number) {
     return this.httpClient.delete(`${this.API}/${id}`).pipe(first());
   }
 

@@ -75,8 +75,21 @@
         <mat-header-cell *matHeaderCellDef>Operações</mat-header-cell>
 
         <mat-cell *matCellDef="let task">
-          <button mat-icon-button aria-label="Ver tudo" (click)="onEdit(task)">
-            <mat-icon>more_vert</mat-icon>
+          <button
+            mat-icon-button
+            aria-label="Restaurar"
+            (click)="onRestore(task)"
+          >
+            <mat-icon>undo</mat-icon>
+          </button>
+
+          <button
+            mat-icon-button
+            aria-label="Deletar"
+            color="warn"
+            (click)="onDelete(task)"
+          >
+            <mat-icon>delete</mat-icon>
           </button>
         </mat-cell>
       </ng-container>
