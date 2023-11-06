@@ -37,23 +37,4 @@ public class UserService {
                                .map(userMapper::toDTO)
                                .orElseThrow(() -> new RecordNotFoundException(id));
     }
-
-    public UserDTO create(@Valid @NotNull UserDTO user) {
-        return userMapper.toDTO(userRepository.save(userMapper.toEntity(user)));
-    }
-
-    public UserDTO update(@NotNull String id, @Valid @NotNull UserDTO userDTO) {
-        return userRepository.findById(id)
-                               .map(recordFound -> {
-                                recordFound.setUsername(userDTO.username());
-                                recordFound.setPassword(userDTO.password());
-                                recordFound.setEmail(userDTO.email());
-                                
-                                return userMapper.toDTO(userRepository.save(recordFound));
-                               }).orElseThrow(() -> new RecordNotFoundException(id));
-    }
-
-    public void delete(@NotNull String id) {
-        userRepository.delete(userRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(id)));
-    }
 }
