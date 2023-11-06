@@ -20,8 +20,8 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "person")
-public class Person {
+@Table(name = "user")
+public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -42,13 +42,13 @@ public class Person {
 	@Column(name = "email", nullable = false)
 	private String email;
 
-	public Person() {}
+	public User() {}
 
-	public Person(Person person) {
-		this.id = person.getId();
-		this.username = person.getUsername();
-		this.password = person.getPassword();
-		this.email = person.getEmail();
+	public User(User user) {
+		this.id = user.getId();
+		this.username = user.getUsername();
+		this.password = user.getPassword();
+		this.email = user.getEmail();
 	}
 
 	public String getUsername() {

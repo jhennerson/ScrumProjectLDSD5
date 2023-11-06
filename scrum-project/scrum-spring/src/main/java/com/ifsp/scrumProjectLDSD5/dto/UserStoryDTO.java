@@ -1,7 +1,7 @@
 package com.ifsp.scrumProjectLDSD5.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ifsp.scrumProjectLDSD5.entity.Person;
+import com.ifsp.scrumProjectLDSD5.entity.User;
 
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
@@ -16,10 +16,10 @@ public record UserStoryDTO(
 	String title,
 
 	@ManyToOne
-	Person assignee,
+	User assignee,
 
 	@ManyToOne
-	Person reporter,
+	User reporter,
 
 	String description
 ) {}

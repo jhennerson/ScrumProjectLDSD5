@@ -11,7 +11,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record PersonDTO(
+public record UserDTO(
 	@JsonProperty("id")
 	Long id,
 
