@@ -1,6 +1,6 @@
 import { UsernamePipe } from './username.pipe';
-import { User } from 'src/app/models/person/person';
-import { UserService } from 'src/app/services/person/person.service';
+import { User } from 'src/app/models/user/user';
+import { UserService } from 'src/app/services/user/user.service';
 import { of } from 'rxjs';
 
 describe('UsernamePipe', () => {
@@ -17,7 +17,7 @@ describe('UsernamePipe', () => {
   });
 
   it('should transform userId into username', () => {
-    const userId = 1;
+    const userId = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx';
     const user: User = {
       id: '1',
       username: 'testuser',
