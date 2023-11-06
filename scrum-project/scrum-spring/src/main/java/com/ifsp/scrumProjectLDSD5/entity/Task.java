@@ -31,10 +31,10 @@ public class Task  {
 	private Sprint sprint;
 
 	@ManyToOne
-	private Person assignee;
+	private User assignee;
 
 	@ManyToOne
-	private Person reporter;	
+	private User reporter;	
 
 	private Date assignmentDate;
 
@@ -89,19 +89,19 @@ public class Task  {
 		this.sprint = sprint;
 	}
 	
-	public void setAssignee(Person assignee) {
+	public void setAssignee(User assignee) {
 		this.assignee = assignee;
 	}
 
-	public Person getAssignee() {
+	public User getAssignee() {
 		return assignee;
 	}
 
-	public Person getReporter() {
+	public User getReporter() {
 		return reporter;
 	}
 
-	public void setReporter(Person reporter) {
+	public void setReporter(User reporter) {
 		this.reporter = reporter;
 	}	
 

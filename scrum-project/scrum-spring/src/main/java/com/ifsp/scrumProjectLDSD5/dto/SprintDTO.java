@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ifsp.scrumProjectLDSD5.entity.Person;
+import com.ifsp.scrumProjectLDSD5.entity.User;
 import com.ifsp.scrumProjectLDSD5.entity.Task;
 
 import jakarta.validation.Valid;
@@ -19,7 +19,7 @@ public record SprintDTO(
     @NotNull
     String title,
     
-    Person reporter,
+    User reporter,
 
     String description,
 

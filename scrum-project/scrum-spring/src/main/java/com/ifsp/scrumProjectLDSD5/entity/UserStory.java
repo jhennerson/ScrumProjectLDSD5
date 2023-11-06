@@ -22,10 +22,10 @@ public class UserStory {
 	private String title;
 
 	@ManyToOne
-	private Person assignee;
+	private User assignee;
 
 	@ManyToOne
-	private Person reporter;
+	private User reporter;
 
 	private String description;
 
@@ -55,19 +55,19 @@ public class UserStory {
 		this.title = title;
 	}
 
-	public Person getAssignee() {
+	public User getAssignee() {
 		return assignee;
 	}
 
-	public void setAssignee(Person assignee) {
+	public void setAssignee(User assignee) {
 		this.assignee = assignee;
 	}
 
-	public Person getReporter() {
+	public User getReporter() {
 		return reporter;
 	}
 
-	public void setReporter(Person reporter) {
+	public void setReporter(User reporter) {
 		this.reporter = reporter;
 	}
 

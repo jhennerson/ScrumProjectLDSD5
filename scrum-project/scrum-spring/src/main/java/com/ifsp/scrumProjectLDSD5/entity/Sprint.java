@@ -28,7 +28,7 @@ public class Sprint {
     private String title;
 
     @ManyToOne
-    private Person reporter;
+    private User reporter;
 
     private String description;
 
@@ -60,11 +60,11 @@ public class Sprint {
         this.title = title;
     }
 
-    public Person getReporter() {
+    public User getReporter() {
         return reporter;
     }
 
-    public void setReporter(Person reporter) {
+    public void setReporter(User reporter) {
         this.reporter = reporter;
     }
 
