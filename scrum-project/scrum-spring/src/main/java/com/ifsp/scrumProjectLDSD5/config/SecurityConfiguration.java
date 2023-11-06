@@ -35,9 +35,9 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/users").hasRole("ADMIN")
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()//user .authenticated() para bloquear e .permitAll() para desbloquear
                 )
-                //.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)// comentar esta linha para desbloquear requisições
                 .build();
     }
 

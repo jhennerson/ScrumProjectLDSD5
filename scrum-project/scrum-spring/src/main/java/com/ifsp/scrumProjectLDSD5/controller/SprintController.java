@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ifsp.scrumProjectLDSD5.dto.SprintDTO;
+import com.ifsp.scrumProjectLDSD5.dto.UserStoryDTO;
 import com.ifsp.scrumProjectLDSD5.service.SprintService;
 
 import jakarta.validation.Valid;
@@ -47,6 +49,11 @@ public class SprintController {
     }
 
     @PutMapping("/{id}")
+    public SprintDTO update(@PathVariable @NotNull String id, @RequestBody @Valid @NotNull SprintDTO sprintDTO) {
+        return sprintService.update(id, sprintDTO);
+    }
+
+    @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable @NotNull String id) {
         sprintService.delete(id);
