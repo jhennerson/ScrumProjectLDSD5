@@ -2,7 +2,6 @@ package com.ifsp.scrumProjectLDSD5.dto;
 
 
 import java.util.Date;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ifsp.scrumProjectLDSD5.entity.User;
@@ -18,13 +17,15 @@ import jakarta.validation.constraints.NotNull;
 
 public record TaskDTO(
 	@JsonProperty("id")
-	Long id,
+	String id,
 
 	@NotBlank
 	@NotNull
 	String title,
 
-	Sprint sprint,	
+	Sprint sprint,
+
+	UserStory userStory,
 
 	User assignee,
 
@@ -37,8 +38,6 @@ public record TaskDTO(
 	Integer storyPoints,
 
 	String description,
-
-	UserStory userStory,
 
 	@Enumerated(EnumType.STRING)
 	Status status

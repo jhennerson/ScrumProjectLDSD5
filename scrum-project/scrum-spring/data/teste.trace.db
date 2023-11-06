@@ -1,6 +1,0 @@
-2023-10-29 16:20:13 jdbc[13]: exception
-org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "'' (PERSON: ""ID"" BIGINT NOT NULL)"; SQL statement:
-INSERT INTO "PUBLIC"."PERSON"("ID","EMAIL","PASSWORD","USERNAME")VALUES(?,?,?,?) [22018-214]
-2023-10-29 16:20:13 jdbc[13]: exception
-org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "'' (PERSON: ""ID"" BIGINT NOT NULL)"; SQL statement:
-INSERT INTO "PUBLIC"."PERSON"("ID","EMAIL","PASSWORD","USERNAME")VALUES(?,?,?,?) [22018-214]

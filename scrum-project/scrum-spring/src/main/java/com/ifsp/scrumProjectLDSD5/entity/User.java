@@ -1,31 +1,43 @@
 package com.ifsp.scrumProjectLDSD5.entity;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ifsp.scrumProjectLDSD5.enumeration.UserRole;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
+@Table(name = "users")
+@Entity(name = "users")
 @Getter
 @Setter
-@Table(name = "user")
-public class User {
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
+@JsonIgnoreProperties({"password"})
+public class User implements UserDetails {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private String id;
+	
 	@NotBlank
 	@NotNull
 	@Length(min = 3, max = 20)
@@ -42,44 +54,40 @@ public class User {
 	@Column(name = "email", nullable = false)
 	private String email;
 
-	public User() {}
+	@NotNull
+	@Column(name = "role", nullable = false)
+	private UserRole role;
 
-	public User(User user) {
-		this.id = user.getId();
-		this.username = user.getUsername();
-		this.password = user.getPassword();
-		this.email = user.getEmail();
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
+	public User(String username, String password, String email, UserRole role) {
 		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
 		this.email = email;
+		this.password = password;
+		this.role = role;
 	}
 
-	public Long getId() {
-		return id;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 }
