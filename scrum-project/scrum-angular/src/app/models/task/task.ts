@@ -1,11 +1,11 @@
-import { Person } from '../person/person';
+import { User } from '../user/user';
 import { UserStory } from '../user-story/user-story';
 
 export interface Task {
-  id: number;
+  id: string;
   title: string;
-  assignee: Person;
-  reporter: Person;
+  assignee: User;
+  reporter: User;
   assignmentDate: Date;
   endDate: Date;
   storyPoints: number;

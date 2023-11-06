@@ -1,9 +1,9 @@
-import { Person } from '../person/person';
+import { User } from '../user/user';
 
 export interface UserStory {
   id: number;
   title: string;
-  assignee: Person;
-  reporter: Person;
+  assignee: User;
+  reporter: User;
   description: string;
 }

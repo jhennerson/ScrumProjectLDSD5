@@ -4,9 +4,9 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { UserStory } from 'src/app/models/user-story/user-story';
-import { Person } from 'src/app/models/person/person';
+import { User } from 'src/app/models/user/user';
 import { UserStoryService } from 'src/app/services/user-story/user-story.service';
-import { PersonService } from 'src/app/services/person/person.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-user-story-modal',
@@ -15,19 +15,19 @@ import { PersonService } from 'src/app/services/person/person.service';
 })
 export class UserStoryFormModalComponent implements OnInit {
   form: FormGroup;
-  users: Observable<Person[]>;
+  users: Observable<User[]>;
 
-  userOptions: Person[] = [];
+  userOptions: User[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private userStoryService: UserStoryService,
-    private personService: PersonService,
+    private userService: UserService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: UserStory
   ) {
-    this.users = this.personService.list();
+    this.users = this.userService.list();
 
     this.form = this.formBuilder.group({
       id: ['', [Validators.required]],
@@ -70,7 +70,7 @@ export class UserStoryFormModalComponent implements OnInit {
   }
 
   loadUsers() {
-    this.personService
+    this.userService
       .list()
       .subscribe((options) => (this.userOptions = options));
   }

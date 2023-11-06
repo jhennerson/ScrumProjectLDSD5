@@ -1,14 +1,14 @@
-import { Component, Inject, OnInit, Optional } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { Task } from 'src/app/models/task/task';
 import { UserStory } from 'src/app/models/user-story/user-story';
-import { Person } from 'src/app/models/person/person';
+import { User } from 'src/app/models/user/user';
 import { TaskService } from 'src/app/services/task/task.service';
 import { UserStoryService } from 'src/app/services/user-story/user-story.service';
-import { PersonService } from 'src/app/services/person/person.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-task-form-modal',
@@ -17,22 +17,22 @@ import { PersonService } from 'src/app/services/person/person.service';
 })
 export class TaskFormModalComponent implements OnInit {
   form: FormGroup;
-  users: Observable<Person[]>;
+  users: Observable<User[]>;
   userStories: Observable<UserStory[]>;
 
-  userOptions: Person[] = [];
+  userOptions: User[] = [];
   userStoryOptions: UserStory[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private taskService: TaskService,
-    private personService: PersonService,
+    private userService: UserService,
     private userStoryService: UserStoryService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: { task: Task; enableable: boolean }
   ) {
-    this.users = this.personService.list();
+    this.users = this.userService.list();
     this.userStories = this.userStoryService.list();
 
     this.form = this.formBuilder.group({
@@ -90,7 +90,7 @@ export class TaskFormModalComponent implements OnInit {
   }
 
   loadUsers() {
-    this.personService
+    this.userService
       .list()
       .subscribe((options) => (this.userOptions = options));
 
