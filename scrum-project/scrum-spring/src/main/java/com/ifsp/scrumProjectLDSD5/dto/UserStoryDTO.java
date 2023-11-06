@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotNull;
 
 public record UserStoryDTO(
 	@JsonProperty("id")
-	Long id,
+	String id,
 
 	@NotBlank
 	@NotNull

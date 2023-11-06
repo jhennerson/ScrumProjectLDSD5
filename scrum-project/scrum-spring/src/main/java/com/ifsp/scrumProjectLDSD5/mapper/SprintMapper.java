@@ -19,7 +19,8 @@ public class SprintMapper {
             sprint.getReporter(),
             sprint.getDescription(),
             sprint.getAssignmentDate(),
-            sprint.getEndDate()        );
+            sprint.getEndDate()
+        );
     }
 
     public Sprint toEntity(SprintDTO sprintDTO) {
