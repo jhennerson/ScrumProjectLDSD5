@@ -6,7 +6,7 @@ import { Credentials, User } from 'src/app/models/user/user';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthenticationService {
+export class AuthService {
   private readonly API = 'api/auth';
 
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
@@ -20,6 +20,8 @@ export class AuthenticationService {
   constructor(private httpClient: HttpClient) {}
 
   login(credentials: Credentials): Observable<User> {
+    console.log(credentials);
+
     return this.httpClient
       .post(`${this.API}/login`, credentials, {
         observe: 'response',
@@ -31,6 +33,7 @@ export class AuthenticationService {
 
           const bearerToken = headers.get('Authorization');
           if (bearerToken) {
+            console.log(bearerToken.toString);
             const token = bearerToken.replace('Bearer ', '');
 
             localStorage.setItem('token', token);

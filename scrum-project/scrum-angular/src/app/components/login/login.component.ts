@@ -1,14 +1,8 @@
 import { Component } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs';
-import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -17,11 +11,10 @@ import { AuthenticationService } from 'src/app/services/authentication/authentic
 })
 export class LoginComponent {
   form: FormGroup;
-  private formSubmitAttempt: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private authenticationService: AuthenticationService,
+    private authService: AuthService,
     private router: Router,
     public snackBar: MatSnackBar
   ) {
@@ -32,15 +25,13 @@ export class LoginComponent {
   }
 
   login() {
-    this.formSubmitAttempt = true;
-
-    this.authenticationService
-      .login(this.form.value)
-      .pipe(tap(() => this.router.navigate(['board'])))
-      .subscribe(
-        (result) => this.onSuccess(),
-        (error) => this.onError()
-      );
+    this.authService.login(this.form.value).subscribe(
+      (response) => {
+        this.onSuccess();
+        this.router.navigate(['/board']);
+      },
+      (error) => this.onError()
+    );
   }
 
   private onSuccess() {
@@ -55,13 +46,5 @@ export class LoginComponent {
       duration: 2000,
       panelClass: 'task-status-snackbar',
     });
-  }
-
-  isFieldInvalid(field: string) {
-    const control = this.form.get(field);
-    return (
-      (control && !control.valid && control.touched) ||
-      (control && control.untouched && this.formSubmitAttempt)
-    );
   }
 }

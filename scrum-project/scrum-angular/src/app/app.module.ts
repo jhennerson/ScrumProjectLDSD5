@@ -25,6 +25,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BacklogComponent } from './components/backlog/backlog.component';
 import { BoardComponent } from './components/board/board.component';
+import { HomeLayoutComponent } from './components/layouts/home-layout/home-layout.component';
+import { LoginLayoutComponent } from './components/layouts/login-layout/login-layout.component';
+import { LoginComponent } from './components/login/login.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SprintComponent } from './components/sprint/sprint.component';
@@ -35,10 +38,6 @@ import { TaskFormModalComponent } from './shared/components/task-form-modal/task
 import { UserStoryFormModalComponent } from './shared/components/user-story-form-modal/user-story-form-modal.component';
 import { StatusPipe } from './shared/pipes/status/StatusPipe';
 import { UsernamePipe } from './shared/pipes/username/username.pipe';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { HomeLayoutComponent } from './components/layouts/home-layout/home-layout.component';
-import { LoginLayoutComponent } from './components/layouts/login-layout/login-layout.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +55,6 @@ import { LoginLayoutComponent } from './components/layouts/login-layout/login-la
     WasteBinComponent,
     ConfirmationDialogComponent,
     LoginComponent,
-    RegisterComponent,
     HomeLayoutComponent,
     LoginLayoutComponent,
   ],
