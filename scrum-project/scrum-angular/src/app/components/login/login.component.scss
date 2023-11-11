@@ -1,34 +1,26 @@
-:host {
-  display: flex;
-  justify-content: center;
-  margin: 100px 0px;
+mat-card {
+  max-width: 400px;
+  margin: 2em auto;
+  text-align: center;
 }
 
-mat-card {
-  max-width: 600px;
+mat-toolbar {
+  justify-content: center;
+  border-radius: 4px 4px 0 0;
+}
 
-  mat-card-title,
-  mat-card-content {
-    display: flex;
-    justify-content: center;
+mat-card-content {
+  margin-top: 1.2rem;
+}
 
-    form {
-      .mat-form-field {
-        width: 100%;
-        min-width: 300px;
-      }
+.signin-content {
+  padding: 60px 1rem;
+}
 
-      .error {
-        padding: 16px;
-        width: 300px;
-        color: white;
-        background-color: red;
-      }
+.full-width-input {
+  width: 100%;
+}
 
-      .button {
-        display: flex;
-        justify-content: flex-end;
-      }
-    }
-  }
+.login-button {
+  background-color: white;
 }
