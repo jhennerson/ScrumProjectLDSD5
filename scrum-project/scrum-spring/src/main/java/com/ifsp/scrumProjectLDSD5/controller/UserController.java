@@ -39,4 +39,4 @@ public class UserController {
     public UserDTO findById(@PathVariable @NotNull String id) {
         return userService.findById(id);
     }
-}
+  
