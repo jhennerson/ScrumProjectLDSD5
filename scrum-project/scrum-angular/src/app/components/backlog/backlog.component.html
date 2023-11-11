@@ -23,26 +23,27 @@
   </div>
 
   <mat-card class="backlog-content">
-    <mat-table [dataSource]="enabledTasks" class="mat-elevation-z8">
+    <mat-table [dataSource]="tasks" class="mat-elevation-z8">
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Operações</mat-header-cell>
+
+        <mat-cell *matCellDef="let task">
+          <button mat-icon-button aria-label="Ver tudo" (click)="onEdit(task)">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
       <ng-container matColumnDef="title">
         <mat-header-cell *matHeaderCellDef> Título </mat-header-cell>
 
         <mat-cell *matCellDef="let task"> {{ task.title }} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="assignee">
+      <ng-container matColumnDef="assignedTo">
         <mat-header-cell *matHeaderCellDef> Responsável </mat-header-cell>
-
         <mat-cell *matCellDef="let task">
-          {{ task.assignee.id | username | async }}
-        </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="reporter">
-        <mat-header-cell *matHeaderCellDef> Relator </mat-header-cell>
-
-        <mat-cell *matCellDef="let task">
-          {{ task.reporter.id | username | async }}
+          {{ task.person.id | username | async }}
         </mat-cell>
       </ng-container>
 
@@ -88,24 +89,6 @@
           }"
         >
           {{ task.status | status }}
-        </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef>Operações</mat-header-cell>
-
-        <mat-cell *matCellDef="let task">
-          <button mat-icon-button aria-label="Ver tudo" (click)="onEdit(task)">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-
-          <button
-            mat-icon-button
-            aria-label="Mover para a lixeira"
-            (click)="onDisable(task)"
-          >
-            <mat-icon>delete</mat-icon>
-          </button>
         </mat-cell>
       </ng-container>
 

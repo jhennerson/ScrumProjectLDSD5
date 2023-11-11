@@ -50,7 +50,7 @@
 .task-container {
   width: 30%;
   max-width: 100%;
-  margin: 0 25px 25px 0;
+  margin: 0 15px 19px 0;
   display: inline-block;
   vertical-align: top;
 }
@@ -116,7 +116,10 @@
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
     0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
-
+.text {
+  font-size: 20px;
+  color: white;
+}
 .cdk-drag-placeholder {
   opacity: 0;
 }
@@ -127,4 +130,71 @@
 
 .task-list.cdk-drop-list-dragging .task-box:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+@media only screen and (max-width: 566px) {
+  .task-container {
+    margin-left: 20px;
+    width: 200px;
+  }
+  .task-list {
+    min-height: 500px;
+  }
+  .text {
+    font-size: 17px;
+    color: white;
+  }
+}
+
+@media only screen and (max-width: 529px) {
+  .task-container {
+    margin-left: 20px;
+    width: 300px;
+  }
+  .task-list {
+    min-height: 500px;
+  }
+  .text {
+    font-size: 17px;
+    color: white;
+  }
+}
+
+@media only screen and (max-width: 414px) {
+  .task-container {
+    margin-left: 50px;
+  }
+  .task-container {
+    width: 240px;
+  }
+
+  .text {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (max-width: 361px) {
+  .task-container {
+    margin-left: 20px;
+  }
+  .task-container {
+    width: 200px;
+  }
+
+  .text {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (max-width: 280px) {
+  .task-container {
+    margin-left: 20px;
+  }
+  .task-container {
+    width: 170px;
+  }
+
+  .text {
+    font-size: 15px;
+  }
 }

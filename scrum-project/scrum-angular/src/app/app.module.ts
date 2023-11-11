@@ -29,12 +29,11 @@ import { MenuComponent } from './components/menu/menu.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SprintComponent } from './components/sprint/sprint.component';
 import { UserStoryComponent } from './components/user-story/user-story.component';
-import { WasteBinComponent } from './components/waste-bin/waste-bin.component';
-import { ConfirmationDialogComponent } from './shared/components/confirmation-dialog/confirmation-dialog.component';
 import { TaskFormModalComponent } from './shared/components/task-form-modal/task-form-modal.component';
 import { UserStoryFormModalComponent } from './shared/components/user-story-form-modal/user-story-form-modal.component';
-import { StatusPipe } from './shared/pipes/status/StatusPipe';
+import { StatusPipe } from './shared/pipes/status/status.pipe';
 import { UsernamePipe } from './shared/pipes/username/username.pipe';
+import { WasteBinComponent } from './components/waste-bin/waste-bin.component';
 
 @NgModule({
   declarations: [
@@ -45,12 +44,11 @@ import { UsernamePipe } from './shared/pipes/username/username.pipe';
     SprintComponent,
     BacklogComponent,
     StatusPipe,
-    UsernamePipe,
     TaskFormModalComponent,
+    UsernamePipe,
     UserStoryComponent,
     UserStoryFormModalComponent,
     WasteBinComponent,
-    ConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,

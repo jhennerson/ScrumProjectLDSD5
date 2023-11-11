@@ -12,7 +12,6 @@ import { TaskFormModalComponent } from 'src/app/shared/components/task-form-moda
 import { Sprint } from '../../models/sprint/sprint';
 import { Task } from '../../models/task/task';
 import { TaskService } from '../../services/task/task.service';
-import { Status } from 'src/app/enum/status.enum';
 
 @Component({
   selector: 'app-board',
@@ -69,10 +68,7 @@ export class BoardComponent implements OnInit {
 
   private updateTaskStatus(task: Task) {
     this.taskService.save(task).subscribe({
-      next: () => {
-        this.onSuccess();
-        this.loadTasks();
-      },
+      next: () => this.onSuccess(),
       error: () => this.onError(),
     });
   }
@@ -92,33 +88,31 @@ export class BoardComponent implements OnInit {
   }
 
   onAdd() {
-    const dialogRef = this.dialog.open(TaskFormModalComponent, {});
+    let _modal = this.dialog.open(TaskFormModalComponent, {});
 
-    dialogRef.afterClosed().subscribe(() => {
-      this.loadTasks();
+    _modal.afterClosed().subscribe(() => {
+      this.ngOnInit();
     });
   }
 
   onEdit(task: Task) {
-    const dialogRef = this.dialog.open(TaskFormModalComponent, {
+    let _modal = this.dialog.open(TaskFormModalComponent, {
       data: {
         task: task,
         enableable: false,
       },
     });
 
-    dialogRef.afterClosed().subscribe(() => {
-      this.loadTasks();
+    _modal.afterClosed().subscribe(() => {
+      this.ngOnInit();
     });
   }
 
   loadTasks() {
     this.tasks.subscribe((tasks) => {
-      this.todo = tasks.filter((task) => task.status === Status.ToDo);
-      this.inprogress = tasks.filter(
-        (task) => task.status === Status.InProgress
-      );
-      this.done = tasks.filter((task) => task.status === Status.Done);
+      this.todo = tasks.filter((task) => task.status === 'TO_DO');
+      this.inprogress = tasks.filter((task) => task.status === 'IN_PROGRESS');
+      this.done = tasks.filter((task) => task.status === 'DONE');
     });
   }
 

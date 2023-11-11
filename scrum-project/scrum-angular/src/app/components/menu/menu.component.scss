@@ -9,8 +9,8 @@
   margin-top: 10px;
   margin-bottom: 4px;
   padding: 4px;
+  height: 860px;
 }
-
 
 .left-menu-item {
   cursor: pointer;
@@ -31,3 +31,17 @@
   background-color: #4527a0;
 }
 
+@media only screen and (max-width: 780px) {
+  #user {
+    height: 60px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  #user {
+    height: 60px;
+  }
+
+  .menu-mat-card {
+    height: 190px;
+  }
+}

@@ -1,12 +1,10 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, first, map } from 'rxjs';
-import { Status } from 'src/app/enum/status.enum';
+import { Observable } from 'rxjs';
 import { Sprint } from 'src/app/models/sprint/sprint';
 import { Task } from 'src/app/models/task/task';
 import { TaskService } from 'src/app/services/task/task.service';
-import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { TaskFormModalComponent } from 'src/app/shared/components/task-form-modal/task-form-modal.component';
 
 @Component({
@@ -15,18 +13,18 @@ import { TaskFormModalComponent } from 'src/app/shared/components/task-form-moda
   styleUrls: ['./waste-bin.component.scss'],
 })
 export class WasteBinComponent {
-  disabledTasks: Observable<Task[]>;
+  tasks: Observable<Task[]>;
+
+  disabled: Task[] = [];
 
   displayedColumns = [
+    'actions',
     'title',
-    'assignee',
-    'reporter',
+    'assignedTo',
     'assignmentDate',
     'endDate',
-    'storyPoints',
+    'effort',
     'userStory',
-    'status',
-    'actions',
   ];
 
   constructor(
@@ -34,7 +32,7 @@ export class WasteBinComponent {
     public dialog: MatDialog,
     public snackBar: MatSnackBar
   ) {
-    this.disabledTasks = this.taskService.list().pipe(first());
+    this.tasks = this.taskService.list();
   }
 
   sprints: Sprint[] = [
@@ -49,85 +47,30 @@ export class WasteBinComponent {
   ];
 
   onAdd() {
-    const dialogRef = this.dialog.open(TaskFormModalComponent, {});
+    let _modal = this.dialog.open(TaskFormModalComponent, {});
 
-    dialogRef.afterClosed().subscribe(() => {
-      this.loadTasks();
+    _modal.afterClosed().subscribe(() => {
+      this.ngOnInit();
     });
   }
 
   onEdit(task: Task) {
-    const dialogRef = this.dialog.open(TaskFormModalComponent, {
+    let _modal = this.dialog.open(TaskFormModalComponent, {
       data: {
         task: task,
         enableable: true,
       },
     });
 
-    dialogRef.afterClosed().subscribe(() => {
-      this.loadTasks();
-    });
-  }
-
-  onRestore(task: Task) {
-    task.status = Status.ToDo;
-    this.updateTaskStatus(task);
-  }
-
-  onDelete(task: Task) {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: 'Deseja apagar essa tarefa permanentemente?',
-    });
-
-    dialogRef.afterClosed().subscribe((result: boolean) => {
-      if (result) {
-        this.taskService.remove(task.id).subscribe({
-          next: () => {
-            this.onHardDelete();
-            this.loadTasks();
-          },
-          error: () => this.onError(),
-        });
-      }
-    });
-  }
-
-  private updateTaskStatus(task: Task) {
-    this.taskService.save(task).subscribe({
-      next: () => {
-        this.onSuccess();
-        this.loadTasks();
-      },
-      error: () => this.onError(),
-    });
-  }
-
-  private onSuccess() {
-    this.snackBar.open('Tarefa restaurada com sucesso!', 'X', {
-      duration: 2000,
-      panelClass: 'task-status-snackbar',
-    });
-  }
-
-  private onHardDelete() {
-    this.snackBar.open('Tarefa apagada com sucesso!', 'X', {
-      duration: 2000,
-      panelClass: 'task-status-snackbar',
-    });
-  }
-
-  private onError() {
-    this.snackBar.open('Erro ao restaurar tarefa!', 'X', {
-      duration: 2000,
-      panelClass: 'task-status-snackbar',
+    _modal.afterClosed().subscribe(() => {
+      this.ngOnInit();
     });
   }
 
   loadTasks() {
-    this.disabledTasks = this.taskService.list().pipe(
-      first(),
-      map((tasks) => tasks.filter((task) => task.status === Status.Disabled))
-    );
+    this.tasks.subscribe((tasks) => {
+      this.disabled = tasks.filter((task) => task.status === 'DISABLED');
+    });
   }
 
   ngOnInit() {

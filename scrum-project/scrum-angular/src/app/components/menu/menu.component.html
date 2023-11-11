@@ -1,26 +1,34 @@
 <mat-card class="menu-mat-card">
-  <div class="left-menu" cdkMenu>
-    <button mat-button class="left-menu-item" cdkMenuItem (click)="toBoard()">
-      Tarefas
-    </button>
-    <button mat-button class="left-menu-item" cdkMenuItem (click)="toBacklog()">
-      Backlogs
-    </button>
-    <button
-      mat-button
-      class="left-menu-item"
-      cdkMenuItem
-      (click)="toUserStory()"
-    >
-      Histórias de Usuário
-    </button>
-    <button
-      mat-button
-      class="left-menu-item"
-      cdkMenuItem
-      (click)="toWasteBin()"
-    >
-      Lixeira
-    </button>
+  <div class="row">
+    <div class="left-menu" cdkMenu>
+      <button mat-button class="left-menu-item" cdkMenuItem (click)="toBoard()">
+        Tarefas
+      </button>
+      <button
+        mat-button
+        class="left-menu-item"
+        cdkMenuItem
+        (click)="toBacklog()"
+      >
+        Backlogs
+      </button>
+      <button
+        mat-button
+        class="left-menu-item"
+        id="user"
+        cdkMenuItem
+        (click)="toUserStory()"
+      >
+        Histórias de Usuário
+      </button>
+      <button
+        mat-button
+        class="left-menu-item"
+        cdkMenuItem
+        (click)="toWasteBin()"
+      >
+        Lixeira
+      </button>
+    </div>
   </div>
 </mat-card>

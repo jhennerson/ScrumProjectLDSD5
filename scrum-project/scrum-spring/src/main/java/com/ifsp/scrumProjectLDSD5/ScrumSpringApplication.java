@@ -2,8 +2,11 @@ package com.ifsp.scrumProjectLDSD5;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.validation.annotation.Validated;
 
-@SpringBootApplication
+@Validated
+@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class ScrumSpringApplication {
 
 	public static void main(String[] args) {

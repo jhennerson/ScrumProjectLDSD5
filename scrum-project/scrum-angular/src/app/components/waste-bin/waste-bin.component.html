@@ -13,33 +13,35 @@
   </div>
 
   <mat-card class="waste-bin-content">
-    <mat-table [dataSource]="disabledTasks" class="mat-elevation-z8">
+    <mat-table [dataSource]="tasks" class="mat-elevation-z8">
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Operações</mat-header-cell>
+
+        <mat-cell *matCellDef="let task">
+          <button mat-icon-button aria-label="Ver tudo" (click)="onEdit(task)">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
       <ng-container matColumnDef="title">
         <mat-header-cell *matHeaderCellDef> Título </mat-header-cell>
 
         <mat-cell *matCellDef="let task"> {{ task.title }} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="assignee">
+      <ng-container matColumnDef="assignedTo">
         <mat-header-cell *matHeaderCellDef> Responsável </mat-header-cell>
 
         <mat-cell *matCellDef="let task">
-          {{ task.assignee.id | username | async }}
+          {{ task.person.id | username | async }}
         </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="reporter">
-        <mat-header-cell *matHeaderCellDef> Relator </mat-header-cell>
-
-        <mat-cell *matCellDef="let task">
-          {{ task.reporter.id | username | async }}
-        </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="storyPoints">
+      <ng-container matColumnDef="effort">
         <mat-header-cell *matHeaderCellDef> Esforço atribuído </mat-header-cell>
 
-        <mat-cell *matCellDef="let task"> {{ task.storyPoints }} </mat-cell>
+        <mat-cell *matCellDef="let task"> {{ task.effort }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="userStory">
@@ -64,42 +66,6 @@
         <mat-header-cell *matHeaderCellDef> Data de entrega </mat-header-cell>
 
         <mat-cell *matCellDef="let task"> {{ task.endDate }} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="status">
-        <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
-
-        <mat-cell
-          *matCellDef="let task"
-          [ngClass]="{
-            'status-to-do': task.status == 'DISABLED',
-          }"
-        >
-          {{ task.status | status }}
-        </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef>Operações</mat-header-cell>
-
-        <mat-cell *matCellDef="let task">
-          <button
-            mat-icon-button
-            aria-label="Restaurar"
-            (click)="onRestore(task)"
-          >
-            <mat-icon>undo</mat-icon>
-          </button>
-
-          <button
-            mat-icon-button
-            aria-label="Deletar"
-            color="warn"
-            (click)="onDelete(task)"
-          >
-            <mat-icon>delete</mat-icon>
-          </button>
-        </mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

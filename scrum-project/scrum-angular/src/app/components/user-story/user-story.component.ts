@@ -16,11 +16,11 @@ export class UserStoryComponent implements OnInit {
   userStories: Observable<UserStory[]>;
 
   displayedColumns = [
+    'actions',
     'title',
     'assignee',
     'reporter',
     'description',
-    'actions',
   ];
 
   constructor(
@@ -43,20 +43,20 @@ export class UserStoryComponent implements OnInit {
   ];
 
   onAdd() {
-    const dialogRef = this.dialog.open(UserStoryFormModalComponent, {});
+    let _modal = this.dialog.open(UserStoryFormModalComponent, {});
 
-    dialogRef.afterClosed().subscribe(() => {
-      this.loadTasks();
+    _modal.afterClosed().subscribe(() => {
+      this.ngOnInit();
     });
   }
 
   onEdit(userStory: UserStory) {
-    const dialogRef = this.dialog.open(UserStoryFormModalComponent, {
+    let _modal = this.dialog.open(UserStoryFormModalComponent, {
       data: userStory,
     });
 
-    dialogRef.afterClosed().subscribe(() => {
-      this.loadTasks();
+    _modal.afterClosed().subscribe(() => {
+      this.ngOnInit();
     });
   }
 

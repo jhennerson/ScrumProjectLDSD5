@@ -76,15 +76,37 @@ mat-row:hover {
 
 mat-header-cell {
   background-color: #595656;
+  font-size: 16px;
 }
 
 mat-cell {
   border-bottom: 1px solid #2c2c2c;
   color: #2c2c2c;
+  font-size: 15px;
+  word-break: break-word;
 }
 
-.mat-column-actions {
-  flex: 0 0 12%;
-  text-align: center;
-  justify-content: center;
+ng-container {
+  margin-left: 15px;
+}
+
+@media only screen and (max-width: 1124px) {
+  ng-container {
+    margin-left: 30px;
+  }
+
+  mat-header-cell {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 1075px) {
+  ng-container {
+    margin-left: 30px;
+  }
+
+  mat-header-cell {
+    font-size: 13px;
+    word-break: break-word;
+  }
 }

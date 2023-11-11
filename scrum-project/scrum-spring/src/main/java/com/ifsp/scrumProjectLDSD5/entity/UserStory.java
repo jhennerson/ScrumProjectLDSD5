@@ -8,34 +8,64 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Table(name = "user-stories")
-@Entity(name = "user-stories")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode(of = "id")
+@Entity
+@Table(name = "user_story")
 public class UserStory {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	private String id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
 	@NotBlank
 	@NotNull
 	private String title;
 
 	@ManyToOne
-	private User assignee;
+	private Person assignee;
 
 	@ManyToOne
-	private User reporter;
+	private Person reporter;
 
 	private String description;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public Person getAssignee() {
+		return assignee;
+	}
+
+	public void setAssignee(Person assignee) {
+		this.assignee = assignee;
+	}
+
+	public Person getReporter() {
+		return reporter;
+	}
+
+	public void setReporter(Person reporter) {
+		this.reporter = reporter;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}	
 }
