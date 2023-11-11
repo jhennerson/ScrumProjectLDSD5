@@ -37,4 +37,3 @@ public class UserService {
                                .map(userMapper::toDTO)
                                .orElseThrow(() -> new RecordNotFoundException(id));
     }
-}

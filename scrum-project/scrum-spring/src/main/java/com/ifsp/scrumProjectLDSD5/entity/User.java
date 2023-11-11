@@ -3,6 +3,8 @@ package com.ifsp.scrumProjectLDSD5.entity;
 import java.util.Collection;
 import java.util.List;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -33,6 +35,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @JsonIgnoreProperties({"password"})
+@SQLDelete(sql = "UPDATE users SET deleted = true WHERE id = ?")
+@Where(clause = "deleted = false")
 public class User implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
@@ -57,6 +61,8 @@ public class User implements UserDetails {
 	@NotNull
 	@Column(name = "role", nullable = false)
 	private UserRole role;
+
+	private Boolean deleted = false;
 
 	public User(String username, String password, String email, UserRole role) {
 		this.username = username;
