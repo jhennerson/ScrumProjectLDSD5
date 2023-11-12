@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -23,37 +23,28 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BacklogComponent } from './components/backlog/backlog.component';
 import { BoardComponent } from './components/board/board.component';
 import { HomeLayoutComponent } from './components/layouts/home-layout/home-layout.component';
 import { LoginLayoutComponent } from './components/layouts/login-layout/login-layout.component';
 import { LoginComponent } from './components/login/login.component';
-import { MenuComponent } from './components/menu/menu.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
 import { SprintComponent } from './components/sprint/sprint.component';
+import { TaskComponent } from './components/task/task.component';
 import { UserStoryComponent } from './components/user-story/user-story.component';
 import { WasteBinComponent } from './components/waste-bin/waste-bin.component';
-import { ConfirmationDialogComponent } from './shared/components/confirmation-dialog/confirmation-dialog.component';
-import { TaskFormModalComponent } from './shared/components/task-form-modal/task-form-modal.component';
-import { UserStoryFormModalComponent } from './shared/components/user-story-form-modal/user-story-form-modal.component';
+import { SharedModule } from './shared/modules/shared.module';
 import { StatusPipe } from './shared/pipes/status/StatusPipe';
 import { UsernamePipe } from './shared/pipes/username/username.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
-    MenuComponent,
     BoardComponent,
     SprintComponent,
-    BacklogComponent,
+    TaskComponent,
     StatusPipe,
     UsernamePipe,
-    TaskFormModalComponent,
     UserStoryComponent,
-    UserStoryFormModalComponent,
     WasteBinComponent,
-    ConfirmationDialogComponent,
     LoginComponent,
     HomeLayoutComponent,
     LoginLayoutComponent,
@@ -61,12 +52,13 @@ import { UsernamePipe } from './shared/pipes/username/username.pipe';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    SharedModule,
     BrowserAnimationsModule,
     MatToolbarModule,
+    MatCardModule,
     MatIconModule,
     DragDropModule,
     CdkMenuModule,
-    MatCardModule,
     MatButtonModule,
     ScrollingModule,
     MatSidenavModule,
@@ -83,6 +75,7 @@ import { UsernamePipe } from './shared/pipes/username/username.pipe';
     MatDatepickerModule,
     MatNativeDateModule,
     FormsModule,
+    MatOptionModule,
   ],
   providers: [
     {

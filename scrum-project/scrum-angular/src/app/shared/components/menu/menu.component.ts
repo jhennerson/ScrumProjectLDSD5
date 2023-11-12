@@ -13,8 +13,8 @@ export class MenuComponent {
     this.router.navigate(['board'], { relativeTo: this.route });
   }
 
-  toBacklog() {
-    this.router.navigate(['backlog'], { relativeTo: this.route });
+  toTask() {
+    this.router.navigate(['task'], { relativeTo: this.route });
   }
 
   toUserStory() {

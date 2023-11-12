@@ -1,7 +1,7 @@
-<mat-card align="center" class="backlog-mat-card">
-  <div class="backlog-menu">
-    <mat-toolbar class="backlog-mat-toolbar">
-      <mat-form-field class="backlog-menu-operations sprint-select">
+<mat-card align="center" class="task-mat-card">
+  <div class="task-menu">
+    <mat-toolbar class="task-mat-toolbar">
+      <mat-form-field class="task-menu-operations sprint-select">
         <mat-label>Sprint</mat-label>
         <mat-select class="sprint-select">
           <mat-option *ngFor="let sprint of sprints" [value]="sprint.title">
@@ -12,7 +12,7 @@
 
       <button
         mat-button
-        class="backlog-menu-operations add-button"
+        class="task-menu-operations add-button"
         aria-label="Adicionar tarefa"
         (click)="onAdd()"
       >
@@ -22,7 +22,7 @@
     </mat-toolbar>
   </div>
 
-  <mat-card class="backlog-content">
+  <mat-card class="task-content">
     <mat-table [dataSource]="enabledTasks" class="mat-elevation-z8">
       <ng-container matColumnDef="title">
         <mat-header-cell *matHeaderCellDef> Título </mat-header-cell>

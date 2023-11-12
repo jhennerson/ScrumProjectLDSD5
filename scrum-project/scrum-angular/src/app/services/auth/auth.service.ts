@@ -1,6 +1,6 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { User } from 'src/app/models/user/user';
 
 @Injectable({
@@ -8,14 +8,6 @@ import { User } from 'src/app/models/user/user';
 })
 export class AuthService {
   private readonly API = 'api/auth';
-
-  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    false
-  );
-
-  get isLoggedIn() {
-    return this.loggedIn.asObservable();
-  }
 
   constructor(private httpClient: HttpClient) {}
 
@@ -35,7 +27,6 @@ export class AuthService {
 
           const bearerToken = headers.get('Authorization');
           if (bearerToken) {
-            console.log(bearerToken.toString);
             const token = bearerToken.replace('Bearer ', '');
 
             localStorage.setItem('token', token);
@@ -49,4 +40,8 @@ export class AuthService {
   getToken() {
     return localStorage.getItem('token');
   }
+
+  // isLoggedIn(): boolean {
+  //   return;
+  // }
 }
