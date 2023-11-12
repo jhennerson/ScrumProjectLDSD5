@@ -37,7 +37,7 @@ export class UserService {
 
   private update(record: Partial<User>) {
     return this.httpClient
-      .patch<User>(`${this.API}/${record.id}`, record)
+      .put<User>(`${this.API}/${record.id}`, record)
       .pipe(first());
   }
 }
