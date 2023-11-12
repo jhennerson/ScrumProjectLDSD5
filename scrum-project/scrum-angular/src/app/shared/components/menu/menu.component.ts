@@ -10,18 +10,18 @@ export class MenuComponent {
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   toBoard() {
-    this.router.navigate(['board'], { relativeTo: this.route });
+    this.router.navigate(['board']);
   }
 
   toTask() {
-    this.router.navigate(['task'], { relativeTo: this.route });
+    this.router.navigate(['task']);
   }
 
   toUserStory() {
-    this.router.navigate(['user-story'], { relativeTo: this.route });
+    this.router.navigate(['user-story']);
   }
 
   toWasteBin() {
-    this.router.navigate(['waste-bin'], { relativeTo: this.route });
+    this.router.navigate(['waste-bin']);
   }
 }

@@ -18,6 +18,7 @@ import {
   MatDatepickerModule,
   matDatepickerAnimations,
 } from '@angular/material/datepicker';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {
   imports: [
     CommonModule,
     MatCardModule,
+    MatButtonModule,
     MatToolbarModule,
     MatDialogModule,
     MatFormFieldModule,
