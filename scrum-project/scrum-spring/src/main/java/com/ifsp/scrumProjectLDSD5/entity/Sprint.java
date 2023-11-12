@@ -2,6 +2,9 @@ package com.ifsp.scrumProjectLDSD5.entity;
 
 import java.util.Date;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +26,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
+@SQLDelete(sql = "UPDATE sprints SET deleted = true WHERE id = ?")
+@Where(clause = "deleted = false")
 public class Sprint {
     
     @Id
@@ -41,4 +46,6 @@ public class Sprint {
     private Date assignmentDate;
 
 	private Date endDate;
+
+    private Boolean deleted = false;
 }

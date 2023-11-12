@@ -1,5 +1,8 @@
 package com.ifsp.scrumProjectLDSD5.entity;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +24,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
+@SQLDelete(sql = "UPDATE user-stories SET deleted = true WHERE id = ?")
+@Where(clause = "deleted = false")
 public class UserStory {
 	
 	@Id
@@ -38,4 +43,6 @@ public class UserStory {
 	private User reporter;
 
 	private String description;
+
+	private Boolean deleted = false;
 }

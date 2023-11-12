@@ -2,6 +2,9 @@ package com.ifsp.scrumProjectLDSD5.entity;
 
 import java.util.Date;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import com.ifsp.scrumProjectLDSD5.enumeration.Status;
 
 import jakarta.persistence.Entity;
@@ -27,6 +30,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
+@SQLDelete(sql = "UPDATE tasks SET deleted = true WHERE id = ?")
+@Where(clause = "deleted = false")
 public class Task  {
 	
 	@Id
@@ -58,5 +63,7 @@ public class Task  {
 	private String description;
 
 	@Enumerated(EnumType.STRING)
-	private Status status;	
+	private Status status;
+
+	private Boolean deleted = false;
 }
