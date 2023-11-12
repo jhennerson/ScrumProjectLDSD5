@@ -11,12 +11,12 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'task',
+    path: 'tasks',
     loadChildren: () =>
       import('./modules/task/task.module').then((module) => module.TaskModule),
   },
   {
-    path: 'user-story',
+    path: 'user-stories',
     loadChildren: () =>
       import('./modules/user-story/user-story.module').then(
         (module) => module.UserStoryModule

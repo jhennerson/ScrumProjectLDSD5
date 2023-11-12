@@ -14,11 +14,11 @@ export class MenuComponent {
   }
 
   toTask() {
-    this.router.navigate(['task']);
+    this.router.navigate(['tasks']);
   }
 
   toUserStory() {
-    this.router.navigate(['user-story']);
+    this.router.navigate(['user-stories']);
   }
 
   toWasteBin() {
