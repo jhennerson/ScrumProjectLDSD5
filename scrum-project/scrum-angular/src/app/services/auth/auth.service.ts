@@ -1,7 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
-import { Credentials, User } from 'src/app/models/user/user';
+import { User } from 'src/app/models/user/user';
 
 @Injectable({
   providedIn: 'root',
@@ -19,13 +19,15 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient) {}
 
-  login(credentials: Credentials): Observable<User> {
-    console.log(credentials);
-
+  login(username: string, password: string): Observable<User> {
     return this.httpClient
-      .post(`${this.API}/login`, credentials, {
-        observe: 'response',
-      })
+      .post(
+        `${this.API}/login`,
+        { username, password },
+        {
+          observe: 'response',
+        }
+      )
       .pipe(
         map((response: HttpResponse<any>) => {
           const body = response.body;

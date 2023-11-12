@@ -25,13 +25,17 @@ export class LoginComponent {
   }
 
   login() {
-    this.authService.login(this.form.value).subscribe({
-      next: () => {
-        this.onSuccess();
-        this.router.navigate(['/board']);
-      },
-      error: () => this.onError(),
-    });
+    const credentials = this.form.value;
+
+    this.authService
+      .login(credentials.username, credentials.password)
+      .subscribe({
+        next: () => {
+          this.onSuccess();
+          this.router.navigate(['/board']);
+        },
+        error: () => this.onError(),
+      });
   }
 
   private onSuccess() {
