@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BacklogComponent } from 'src/app/components/backlog/backlog.component';
+import { TaskComponent } from 'src/app/components/task/task.component';
 import { BoardComponent } from 'src/app/components/board/board.component';
 import { UserStoryComponent } from 'src/app/components/user-story/user-story.component';
 
 const routes: Routes = [
   { path: '', component: BoardComponent },
-  { path: 'backlog', component: BacklogComponent },
+  { path: 'task', component: TaskComponent },
   { path: 'user-story', component: UserStoryComponent },
 ];
 

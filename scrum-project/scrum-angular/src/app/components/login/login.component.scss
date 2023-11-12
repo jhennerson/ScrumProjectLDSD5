@@ -1,5 +1,5 @@
 mat-card {
-  max-width: 400px;
+  max-width: 500px;
   margin: 2em auto;
   text-align: center;
 }
@@ -10,7 +10,9 @@ mat-toolbar {
 }
 
 mat-card-content {
-  margin-top: 1.2rem;
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 0 0 4px 4px;
 }
 
 .signin-content {
@@ -19,8 +21,4 @@ mat-card-content {
 
 .full-width-input {
   width: 100%;
-}
-
-.login-button {
-  background-color: white;
 }

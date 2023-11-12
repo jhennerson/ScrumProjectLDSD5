@@ -1,14 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
 import { SprintRoutingModule } from './sprint-routing.module';
 
-
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    SprintRoutingModule
-  ]
+  imports: [CommonModule, SprintRoutingModule],
 })
-export class SprintModule { }
+export class SprintModule {}

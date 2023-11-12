@@ -11,11 +11,11 @@ import { Status } from 'src/app/enum/status.enum';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
-  selector: 'app-backlog',
-  templateUrl: './backlog.component.html',
-  styleUrls: ['./backlog.component.scss'],
+  selector: 'app-task',
+  templateUrl: './task.component.html',
+  styleUrls: ['./task.component.scss'],
 })
-export class BacklogComponent implements OnInit {
+export class TaskComponent implements OnInit {
   enabledTasks: Observable<Task[]>;
 
   displayedColumns = [

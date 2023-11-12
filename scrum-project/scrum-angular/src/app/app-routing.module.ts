@@ -1,36 +1,38 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'board' },
   {
-    path: 'login',
-    component: LoginComponent,
-  },
-  {
     path: 'board',
     loadChildren: () =>
-      import('./modules/board/board.module').then((m) => m.BoardModule),
+      import('./modules/board/board.module').then(
+        (module) => module.BoardModule
+      ),
   },
   {
-    path: 'backlog',
+    path: 'task',
     loadChildren: () =>
-      import('./modules/backlog/backlog.module').then((m) => m.BacklogModule),
+      import('./modules/task/task.module').then((module) => module.TaskModule),
   },
   {
     path: 'user-story',
     loadChildren: () =>
       import('./modules/user-story/user-story.module').then(
-        (m) => m.UserStoryModule
+        (module) => module.UserStoryModule
       ),
   },
   {
     path: 'waste-bin',
     loadChildren: () =>
       import('./modules/waste-bin/waste-bin.module').then(
-        (m) => m.WasteBinModule
+        (module) => module.WasteBinModule
       ),
+  },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./modules/login/login.module').then((m) => m.LoginModule),
   },
 ];
 

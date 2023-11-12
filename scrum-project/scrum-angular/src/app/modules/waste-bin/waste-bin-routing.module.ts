@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BacklogComponent } from 'src/app/components/backlog/backlog.component';
+import { TaskComponent } from 'src/app/components/task/task.component';
 import { BoardComponent } from 'src/app/components/board/board.component';
 import { UserStoryComponent } from 'src/app/components/user-story/user-story.component';
 import { WasteBinComponent } from 'src/app/components/waste-bin/waste-bin.component';
@@ -8,7 +8,7 @@ import { WasteBinComponent } from 'src/app/components/waste-bin/waste-bin.compon
 const routes: Routes = [
   { path: '', component: WasteBinComponent },
   { path: 'board', component: BoardComponent },
-  { path: 'backlog', component: BacklogComponent },
+  { path: 'task', component: TaskComponent },
   { path: 'user-story', component: UserStoryComponent },
 ];
 
