@@ -38,7 +38,7 @@ export class TaskService {
 
   private update(record: Partial<Task>) {
     return this.httpClient
-      .patch<Task>(`${this.API}/${record.id}`, record)
+      .put<Task>(`${this.API}/${record.id}`, record)
       .pipe(first());
   }
 }
