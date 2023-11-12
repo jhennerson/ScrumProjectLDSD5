@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ifsp.scrumProjectLDSD5.repository.UserRepository;
 @Service
-public class AuthorizationService implements UserDetailsService {
+public class AuthService implements UserDetailsService {
 
     @Autowired
     UserRepository repository;

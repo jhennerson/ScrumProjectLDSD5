@@ -49,10 +49,10 @@ export class UserStoryFormModalComponent implements OnInit {
   }
 
   onSubmit() {
-    this.userStoryService.save(this.form?.value).subscribe(
-      (result) => this.onSuccess(),
-      (error) => this.onError()
-    );
+    this.userStoryService.save(this.form?.value).subscribe({
+      next: () => this.onSuccess(),
+      error: () => this.onError(),
+    });
   }
 
   private onSuccess() {

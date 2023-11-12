@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ifsp.scrumProjectLDSD5.dto.AuthenticationDTO;
+import com.ifsp.scrumProjectLDSD5.dto.AuthDTO;
 import com.ifsp.scrumProjectLDSD5.dto.LoginResponseDTO;
 import com.ifsp.scrumProjectLDSD5.dto.RegisterDTO;
 import com.ifsp.scrumProjectLDSD5.entity.User;
@@ -25,7 +25,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth")
-public class AuthenticationController {
+public class AuthController {
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
@@ -34,7 +34,7 @@ public class AuthenticationController {
     private TokenService tokenService;
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid AuthenticationDTO authenticationDTO){
+    public ResponseEntity login(@RequestBody @Valid AuthDTO authenticationDTO){
         try {
             UsernamePasswordAuthenticationToken usernamePassword = new UsernamePasswordAuthenticationToken(authenticationDTO.username(), authenticationDTO.password());
             Authentication auth = this.authenticationManager.authenticate(usernamePassword);

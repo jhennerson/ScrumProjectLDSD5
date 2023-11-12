@@ -25,6 +25,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BacklogComponent } from './components/backlog/backlog.component';
 import { BoardComponent } from './components/board/board.component';
+import { HomeLayoutComponent } from './components/layouts/home-layout/home-layout.component';
+import { LoginLayoutComponent } from './components/layouts/login-layout/login-layout.component';
+import { LoginComponent } from './components/login/login.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SprintComponent } from './components/sprint/sprint.component';
@@ -51,6 +54,9 @@ import { UsernamePipe } from './shared/pipes/username/username.pipe';
     UserStoryFormModalComponent,
     WasteBinComponent,
     ConfirmationDialogComponent,
+    LoginComponent,
+    HomeLayoutComponent,
+    LoginLayoutComponent,
   ],
   imports: [
     BrowserModule,

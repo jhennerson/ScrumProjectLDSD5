@@ -64,11 +64,10 @@ export class TaskFormModalComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form.value);
-    this.taskService.save(this.form.value).subscribe(
-      (result) => this.onSuccess(),
-      (error) => this.onError()
-    );
+    this.taskService.save(this.form.value).subscribe({
+      next: () => this.onSuccess(),
+      error: () => this.onError(),
+    });
   }
 
   onRestore() {
