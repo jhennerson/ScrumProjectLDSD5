@@ -58,7 +58,6 @@ public class User implements UserDetails {
 	@Column(name = "email", nullable = false)
 	private String email;
 
-
 	@Column(name = "role")
 	private UserRole role = UserRole.USER;
 

@@ -4,7 +4,7 @@
       signInCard ? "Logar" : "Cadastrar"
     }}</mat-toolbar>
     <mat-card-content>
-      <form [formGroup]="signInForm" *ngIf="signInCard" (ngSubmit)="signIn()">
+      <form [formGroup]="signInForm" *ngIf="signInCard" (ngSubmit)="signin()">
         <mat-form-field class="full-width-input">
           <mat-label>Usuário</mat-label>
           <input matInput type="text" formControlName="username" />
@@ -26,7 +26,7 @@
         </button>
       </form>
 
-      <form [formGroup]="signUpForm" *ngIf="!signInCard" (ngSubmit)="signUp()">
+      <form [formGroup]="signUpForm" *ngIf="!signInCard" (ngSubmit)="signup()">
         <mat-form-field class="full-width-input">
           <mat-label>Usuário</mat-label>
           <input matInput type="text" formControlName="username" />
