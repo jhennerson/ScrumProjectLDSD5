@@ -18,6 +18,6 @@ public record RegisterDTO(
 	@NotNull
     String email,
 
-	@NotNull
+
     UserRole role
 ) {}

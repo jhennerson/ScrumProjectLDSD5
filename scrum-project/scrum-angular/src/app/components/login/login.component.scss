@@ -12,6 +12,11 @@ mat-toolbar {
 mat-card-content {
   padding: 1.5rem;
   background-color: white;
+}
+
+mat-card-actions {
+  justify-content: center;
+  background-color: white;
   border-radius: 0 0 4px 4px;
 }
 
@@ -21,4 +26,9 @@ mat-card-content {
 
 .full-width-input {
   width: 100%;
+}
+
+.form-change {
+  cursor: pointer;
+  color: blue;
 }
