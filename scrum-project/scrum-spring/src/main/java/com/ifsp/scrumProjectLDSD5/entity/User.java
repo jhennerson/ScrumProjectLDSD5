@@ -58,18 +58,11 @@ public class User implements UserDetails {
 	@Column(name = "email", nullable = false)
 	private String email;
 
-	@NotNull
-	@Column(name = "role", nullable = false)
-	private UserRole role;
+
+	@Column(name = "role")
+	private UserRole role = UserRole.USER;
 
 	private Boolean deleted = false;
-
-	public User(String username, String password, String email, UserRole role) {
-		this.username = username;
-		this.email = email;
-		this.password = password;
-		this.role = role;
-	}
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

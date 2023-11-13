@@ -10,7 +10,9 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  form: FormGroup;
+  signInForm: FormGroup;
+  signUpForm: FormGroup;
+  signInCard = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -18,17 +20,21 @@ export class LoginComponent {
     private router: Router,
     public snackBar: MatSnackBar
   ) {
-    this.form = this.formBuilder.group({
+    this.signInForm = this.formBuilder.group({
       username: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+    });
+
+    this.signUpForm = this.formBuilder.group({
+      username: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });
   }
 
-  login() {
-    const credentials = this.form.value;
-
+  signIn() {
     this.authService
-      .login(credentials.username, credentials.password)
+      .signin(this.signInForm.value)
       .subscribe({
         next: () => {
           this.onSuccess();
@@ -36,6 +42,16 @@ export class LoginComponent {
         },
         error: () => this.onError(),
       });
+  }
+
+  signUp() {
+    this.authService.signup(this.signUpForm.value).subscribe({
+      next: () => {
+        this.onSuccess();
+          this.router.navigate(['/board']);
+        },
+        error: () => this.onError(),
+    })
   }
 
   private onSuccess() {

@@ -1,6 +1,6 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, first, map } from 'rxjs';
 import { User } from 'src/app/models/user/user';
 
 @Injectable({
@@ -11,11 +11,11 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient) {}
 
-  login(username: string, password: string): Observable<User> {
+  signin(record: Partial<User>): Observable<User> {
     return this.httpClient
       .post(
         `${this.API}/login`,
-        { username, password },
+        record,
         {
           observe: 'response',
         }
@@ -37,11 +37,7 @@ export class AuthService {
       );
   }
 
-  getToken() {
-    return localStorage.getItem('token');
+  signup(record: Partial<User>): Observable<User> {
+    return this.httpClient.post<User>(`${this.API}/register`, record).pipe(first());
   }
-
-  // isLoggedIn(): boolean {
-  //   return;
-  // }
 }
