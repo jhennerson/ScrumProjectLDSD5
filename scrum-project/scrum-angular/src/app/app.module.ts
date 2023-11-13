@@ -24,8 +24,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BoardComponent } from './components/board/board.component';
-import { HomeLayoutComponent } from './components/layouts/home-layout/home-layout.component';
-import { LoginLayoutComponent } from './components/layouts/login-layout/login-layout.component';
 import { LoginComponent } from './components/login/login.component';
 import { SprintComponent } from './components/sprint/sprint.component';
 import { TaskComponent } from './components/task/task.component';
@@ -46,8 +44,6 @@ import { UsernamePipe } from './shared/pipes/username/username.pipe';
     UserStoryComponent,
     WasteBinComponent,
     LoginComponent,
-    HomeLayoutComponent,
-    LoginLayoutComponent,
   ],
   imports: [
     BrowserModule,
