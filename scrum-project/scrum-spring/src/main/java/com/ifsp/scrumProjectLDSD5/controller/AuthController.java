@@ -1,6 +1,5 @@
 package com.ifsp.scrumProjectLDSD5.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ifsp.scrumProjectLDSD5.dto.AuthDTO;
-import com.ifsp.scrumProjectLDSD5.dto.LoginResponseDTO;
+import com.ifsp.scrumProjectLDSD5.dto.AuthRequestDTO;
+import com.ifsp.scrumProjectLDSD5.dto.AuthResponseDTO;
 import com.ifsp.scrumProjectLDSD5.dto.RegisterDTO;
 import com.ifsp.scrumProjectLDSD5.entity.User;
 import com.ifsp.scrumProjectLDSD5.repository.UserRepository;
@@ -26,22 +25,29 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
-    private UserRepository repository;
-    @Autowired
-    private TokenService tokenService;
+
+    private final AuthenticationManager authenticationManager;
+
+    private final UserRepository userRepository;
+
+    private final TokenService tokenService;
+
+    public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository, TokenService tokenService) {
+        this.authenticationManager = authenticationManager;
+        this.userRepository = userRepository;
+        this.tokenService = tokenService;
+    }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid AuthDTO authenticationDTO){
+    public ResponseEntity<?> login(@RequestBody @Valid AuthRequestDTO authRequestDTO){
         try {
-            UsernamePasswordAuthenticationToken usernamePassword = new UsernamePasswordAuthenticationToken(authenticationDTO.username(), authenticationDTO.password());
+            UsernamePasswordAuthenticationToken usernamePassword = new UsernamePasswordAuthenticationToken(
+                    authRequestDTO.username(), authRequestDTO.password());
             Authentication auth = this.authenticationManager.authenticate(usernamePassword);
 
             String token = tokenService.generateToken((User) auth.getPrincipal());
 
-            return ResponseEntity.ok(new LoginResponseDTO(token));
+            return ResponseEntity.ok(new AuthResponseDTO(token));
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         } catch (LockedException e) {
@@ -62,7 +68,7 @@ public class AuthController {
         newUser.setEmail(user.email());
         newUser.setPassword(user.password());
 
-        this.repository.save(newUser);
+        this.userRepository.save(newUser);
 
         return ResponseEntity.ok().build();
     }
