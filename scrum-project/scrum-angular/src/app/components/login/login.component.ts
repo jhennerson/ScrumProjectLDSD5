@@ -11,9 +11,9 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  signInForm: FormGroup;
-  signUpForm: FormGroup;
-  signInCard = true;
+  signinForm: FormGroup;
+  signupForm: FormGroup;
+  signinCard = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -22,12 +22,12 @@ export class LoginComponent {
     private router: Router,
     public snackBar: MatSnackBar
   ) {
-    this.signInForm = this.formBuilder.group({
+    this.signinForm = this.formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
 
-    this.signUpForm = this.formBuilder.group({
+    this.signupForm = this.formBuilder.group({
       username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
@@ -35,10 +35,11 @@ export class LoginComponent {
   }
 
   signin() {
-    if (this.signInForm.value && this.signInForm.valid) {
-      this.authService.signin(this.signInForm.value).subscribe({
+    if (this.signinForm.value && this.signinForm.valid) {
+      this.authService.signin(this.signinForm.value).subscribe({
         next: (response) => {
           this.cookieService.set('JWT_TOKEN', response?.token);
+          this.signinForm.reset();
           this.onSuccess();
           this.router.navigate(['/board']);
         },
@@ -48,9 +49,10 @@ export class LoginComponent {
   }
 
   signup() {
-    if (this.signUpForm.value && this.signUpForm.valid) {
-      this.authService.signup(this.signUpForm.value).subscribe({
+    if (this.signupForm.value && this.signupForm.valid) {
+      this.authService.signup(this.signupForm.value).subscribe({
         next: () => {
+          this.signinForm.reset();
           this.onSuccess();
           this.router.navigate(['/board']);
         },

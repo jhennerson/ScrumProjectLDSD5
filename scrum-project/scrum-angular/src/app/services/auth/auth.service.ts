@@ -1,7 +1,7 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable, first, map } from 'rxjs';
+import { Observable, first } from 'rxjs';
 import { Token } from 'src/app/models/token/token';
 import { User } from 'src/app/models/user/user';
 
@@ -30,6 +30,6 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     const JWT_TOKEN = this.cookieService.get('JWT_TOKEN');
-    return JWT_TOKEN ? true : false;
+    return !!JWT_TOKEN;
   }
 }
