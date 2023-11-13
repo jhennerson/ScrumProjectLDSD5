@@ -1,6 +1,8 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { Observable, first, map } from 'rxjs';
+import { Token } from 'src/app/models/token/token';
 import { User } from 'src/app/models/user/user';
 
 @Injectable({
@@ -9,35 +11,25 @@ import { User } from 'src/app/models/user/user';
 export class AuthService {
   private readonly API = 'api/auth';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private cookieService: CookieService
+  ) {}
 
-  signin(record: Partial<User>): Observable<User> {
+  signin(record: Partial<User>): Observable<Token> {
     return this.httpClient
-      .post(
-        `${this.API}/login`,
-        record,
-        {
-          observe: 'response',
-        }
-      )
-      .pipe(
-        map((response: HttpResponse<any>) => {
-          const body = response.body;
-          const headers = response.headers;
-
-          const bearerToken = headers.get('Authorization');
-          if (bearerToken) {
-            const token = bearerToken.replace('Bearer ', '');
-
-            localStorage.setItem('token', token);
-          }
-
-          return body;
-        })
-      );
+      .post<Token>(`${this.API}/login`, record)
+      .pipe(first());
   }
 
   signup(record: Partial<User>): Observable<User> {
-    return this.httpClient.post<User>(`${this.API}/register`, record).pipe(first());
+    return this.httpClient
+      .post<User>(`${this.API}/register`, record)
+      .pipe(first());
+  }
+
+  isLoggedIn(): boolean {
+    const JWT_TOKEN = this.cookieService.get('JWT_TOKEN');
+    return JWT_TOKEN ? true : false;
   }
 }
