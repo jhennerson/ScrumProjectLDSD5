@@ -19,6 +19,7 @@ import {
   matDatepickerAnimations,
 } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { MatButtonModule } from '@angular/material/button';
     FormsModule,
     MatInputModule,
     MatDatepickerModule,
+    MatIconModule,
   ],
   exports: [
     NavbarComponent,
