@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Rosario:wght@300&display=swap");
 
+mat-toolbar {
+  justify-content: space-between;
+}
+
 .title-main {
   font-family: "Kaushan Script", cursive;
   font-size: xx-large;
@@ -7,4 +11,8 @@
 
 .icon-main {
   font-size: xx-large;
+}
+
+.button-logout {
+  text-align: end;
 }

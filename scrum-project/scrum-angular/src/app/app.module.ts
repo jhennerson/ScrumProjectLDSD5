@@ -1,7 +1,7 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -32,6 +32,7 @@ import { WasteBinComponent } from './components/waste-bin/waste-bin.component';
 import { SharedModule } from './shared/modules/shared.module';
 import { StatusPipe } from './shared/pipes/status/StatusPipe';
 import { UsernamePipe } from './shared/pipes/username/username.pipe';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,11 @@ import { UsernamePipe } from './shared/pipes/username/username.pipe';
     {
       provide: MatDialogRef,
       useValue: {},
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
     },
   ],
   bootstrap: [AppComponent],
