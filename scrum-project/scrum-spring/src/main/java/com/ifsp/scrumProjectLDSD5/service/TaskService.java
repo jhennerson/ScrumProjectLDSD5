@@ -3,6 +3,7 @@ package com.ifsp.scrumProjectLDSD5.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,15 +18,11 @@ import jakarta.validation.constraints.NotNull;
 
 @Validated
 @Service
+@RequiredArgsConstructor
 public class TaskService {
 
 	private final TaskRepository taskRepository;
 	private final TaskMapper taskMapper;
-
-	public TaskService(TaskRepository taskRepository, TaskMapper taskMapper) {
-		this.taskRepository = taskRepository;
-		this.taskMapper = taskMapper;
-	}
 
 	public List<TaskDTO> list() {
 		return taskRepository.findAll()

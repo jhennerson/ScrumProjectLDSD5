@@ -3,6 +3,7 @@ package com.ifsp.scrumProjectLDSD5.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -15,14 +16,10 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 @Service
+@RequiredArgsConstructor
 public class UserStoryService {
     private final UserStoryRepository userStoryRepository;
     private final UserStoryMapper userStoryMapper;
-
-    public UserStoryService(UserStoryRepository userStoryRepository, UserStoryMapper userStoryMapper) {
-        this.userStoryRepository = userStoryRepository;
-        this.userStoryMapper = userStoryMapper;
-    }
 
     public List<UserStoryDTO> list() {
         return userStoryRepository.findAll()

@@ -3,6 +3,7 @@ package com.ifsp.scrumProjectLDSD5.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,15 +18,11 @@ import jakarta.validation.constraints.NotNull;
 
 @Validated
 @Service
+@RequiredArgsConstructor
 public class SprintService {
     
     private final SprintRepository sprintRepository;
     private final SprintMapper sprintMapper;
-
-    public SprintService(SprintRepository sprintRepository, SprintMapper sprintMapper) {
-        this.sprintRepository = sprintRepository;
-        this.sprintMapper = sprintMapper;
-    }
 
     public List<SprintDTO> list() {
         return sprintRepository.findAll()
