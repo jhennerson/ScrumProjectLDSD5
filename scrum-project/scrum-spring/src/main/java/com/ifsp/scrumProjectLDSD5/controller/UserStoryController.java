@@ -2,6 +2,7 @@ package com.ifsp.scrumProjectLDSD5.controller;
 
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,13 +23,10 @@ import jakarta.validation.constraints.NotNull;
 
 @Validated
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/user-stories")
 public class UserStoryController {
     private final UserStoryService userStoryService;
-
-    public UserStoryController(UserStoryService userStoryService) {
-        this.userStoryService = userStoryService;
-    }
 
     @GetMapping
     public List<UserStoryDTO> list() {

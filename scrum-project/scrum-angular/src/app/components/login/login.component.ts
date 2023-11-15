@@ -40,7 +40,8 @@ export class LoginComponent {
         next: (response) => {
           this.cookieService.set('JWT_TOKEN', response?.token);
           this.signinForm.reset();
-          this.onSuccess();
+          this.signinCard = true;
+          this.onLoginSuccess(this.signinForm.value.username);
           this.router.navigate(['/board']);
         },
         error: () => this.onError(),
@@ -53,16 +54,24 @@ export class LoginComponent {
       this.authService.signup(this.signupForm.value).subscribe({
         next: () => {
           this.signinForm.reset();
-          this.onSuccess();
-          this.router.navigate(['/board']);
+          this.signinCard = true;
+          this.onSignupSuccess();
+          this.router.navigate(['/login']);
         },
         error: () => this.onError(),
       });
     }
   }
 
-  private onSuccess() {
-    this.snackBar.open('Seja bem vindo!', 'X', {
+  private onLoginSuccess(username: string) {
+    this.snackBar.open('Seja bem vindo ' + username, 'X', {
+      duration: 2000,
+      panelClass: 'task-status-snackbar',
+    });
+  }
+
+  private onSignupSuccess() {
+    this.snackBar.open('Usuário cadastrado com sucesso!', 'X', {
       duration: 2000,
       panelClass: 'task-status-snackbar',
     });

@@ -2,6 +2,7 @@ package com.ifsp.scrumProjectLDSD5.controller;
 
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,13 +25,10 @@ import jakarta.validation.constraints.Positive;
 
 @Validated
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/users")
 public class UserController {
     private final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @GetMapping
     public List<UserDTO> list() {
@@ -41,22 +39,22 @@ public class UserController {
     public UserDTO findById(@PathVariable @NotNull String id) {
         return userService.findById(id);
     }
-
-    @PostMapping
-    @ResponseStatus(code = HttpStatus.CREATED)
-    public UserDTO create(@RequestBody @Valid @NotNull UserDTO user) {
-        return userService.create(user);
-    }
-
-    @PatchMapping("/{id}")
-    public UserDTO update(@PathVariable @NotNull String id, @RequestBody @Valid @NotNull UserDTO user) {
-        return userService.update(id, user);
-    }
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable @NotNull String id) {
-        userService.delete(id);
-    }
+//
+//    @PostMapping
+//    @ResponseStatus(code = HttpStatus.CREATED)
+//    public UserDTO create(@RequestBody @Valid @NotNull UserDTO user) {
+//        return userService.create(user);
+//    }
+//
+//    @PatchMapping("/{id}")
+//    public UserDTO update(@PathVariable @NotNull String id, @RequestBody @Valid @NotNull UserDTO user) {
+//        return userService.update(id, user);
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+//    public void delete(@PathVariable @NotNull String id) {
+//        userService.delete(id);
+//    }
 }
 
