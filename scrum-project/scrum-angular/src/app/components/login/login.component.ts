@@ -38,7 +38,9 @@ export class LoginComponent {
     if (this.signinForm.value && this.signinForm.valid) {
       this.authService.signin(this.signinForm.value).subscribe({
         next: (response) => {
-          this.cookieService.set('JWT_TOKEN', response?.token);
+          let currentDate = new Date();
+          let expirationDate = new Date(currentDate.getTime() + 60 * 60000);
+          this.cookieService.set('JWT_TOKEN', response?.token, expirationDate);
           this.signinForm.reset();
           this.signinCard = true;
           this.onLoginSuccess(this.signinForm.value.username);

@@ -16,6 +16,7 @@ import { UserStoryFormModalComponent } from 'src/app/shared/components/user-stor
 export class UserStoryComponent implements OnInit {
   userStories: Observable<UserStory[]> = new Observable<UserStory[]>();
   sprintOptions: Sprint[] = [];
+  projectOptions = [];
 
   displayedColumns = [
     'title',

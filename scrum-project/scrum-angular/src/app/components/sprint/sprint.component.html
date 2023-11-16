@@ -10,9 +10,9 @@
       <mat-card align="center" class="sprint-mat-card">
         <div class="sprint-menu">
           <mat-toolbar class="sprint-mat-toolbar">
-            <mat-form-field class="sprint-menu-operations sprint-select">
+            <mat-form-field class="project-menu-operations project-select">
               <mat-label>Projeto</mat-label>
-              <mat-select class="sprint-select">
+              <mat-select class="project-select">
                 <mat-option *ngFor="let projeto of projetos" [value]="projeto">
                   {{ projeto }}
                 </mat-option>
@@ -89,8 +89,9 @@
 
                 <button
                   mat-icon-button
-                  aria-label="Mover para a lixeira"
-                  (click)="onRemove(sprint)"
+                  aria-label="Apagar"
+                  color="warn"
+                  (click)="onDelete(sprint)"
                 >
                   <mat-icon>delete</mat-icon>
                 </button>
