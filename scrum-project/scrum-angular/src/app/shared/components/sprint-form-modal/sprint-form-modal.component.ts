@@ -1,19 +1,19 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { SprintService } from './../../../services/sprint/sprint.service';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
-import { UserStory } from 'src/app/models/user-story/user-story';
+import { Sprint } from 'src/app/models/sprint/sprint';
 import { User } from 'src/app/models/user/user';
-import { UserStoryService } from 'src/app/services/user-story/user-story.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
-  selector: 'app-user-story-modal',
-  templateUrl: './user-story-form-modal.component.html',
-  styleUrls: ['./user-story-form-modal.component.scss'],
+  selector: 'app-sprint-form-modal',
+  templateUrl: './sprint-form-modal.component.html',
+  styleUrls: ['./sprint-form-modal.component.scss'],
 })
-export class UserStoryFormModalComponent implements OnInit {
+export class SprintFormModalComponent implements OnInit {
   form: FormGroup;
   users: Observable<User[]> = new Observable<User[]>();
 
@@ -21,49 +21,50 @@ export class UserStoryFormModalComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private userStoryService: UserStoryService,
+    private sprintService: SprintService,
     private userService: UserService,
-    public dialog: MatDialog,
-    public snackBar: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public data: UserStory
+    private snackBar: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public data: Sprint
   ) {
     this.form = this.formBuilder.group({
       id: ['', [Validators.required]],
-      title: ['', Validators.required],
-      assignee: [''],
+      title: ['', [Validators.required]],
       reporter: [''],
       description: [''],
+      assignmentDate: [''],
+      endDate: [''],
     });
 
     if (data) {
       this.form.patchValue({
         id: data.id,
         title: data.title,
-        assignee: data.assignee,
         reporter: data.reporter,
         description: data.description,
+        assignmentDate: data.assignmentDate,
+        endDate: data.endDate,
       });
     }
   }
 
   onSubmit() {
-    this.userStoryService.save(this.form?.value).subscribe({
+    this.sprintService.save(this.form.value).subscribe({
       next: () => this.onSuccess(),
       error: () => this.onError(),
     });
   }
 
   private onSuccess() {
-    this.snackBar.open('História do usuário salva com sucesso!', 'X', {
+    this.snackBar.open('Sprint salva com sucesso!', 'X', {
       duration: 2000,
-      panelClass: 'task-status-snackbar',
+      panelClass: 'sprint-status-snackbar',
     });
   }
 
   private onError() {
-    this.snackBar.open('Erro ao salvar história do usuário!', 'X', {
+    this.snackBar.open('Erro ao salvar sprint!', 'X', {
       duration: 2000,
-      panelClass: 'task-status-snackbar',
+      panelClass: 'sprint-status-snackbar',
     });
   }
 
@@ -73,7 +74,7 @@ export class UserStoryFormModalComponent implements OnInit {
       .subscribe((options) => (this.userOptions = options));
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadUsers();
   }
 }

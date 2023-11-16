@@ -13,11 +13,15 @@ export class MenuComponent {
     this.router.navigate(['board']);
   }
 
-  toTask() {
+  toTasks() {
     this.router.navigate(['tasks']);
   }
 
-  toUserStory() {
+  toSprints() {
+    this.router.navigate(['sprints']);
+  }
+
+  toUserStories() {
     this.router.navigate(['user-stories']);
   }
 

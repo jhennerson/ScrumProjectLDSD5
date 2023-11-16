@@ -14,10 +14,10 @@
               <mat-label>Sprint</mat-label>
               <mat-select class="sprint-select">
                 <mat-option
-                  *ngFor="let sprint of sprints"
-                  [value]="sprint.title"
+                  *ngFor="let option of sprintOptions"
+                  [value]="option.id"
                 >
-                  {{ sprint.title }}
+                  {{ option.title }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -35,7 +35,7 @@
         </div>
 
         <mat-card class="task-content">
-          <mat-table [dataSource]="enabledTasks" class="mat-elevation-z8">
+          <mat-table [dataSource]="tasks" class="mat-elevation-z8">
             <ng-container matColumnDef="title">
               <mat-header-cell *matHeaderCellDef> Título </mat-header-cell>
 
@@ -46,7 +46,7 @@
               <mat-header-cell *matHeaderCellDef> Responsável </mat-header-cell>
 
               <mat-cell *matCellDef="let task">
-                {{ task.assignee.id | username | async }}
+                {{ task.assignee.username }}
               </mat-cell>
             </ng-container>
 
@@ -54,7 +54,15 @@
               <mat-header-cell *matHeaderCellDef> Relator </mat-header-cell>
 
               <mat-cell *matCellDef="let task">
-                {{ task.reporter.id | username | async }}
+                {{ task.reporter.username }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="sprint">
+              <mat-header-cell *matHeaderCellDef> Sprint </mat-header-cell>
+
+              <mat-cell *matCellDef="let sprint">
+                {{ sprint.title }}
               </mat-cell>
             </ng-container>
 
@@ -117,7 +125,7 @@
               <mat-cell *matCellDef="let task">
                 <button
                   mat-icon-button
-                  aria-label="Ver tudo"
+                  aria-label="Editar"
                   (click)="onEdit(task)"
                 >
                   <mat-icon>more_vert</mat-icon>

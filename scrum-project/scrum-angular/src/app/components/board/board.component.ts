@@ -13,6 +13,7 @@ import { Sprint } from '../../models/sprint/sprint';
 import { Task } from '../../models/task/task';
 import { TaskService } from '../../services/task/task.service';
 import { Status } from 'src/app/enum/status.enum';
+import { SprintService } from 'src/app/services/sprint/sprint.service';
 
 @Component({
   selector: 'app-board',
@@ -20,7 +21,8 @@ import { Status } from 'src/app/enum/status.enum';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
-  tasks: Observable<Task[]>;
+  tasks: Observable<Task[]> = new Observable<Task[]>;
+  sprintOptions: Sprint[] = [];
 
   todo: Task[] = [];
   inprogress: Task[] = [];
@@ -28,22 +30,12 @@ export class BoardComponent implements OnInit {
 
   constructor(
     private taskService: TaskService,
+    private sprintService: SprintService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar
-  ) {
-    this.tasks = this.taskService.list().pipe(first());
-  }
+  ) {}
 
-  sprints: Sprint[] = [
-    {
-      id: '1',
-      title: 'Sprint atual',
-      assignmentDate: new Date(),
-      endDate: new Date(),
-      description: 'Sprint atual',
-      status: 'Em execução',
-    },
-  ];
+  sprints: Sprint[] = [];
 
   drop(event: CdkDragDrop<Task[]>) {
     if (event.previousContainer === event.container) {
@@ -122,7 +114,14 @@ export class BoardComponent implements OnInit {
     });
   }
 
+  loadSprints() {
+    this.sprintService
+      .list()
+      .subscribe((options) => (this.sprintOptions = options));
+  }
+
   ngOnInit() {
     this.loadTasks();
+    this.loadSprints();
   }
 }

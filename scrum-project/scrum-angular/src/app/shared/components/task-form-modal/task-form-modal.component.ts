@@ -17,8 +17,8 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class TaskFormModalComponent implements OnInit {
   form: FormGroup;
-  users: Observable<User[]>;
-  userStories: Observable<UserStory[]>;
+  users: Observable<User[]> = new Observable<User[]>();
+  userStories: Observable<UserStory[]> = new Observable<UserStory[]>();
 
   userOptions: User[] = [];
   userStoryOptions: UserStory[] = [];
@@ -30,11 +30,8 @@ export class TaskFormModalComponent implements OnInit {
     private userStoryService: UserStoryService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public data: { task: Task; enableable: boolean }
+    @Inject(MAT_DIALOG_DATA) public data: Task
   ) {
-    this.users = this.userService.list();
-    this.userStories = this.userStoryService.list();
-
     this.form = this.formBuilder.group({
       id: ['', [Validators.required]],
       title: ['', [Validators.required]],
@@ -50,15 +47,15 @@ export class TaskFormModalComponent implements OnInit {
 
     if (data) {
       this.form.patchValue({
-        id: data.task.id,
-        title: data.task.title,
-        assignee: data.task.assignee,
-        reporter: data.task.reporter,
-        assignmentDate: data.task.assignmentDate,
-        endDate: data.task.endDate,
-        storyPoints: data.task.storyPoints,
-        description: data.task.description,
-        userStory: data.task.userStory,
+        id: data.id,
+        title: data.title,
+        assignee: data.assignee,
+        reporter: data.reporter,
+        assignmentDate: data.assignmentDate,
+        endDate: data.endDate,
+        storyPoints: data.storyPoints,
+        description: data.description,
+        userStory: data.userStory,
       });
     }
   }
@@ -92,7 +89,9 @@ export class TaskFormModalComponent implements OnInit {
     this.userService
       .list()
       .subscribe((options) => (this.userOptions = options));
+  }
 
+  loadUserStories() {
     this.userStoryService
       .list()
       .subscribe((options) => (this.userStoryOptions = options));
@@ -100,5 +99,6 @@ export class TaskFormModalComponent implements OnInit {
 
   ngOnInit() {
     this.loadUsers();
+    this.loadUserStories();
   }
 }

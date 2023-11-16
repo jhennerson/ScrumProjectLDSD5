@@ -7,7 +7,106 @@
       </div>
     </div>
     <div class="col-md-10">
-      <p>sprint works!</p>
+      <mat-card align="center" class="sprint-mat-card">
+        <div class="sprint-menu">
+          <mat-toolbar class="sprint-mat-toolbar">
+            <!-- <mat-form-field class="sprint-menu-operations sprint-select">
+              <mat-label>Sprint</mat-label>
+              <mat-select class="sprint-select">
+                <mat-option
+                  *ngFor="let sprint of sprints"
+                  [value]="sprint.title"
+                >
+                  {{ sprint.title }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field> -->
+
+            <button
+              mat-button
+              class="sprint-menu-operations add-button"
+              aria-label="Adicionar sprint"
+              (click)="onAdd()"
+            >
+              <span class="text-nowrap">Nova sprint</span>
+              <mat-icon iconPositionEnd>add</mat-icon>
+            </button>
+          </mat-toolbar>
+        </div>
+
+        <mat-card class="sprint-content">
+          <mat-table [dataSource]="sprints" class="mat-elevation-z8">
+            <ng-container matColumnDef="title">
+              <mat-header-cell *matHeaderCellDef> Título </mat-header-cell>
+
+              <mat-cell *matCellDef="let sprint"> {{ sprint.title }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="reporter">
+              <mat-header-cell *matHeaderCellDef> Relator </mat-header-cell>
+
+              <mat-cell *matCellDef="let sprint">
+                {{ sprint.reporter.username }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="assignmentDate">
+              <mat-header-cell *matHeaderCellDef>
+                Data de atribuição
+              </mat-header-cell>
+
+              <mat-cell *matCellDef="let sprint">
+                {{ sprint.assignmentDate }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="endDate">
+              <mat-header-cell *matHeaderCellDef>
+                Data de entrega
+              </mat-header-cell>
+
+              <mat-cell *matCellDef="let sprint">
+                {{ sprint.endDate }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+              <mat-header-cell *matHeaderCellDef> Descrição </mat-header-cell>
+
+              <mat-cell *matCellDef="let sprint">
+                {{ sprint.description }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <mat-header-cell *matHeaderCellDef>Operações</mat-header-cell>
+
+              <mat-cell *matCellDef="let sprint">
+                <button
+                  mat-icon-button
+                  aria-label="Editar"
+                  (click)="onEdit(sprint)"
+                >
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+
+                <button
+                  mat-icon-button
+                  aria-label="Mover para a lixeira"
+                  (click)="onRemove(sprint)"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row
+              *matHeaderRowDef="displayedColumns"
+            ></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+          </mat-table>
+        </mat-card>
+      </mat-card>
     </div>
   </div>
 </div>

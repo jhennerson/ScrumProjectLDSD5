@@ -14,10 +14,10 @@
               <mat-label>Sprint</mat-label>
               <mat-select class="sprint-select">
                 <mat-option
-                  *ngFor="let sprint of sprints"
-                  [value]="sprint.title"
+                  *ngFor="let option of sprintOptions"
+                  [value]="option.id"
                 >
-                  {{ sprint.title }}
+                  {{ option.title }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -58,7 +58,7 @@
                       </div>
                       <hr />
                       <div class="task-card-bottom">
-                        {{ task.assignee.id | username | async }}
+                        {{ task.assignee.username || "Não atribuído" }}
                         <button
                           mat-icon-button
                           aria-label="Ver tudo"
@@ -95,7 +95,7 @@
                       </div>
                       <hr />
                       <div class="task-card-bottom">
-                        {{ task.assignee.id | username | async }}
+                        {{ task.assignee.username || "Não atribuído" }}
                         <button
                           mat-icon-button
                           aria-label="Ver tudo"
@@ -132,7 +132,7 @@
                       </div>
                       <hr />
                       <div class="task-card-bottom">
-                        {{ task.assignee.id | username | async }}
+                        {{ task.assignee.username || "Não atribuído" }}
                         <button
                           mat-icon-button
                           aria-label="Ver tudo"

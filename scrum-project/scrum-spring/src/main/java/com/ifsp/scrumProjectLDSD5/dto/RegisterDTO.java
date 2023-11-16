@@ -1,5 +1,6 @@
 package com.ifsp.scrumProjectLDSD5.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ifsp.scrumProjectLDSD5.enumeration.UserRole;
 

@@ -29,10 +29,11 @@ import { SprintComponent } from './components/sprint/sprint.component';
 import { TaskComponent } from './components/task/task.component';
 import { UserStoryComponent } from './components/user-story/user-story.component';
 import { WasteBinComponent } from './components/waste-bin/waste-bin.component';
-import { SharedModule } from './shared/modules/shared.module';
-import { StatusPipe } from './shared/pipes/status/StatusPipe';
-import { UsernamePipe } from './shared/pipes/username/username.pipe';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { SharedModule } from './shared/modules/shared.module';
+import { StatusPipe } from './shared/pipes/status/status.pipe';
+import { TitlePipe } from './shared/pipes/title/title.pipe';
+import { UsernamePipe } from './shared/pipes/username/username.pipe';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     UserStoryComponent,
     WasteBinComponent,
     LoginComponent,
+    TitlePipe,
   ],
   imports: [
     BrowserModule,
