@@ -38,7 +38,7 @@ export class UserStoryComponent implements OnInit {
     const dialogRef = this.dialog.open(UserStoryFormModalComponent, {});
 
     dialogRef.afterClosed().subscribe(() => {
-      this.loadTasks();
+      this.loadUserStories();
     });
   }
 
@@ -48,11 +48,11 @@ export class UserStoryComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      this.loadTasks();
+      this.loadUserStories();
     });
   }
 
-  loadTasks() {
+  loadUserStories() {
     this.userStories = this.userStoryService.list().pipe(first());
   }
 
@@ -62,8 +62,12 @@ export class UserStoryComponent implements OnInit {
       .subscribe((options) => (this.sprintOptions = options));
   }
 
+  onSprintChange() {
+    this.loadUserStories();
+  }
+
   ngOnInit() {
-    this.loadTasks();
+    this.loadUserStories();
     this.loadSprints();
   }
 }

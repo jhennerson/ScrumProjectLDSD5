@@ -10,17 +10,14 @@
       <mat-card align="center" class="sprint-mat-card">
         <div class="sprint-menu">
           <mat-toolbar class="sprint-mat-toolbar">
-            <!-- <mat-form-field class="sprint-menu-operations sprint-select">
-              <mat-label>Sprint</mat-label>
+            <mat-form-field class="sprint-menu-operations sprint-select">
+              <mat-label>Projeto</mat-label>
               <mat-select class="sprint-select">
-                <mat-option
-                  *ngFor="let sprint of sprints"
-                  [value]="sprint.title"
-                >
-                  {{ sprint.title }}
+                <mat-option *ngFor="let projeto of projetos" [value]="projeto">
+                  {{ projeto }}
                 </mat-option>
               </mat-select>
-            </mat-form-field> -->
+            </mat-form-field>
 
             <button
               mat-button

@@ -7,6 +7,26 @@
     </mat-form-field>
 
     <mat-form-field class="full-width">
+      <mat-label>Sprint</mat-label>
+      <mat-select formControlName="sprint">
+        <mat-option value="null"></mat-option>
+        <mat-option *ngFor="let option of sprintOptions" [value]="option">
+          {{ option.title }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>História de usuário</mat-label>
+      <mat-select formControlName="userStory">
+        <mat-option value="null"></mat-option>
+        <mat-option *ngFor="let option of userStoryOptions" [value]="option">
+          {{ option.title }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
       <mat-label>Responsável</mat-label>
       <mat-select formControlName="assignee">
         <mat-option value="null"></mat-option>
@@ -53,16 +73,6 @@
         [for]="endDate"
       ></mat-datepicker-toggle>
       <mat-datepicker #endDate></mat-datepicker>
-    </mat-form-field>
-
-    <mat-form-field class="full-width">
-      <mat-label>História de usuário</mat-label>
-      <mat-select formControlName="userStory">
-        <mat-option value="null"></mat-option>
-        <mat-option *ngFor="let option of userStoryOptions" [value]="option">
-          {{ option.title }}
-        </mat-option>
-      </mat-select>
     </mat-form-field>
 
     <mat-form-field class="full-width">

@@ -65,8 +65,8 @@
                 Data de atribuição
               </mat-header-cell>
 
-              <mat-cell *matCellDef="let task">
-                {{ task.assignmentDate }}
+              <mat-cell *matCellDef="let userStory">
+                {{ userStory.assignmentDate }}
               </mat-cell>
             </ng-container>
 
@@ -75,7 +75,9 @@
                 Data de entrega
               </mat-header-cell>
 
-              <mat-cell *matCellDef="let task"> {{ task.endDate }} </mat-cell>
+              <mat-cell *matCellDef="let userStory">
+                {{ userStory.endDate }}
+              </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="description">

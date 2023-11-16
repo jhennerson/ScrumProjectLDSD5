@@ -21,19 +21,21 @@ import { SprintService } from 'src/app/services/sprint/sprint.service';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
-  tasks: Observable<Task[]> = new Observable<Task[]>;
+  tasks: Observable<Task[]> = new Observable<Task[]>();
   sprintOptions: Sprint[] = [];
-
   todo: Task[] = [];
   inprogress: Task[] = [];
   done: Task[] = [];
+  selectedSprintId: string | undefined;
 
   constructor(
     private taskService: TaskService,
     private sprintService: SprintService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar
-  ) {}
+  ) {
+    this.tasks = this.taskService.list();
+  }
 
   sprints: Sprint[] = [];
 
@@ -93,10 +95,7 @@ export class BoardComponent implements OnInit {
 
   onEdit(task: Task) {
     const dialogRef = this.dialog.open(TaskFormModalComponent, {
-      data: {
-        task: task,
-        enableable: false,
-      },
+      data: task,
     });
 
     dialogRef.afterClosed().subscribe(() => {
@@ -106,6 +105,12 @@ export class BoardComponent implements OnInit {
 
   loadTasks() {
     this.tasks.subscribe((tasks) => {
+      if (this.selectedSprintId !== undefined) {
+        tasks = tasks.filter(
+          (task) => task.sprint.id === this.selectedSprintId
+        );
+      }
+
       this.todo = tasks.filter((task) => task.status === Status.ToDo);
       this.inprogress = tasks.filter(
         (task) => task.status === Status.InProgress
@@ -115,9 +120,18 @@ export class BoardComponent implements OnInit {
   }
 
   loadSprints() {
-    this.sprintService
-      .list()
-      .subscribe((options) => (this.sprintOptions = options));
+    this.sprintService.list().subscribe((options) => {
+      this.sprintOptions = options;
+
+      if (this.sprintOptions.length > 0) {
+        this.selectedSprintId = this.sprintOptions[0].id;
+        this.loadTasks();
+      }
+    });
+  }
+
+  onSprintChange() {
+    this.loadTasks();
   }
 
   ngOnInit() {

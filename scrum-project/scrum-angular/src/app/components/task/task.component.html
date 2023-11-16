@@ -12,7 +12,12 @@
           <mat-toolbar class="task-mat-toolbar">
             <mat-form-field class="task-menu-operations sprint-select">
               <mat-label>Sprint</mat-label>
-              <mat-select class="sprint-select">
+              <mat-select
+                class="sprint-select"
+                [(ngModel)]="selectedSprintId"
+                (selectionChange)="onSprintChange()"
+              >
+                <mat-option [value]="undefined" selected>Todas</mat-option>
                 <mat-option
                   *ngFor="let option of sprintOptions"
                   [value]="option.id"
@@ -46,7 +51,7 @@
               <mat-header-cell *matHeaderCellDef> Responsável </mat-header-cell>
 
               <mat-cell *matCellDef="let task">
-                {{ task.assignee.username }}
+                {{ task.assignee.id | username | async }}
               </mat-cell>
             </ng-container>
 
@@ -54,15 +59,15 @@
               <mat-header-cell *matHeaderCellDef> Relator </mat-header-cell>
 
               <mat-cell *matCellDef="let task">
-                {{ task.reporter.username }}
+                {{ task.reporter.id | username | async }}
               </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="sprint">
               <mat-header-cell *matHeaderCellDef> Sprint </mat-header-cell>
 
-              <mat-cell *matCellDef="let sprint">
-                {{ sprint.title }}
+              <mat-cell *matCellDef="let task">
+                {{ task.sprint.title }}
               </mat-cell>
             </ng-container>
 

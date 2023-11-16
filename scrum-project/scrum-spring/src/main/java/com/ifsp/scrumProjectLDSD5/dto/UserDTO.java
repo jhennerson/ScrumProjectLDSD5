@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-@JsonIgnoreProperties({"password"})
+@JsonIgnoreProperties({"password", "role", "deleted", "enabled", "authorities", "accountNonExpired", "credentialsNonExpired", "accountNonLocked"})
 public record UserDTO(
 	@JsonProperty("id")
 	String id,

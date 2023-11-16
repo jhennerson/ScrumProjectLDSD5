@@ -13,6 +13,7 @@ import { SprintFormModalComponent } from 'src/app/shared/components/sprint-form-
 })
 export class SprintComponent implements OnInit {
   sprints: Observable<Sprint[]> = new Observable<Sprint[]>();
+  projetos = [];
 
   displayedColumns = [
     'title',

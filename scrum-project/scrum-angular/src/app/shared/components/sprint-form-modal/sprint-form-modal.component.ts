@@ -1,12 +1,12 @@
-import { SprintService } from './../../../services/sprint/sprint.service';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { Sprint } from 'src/app/models/sprint/sprint';
 import { User } from 'src/app/models/user/user';
 import { UserService } from 'src/app/services/user/user.service';
+import { SprintService } from './../../../services/sprint/sprint.service';
 
 @Component({
   selector: 'app-sprint-form-modal',

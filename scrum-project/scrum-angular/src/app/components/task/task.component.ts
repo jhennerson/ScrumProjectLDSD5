@@ -19,6 +19,7 @@ import { TaskService } from '../../services/task/task.service';
 export class TaskComponent implements OnInit {
   tasks: Observable<Task[]> = new Observable<Task[]>();
   sprintOptions: Sprint[] = [];
+  selectedSprintId: string | undefined;
 
   displayedColumns = [
     'title',
@@ -38,7 +39,9 @@ export class TaskComponent implements OnInit {
     private sprintService: SprintService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar
-  ) {}
+  ) {
+    this.tasks = this.taskService.list();
+  }
 
   onAdd() {
     let modal = this.dialog.open(TaskFormModalComponent, {});
@@ -50,9 +53,7 @@ export class TaskComponent implements OnInit {
 
   onEdit(task: Task) {
     const dialogRef = this.dialog.open(TaskFormModalComponent, {
-      data: {
-        task: task,
-      },
+      data: task,
     });
 
     dialogRef.afterClosed().subscribe(() => {
@@ -100,14 +101,32 @@ export class TaskComponent implements OnInit {
   loadTasks() {
     this.tasks = this.taskService.list().pipe(
       first(),
-      map((tasks) => tasks.filter((task) => task.status !== Status.Disabled))
+      map((tasks) => {
+        if (this.selectedSprintId !== undefined) {
+          return tasks.filter(
+            (task) =>
+              task.sprint.id === this.selectedSprintId &&
+              task.status !== Status.Disabled
+          );
+        }
+        return tasks.filter((task) => task.status !== Status.Disabled);
+      })
     );
   }
 
   loadSprints() {
-    this.sprintService
-      .list()
-      .subscribe((options) => (this.sprintOptions = options));
+    this.sprintService.list().subscribe((options) => {
+      this.sprintOptions = options;
+
+      if (this.sprintOptions.length > 0) {
+        this.selectedSprintId = this.sprintOptions[0].id;
+        this.loadTasks();
+      }
+    });
+  }
+
+  onSprintChange() {
+    this.loadTasks();
   }
 
   ngOnInit() {

@@ -3,9 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
+import { Status } from 'src/app/enum/status.enum';
+import { Sprint } from 'src/app/models/sprint/sprint';
 import { Task } from 'src/app/models/task/task';
 import { UserStory } from 'src/app/models/user-story/user-story';
 import { User } from 'src/app/models/user/user';
+import { SprintService } from 'src/app/services/sprint/sprint.service';
 import { TaskService } from 'src/app/services/task/task.service';
 import { UserStoryService } from 'src/app/services/user-story/user-story.service';
 import { UserService } from 'src/app/services/user/user.service';
@@ -19,14 +22,17 @@ export class TaskFormModalComponent implements OnInit {
   form: FormGroup;
   users: Observable<User[]> = new Observable<User[]>();
   userStories: Observable<UserStory[]> = new Observable<UserStory[]>();
+  sprints: Observable<Sprint[]> = new Observable<Sprint[]>();
 
   userOptions: User[] = [];
   userStoryOptions: UserStory[] = [];
+  sprintOptions: Sprint[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private taskService: TaskService,
     private userService: UserService,
+    private sprintService: SprintService,
     private userStoryService: UserStoryService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
@@ -35,27 +41,30 @@ export class TaskFormModalComponent implements OnInit {
     this.form = this.formBuilder.group({
       id: ['', [Validators.required]],
       title: ['', [Validators.required]],
+      sprint: ['', [Validators.required]],
+      userStory: ['', [Validators.required]],
       assignee: [''],
       reporter: [''],
+      storyPoints: [''],
       assignmentDate: [''],
       endDate: [''],
-      storyPoints: [''],
       description: [''],
-      status: ['TO_DO'],
-      userStory: ['', [Validators.required]],
+      status: [Status.ToDo],
     });
 
     if (data) {
       this.form.patchValue({
         id: data.id,
         title: data.title,
+        sprint: data.sprint,
+        userStory: data.userStory,
         assignee: data.assignee,
         reporter: data.reporter,
+        storyPoints: data.storyPoints,
         assignmentDate: data.assignmentDate,
         endDate: data.endDate,
-        storyPoints: data.storyPoints,
         description: data.description,
-        userStory: data.userStory,
+        status: data.status,
       });
     }
   }
@@ -97,8 +106,15 @@ export class TaskFormModalComponent implements OnInit {
       .subscribe((options) => (this.userStoryOptions = options));
   }
 
+  loadSprints() {
+    this.sprintService
+      .list()
+      .subscribe((options) => (this.sprintOptions = options));
+  }
+
   ngOnInit() {
     this.loadUsers();
     this.loadUserStories();
+    this.loadSprints();
   }
 }

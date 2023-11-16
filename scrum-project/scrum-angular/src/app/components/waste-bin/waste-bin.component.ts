@@ -18,6 +18,7 @@ import { TaskFormModalComponent } from 'src/app/shared/components/task-form-moda
 export class WasteBinComponent {
   disabledTasks: Observable<Task[]> = new Observable<Task[]>();
   sprintOptions: Sprint[] = [];
+  selectedSprintId: string | undefined;
 
   displayedColumns = [
     'title',
@@ -52,7 +53,6 @@ export class WasteBinComponent {
     const dialogRef = this.dialog.open(TaskFormModalComponent, {
       data: {
         task: task,
-        enableable: true,
       },
     });
 
@@ -118,7 +118,16 @@ export class WasteBinComponent {
   loadTasks() {
     this.disabledTasks = this.taskService.list().pipe(
       first(),
-      map((tasks) => tasks.filter((task) => task.status === Status.Disabled))
+      map((tasks) => {
+        if (this.selectedSprintId !== undefined) {
+          return tasks.filter(
+            (task) =>
+              task.sprint.id === this.selectedSprintId &&
+              task.status === Status.Disabled
+          );
+        }
+        return tasks.filter((task) => task.status === Status.Disabled);
+      })
     );
   }
 
@@ -126,6 +135,10 @@ export class WasteBinComponent {
     this.sprintService
       .list()
       .subscribe((options) => (this.sprintOptions = options));
+  }
+
+  onSprintChange() {
+    this.loadTasks();
   }
 
   ngOnInit() {

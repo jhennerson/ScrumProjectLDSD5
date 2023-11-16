@@ -6,6 +6,7 @@ export interface Task {
   id: string;
   title: string;
   sprint: Sprint;
+  userStory: UserStory;
   assignee: User;
   reporter: User;
   assignmentDate: Date;
@@ -13,5 +14,4 @@ export interface Task {
   storyPoints: number;
   description: string;
   status: string;
-  userStory: UserStory;
 }

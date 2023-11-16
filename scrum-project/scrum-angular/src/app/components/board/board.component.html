@@ -12,7 +12,11 @@
           <mat-toolbar class="board-mat-toolbar">
             <mat-form-field class="sprint-select">
               <mat-label>Sprint</mat-label>
-              <mat-select class="sprint-select">
+              <mat-select
+                class="sprint-select"
+                [(ngModel)]="selectedSprintId"
+                (selectionChange)="onSprintChange()"
+              >
                 <mat-option
                   *ngFor="let option of sprintOptions"
                   [value]="option.id"
