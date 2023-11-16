@@ -1,16 +1,22 @@
 <mat-card class="menu-mat-card">
   <div class="left-menu" cdkMenu>
     <button mat-button class="left-menu-item" cdkMenuItem (click)="toBoard()">
-      Tarefas
+      Quadro
     </button>
-    <button mat-button class="left-menu-item" cdkMenuItem (click)="toTask()">
+
+    <button mat-button class="left-menu-item" cdkMenuItem (click)="toTasks()">
       Backlog
     </button>
+
+    <button mat-button class="left-menu-item" cdkMenuItem (click)="toSprints()">
+      Sprints
+    </button>
+
     <button
       mat-button
       class="left-menu-item"
       cdkMenuItem
-      (click)="toUserStory()"
+      (click)="toUserStories()"
     >
       Histórias de Usuário
     </button>

@@ -64,7 +64,7 @@ export class LoginComponent {
   }
 
   private onLoginSuccess(username: string) {
-    this.snackBar.open('Seja bem vindo ' + username, 'X', {
+    this.snackBar.open('Seja bem vindo ', 'X', {
       duration: 2000,
       panelClass: 'task-status-snackbar',
     });

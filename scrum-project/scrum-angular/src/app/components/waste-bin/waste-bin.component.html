@@ -12,12 +12,17 @@
           <mat-toolbar class="waste-bin-mat-toolbar">
             <mat-form-field class="waste-bin-menu-operations sprint-select">
               <mat-label>Sprint</mat-label>
-              <mat-select class="sprint-select">
+              <mat-select
+                class="sprint-select"
+                [(ngModel)]="selectedSprintId"
+                (selectionChange)="onSprintChange()"
+              >
+                <mat-option [value]="undefined" selected>Todas</mat-option>
                 <mat-option
-                  *ngFor="let sprint of sprints"
-                  [value]="sprint.title"
+                  *ngFor="let option of sprintOptions"
+                  [value]="option.id"
                 >
-                  {{ sprint.title }}
+                  {{ option.title }}
                 </mat-option>
               </mat-select>
             </mat-form-field>

@@ -13,6 +13,7 @@ import { Sprint } from '../../models/sprint/sprint';
 import { Task } from '../../models/task/task';
 import { TaskService } from '../../services/task/task.service';
 import { Status } from 'src/app/enum/status.enum';
+import { SprintService } from 'src/app/services/sprint/sprint.service';
 
 @Component({
   selector: 'app-board',
@@ -20,30 +21,23 @@ import { Status } from 'src/app/enum/status.enum';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
-  tasks: Observable<Task[]>;
-
+  tasks: Observable<Task[]> = new Observable<Task[]>();
+  sprintOptions: Sprint[] = [];
   todo: Task[] = [];
   inprogress: Task[] = [];
   done: Task[] = [];
+  selectedSprintId: string | undefined;
 
   constructor(
     private taskService: TaskService,
+    private sprintService: SprintService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar
   ) {
-    this.tasks = this.taskService.list().pipe(first());
+    this.tasks = this.taskService.list();
   }
 
-  sprints: Sprint[] = [
-    {
-      id: '1',
-      title: 'Sprint atual',
-      assignmentDate: new Date(),
-      endDate: new Date(),
-      description: 'Sprint atual',
-      status: 'Em execução',
-    },
-  ];
+  sprints: Sprint[] = [];
 
   drop(event: CdkDragDrop<Task[]>) {
     if (event.previousContainer === event.container) {
@@ -101,10 +95,7 @@ export class BoardComponent implements OnInit {
 
   onEdit(task: Task) {
     const dialogRef = this.dialog.open(TaskFormModalComponent, {
-      data: {
-        task: task,
-        enableable: false,
-      },
+      data: task,
     });
 
     dialogRef.afterClosed().subscribe(() => {
@@ -114,6 +105,12 @@ export class BoardComponent implements OnInit {
 
   loadTasks() {
     this.tasks.subscribe((tasks) => {
+      if (this.selectedSprintId !== undefined) {
+        tasks = tasks.filter(
+          (task) => task.sprint.id === this.selectedSprintId
+        );
+      }
+
       this.todo = tasks.filter((task) => task.status === Status.ToDo);
       this.inprogress = tasks.filter(
         (task) => task.status === Status.InProgress
@@ -122,7 +119,23 @@ export class BoardComponent implements OnInit {
     });
   }
 
+  loadSprints() {
+    this.sprintService.list().subscribe((options) => {
+      this.sprintOptions = options;
+
+      if (this.sprintOptions.length > 0) {
+        this.selectedSprintId = this.sprintOptions[0].id;
+        this.loadTasks();
+      }
+    });
+  }
+
+  onSprintChange() {
+    this.loadTasks();
+  }
+
   ngOnInit() {
     this.loadTasks();
+    this.loadSprints();
   }
 }

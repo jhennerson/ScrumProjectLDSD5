@@ -26,7 +26,7 @@ public class AuthService /*implements UserDetailsService*/ {
     private final PasswordEncoder passwordEncoder;
     private final RegisterMapper registerMapper;
 
-    public AuthResponseDTO authenticate(@RequestBody @Valid AuthRequestDTO user){
+    public AuthResponseDTO login(@RequestBody @Valid AuthRequestDTO user){
         UsernamePasswordAuthenticationToken usernamePassword = new UsernamePasswordAuthenticationToken(
                 user.username(), user.password());
         Authentication auth = this.authenticationManager.authenticate(usernamePassword);

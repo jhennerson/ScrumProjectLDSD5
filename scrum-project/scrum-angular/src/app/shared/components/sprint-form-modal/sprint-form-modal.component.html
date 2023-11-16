@@ -1,39 +1,9 @@
-<mat-dialog-content class="task-form-content">
+<mat-dialog-content class="sprint-form-content">
   <p>Campos marcados com * são obrigatórios</p>
-  <form [formGroup]="form" class="task-form">
+  <form [formGroup]="form" class="sprint-form">
     <mat-form-field class="full-width">
       <mat-label>Título</mat-label>
       <input matInput type="text" formControlName="title" />
-    </mat-form-field>
-
-    <mat-form-field class="full-width">
-      <mat-label>Sprint</mat-label>
-      <mat-select formControlName="sprint">
-        <mat-option value="null"></mat-option>
-        <mat-option *ngFor="let option of sprintOptions" [value]="option">
-          {{ option.title }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field class="full-width">
-      <mat-label>História de usuário</mat-label>
-      <mat-select formControlName="userStory">
-        <mat-option value="null"></mat-option>
-        <mat-option *ngFor="let option of userStoryOptions" [value]="option">
-          {{ option.title }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field class="full-width">
-      <mat-label>Responsável</mat-label>
-      <mat-select formControlName="assignee">
-        <mat-option value="null"></mat-option>
-        <mat-option *ngFor="let option of userOptions" [value]="option">
-          {{ option.username }}
-        </mat-option>
-      </mat-select>
     </mat-form-field>
 
     <mat-form-field class="full-width">
@@ -44,11 +14,6 @@
           {{ option.username }}
         </mat-option>
       </mat-select>
-    </mat-form-field>
-
-    <mat-form-field class="full-width">
-      <mat-label>Esforço atribuído</mat-label>
-      <input type="number" matInput formControlName="storyPoints" />
     </mat-form-field>
 
     <mat-form-field class="full-width">
@@ -87,7 +52,7 @@
   </form>
 </mat-dialog-content>
 
-<mat-dialog-actions align="end" class="task-form-actions">
+<mat-dialog-actions align="end" class="sprint-form-actions">
   <button mat-fab extended mat-dialog-close class="cancel-button">
     Cancelar
   </button>

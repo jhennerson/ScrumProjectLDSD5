@@ -24,6 +24,12 @@ const routes: Routes = [
       import('./modules/task/task.module').then((module) => module.TaskModule),
   },
   {
+    path: 'sprints',
+    canActivate: [authGuard],
+    loadChildren: () =>
+      import('./modules/sprint/sprint.module').then((module) => module.SprintModule),
+  },
+  {
     path: 'user-stories',
     canActivate: [authGuard],
     loadChildren: () =>

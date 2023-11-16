@@ -35,8 +35,8 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public AuthResponseDTO authenticate(@RequestBody @Valid AuthRequestDTO user) {
-        return authService.authenticate(user);
+    public AuthResponseDTO login(@RequestBody @Valid AuthRequestDTO user) {
+        return authService.login(user);
     }
 
     @PostMapping("/register")

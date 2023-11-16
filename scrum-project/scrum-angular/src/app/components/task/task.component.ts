@@ -3,12 +3,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, first, map } from 'rxjs';
 import { TaskFormModalComponent } from 'src/app/shared/components/task-form-modal/task-form-modal.component';
+import { SprintService } from './../../services/sprint/sprint.service';
 
+import { Status } from 'src/app/enum/status.enum';
+import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { Sprint } from '../../models/sprint/sprint';
 import { Task } from '../../models/task/task';
 import { TaskService } from '../../services/task/task.service';
-import { Status } from 'src/app/enum/status.enum';
-import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-task',
@@ -16,12 +17,15 @@ import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmat
   styleUrls: ['./task.component.scss'],
 })
 export class TaskComponent implements OnInit {
-  enabledTasks: Observable<Task[]>;
+  tasks: Observable<Task[]> = new Observable<Task[]>();
+  sprintOptions: Sprint[] = [];
+  selectedSprintId: string | undefined;
 
   displayedColumns = [
     'title',
     'assignee',
     'reporter',
+    'sprint',
     'assignmentDate',
     'endDate',
     'storyPoints',
@@ -32,37 +36,24 @@ export class TaskComponent implements OnInit {
 
   constructor(
     private taskService: TaskService,
+    private sprintService: SprintService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar
   ) {
-    this.enabledTasks = this.taskService.list().pipe(first());
+    this.tasks = this.taskService.list();
   }
 
-  sprints: Sprint[] = [
-    {
-      id: '1',
-      title: 'Sprint atual',
-      assignmentDate: new Date(),
-      endDate: new Date(),
-      description: 'Sprint atual',
-      status: 'Em execução',
-    },
-  ];
-
   onAdd() {
-    let _modal = this.dialog.open(TaskFormModalComponent, {});
+    let modal = this.dialog.open(TaskFormModalComponent, {});
 
-    _modal.afterClosed().subscribe(() => {
+    modal.afterClosed().subscribe(() => {
       this.ngOnInit();
     });
   }
 
   onEdit(task: Task) {
     const dialogRef = this.dialog.open(TaskFormModalComponent, {
-      data: {
-        task: task,
-        enableable: false,
-      },
+      data: task,
     });
 
     dialogRef.afterClosed().subscribe(() => {
@@ -108,13 +99,38 @@ export class TaskComponent implements OnInit {
   }
 
   loadTasks() {
-    this.enabledTasks = this.taskService.list().pipe(
+    this.tasks = this.taskService.list().pipe(
       first(),
-      map((tasks) => tasks.filter((task) => task.status !== Status.Disabled))
+      map((tasks) => {
+        if (this.selectedSprintId !== undefined) {
+          return tasks.filter(
+            (task) =>
+              task.sprint.id === this.selectedSprintId &&
+              task.status !== Status.Disabled
+          );
+        }
+        return tasks.filter((task) => task.status !== Status.Disabled);
+      })
     );
+  }
+
+  loadSprints() {
+    this.sprintService.list().subscribe((options) => {
+      this.sprintOptions = options;
+
+      if (this.sprintOptions.length > 0) {
+        this.selectedSprintId = this.sprintOptions[0].id;
+        this.loadTasks();
+      }
+    });
+  }
+
+  onSprintChange() {
+    this.loadTasks();
   }
 
   ngOnInit() {
     this.loadTasks();
+    this.loadSprints();
   }
 }

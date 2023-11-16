@@ -60,6 +60,26 @@
               </mat-cell>
             </ng-container>
 
+            <ng-container matColumnDef="assignmentDate">
+              <mat-header-cell *matHeaderCellDef>
+                Data de atribuição
+              </mat-header-cell>
+
+              <mat-cell *matCellDef="let userStory">
+                {{ userStory.assignmentDate }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="endDate">
+              <mat-header-cell *matHeaderCellDef>
+                Data de entrega
+              </mat-header-cell>
+
+              <mat-cell *matCellDef="let userStory">
+                {{ userStory.endDate }}
+              </mat-cell>
+            </ng-container>
+
             <ng-container matColumnDef="description">
               <mat-header-cell *matHeaderCellDef> Descrição </mat-header-cell>
 
@@ -81,7 +101,7 @@
               <mat-cell *matCellDef="let userStory">
                 <button
                   mat-icon-button
-                  aria-label="Ver tudo"
+                  aria-label="Editar"
                   (click)="onEdit(userStory)"
                 >
                   <mat-icon>more_vert</mat-icon>

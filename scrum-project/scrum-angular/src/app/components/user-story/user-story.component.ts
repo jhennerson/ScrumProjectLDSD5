@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, first } from 'rxjs';
 import { Sprint } from 'src/app/models/sprint/sprint';
 import { UserStory } from 'src/app/models/user-story/user-story';
+import { SprintService } from 'src/app/services/sprint/sprint.service';
 import { UserStoryService } from 'src/app/services/user-story/user-story.service';
 import { UserStoryFormModalComponent } from 'src/app/shared/components/user-story-form-modal/user-story-form-modal.component';
 
@@ -13,7 +14,8 @@ import { UserStoryFormModalComponent } from 'src/app/shared/components/user-stor
   styleUrls: ['./user-story.component.scss'],
 })
 export class UserStoryComponent implements OnInit {
-  userStories: Observable<UserStory[]>;
+  userStories: Observable<UserStory[]> = new Observable<UserStory[]>();
+  sprintOptions: Sprint[] = [];
 
   displayedColumns = [
     'title',
@@ -25,28 +27,18 @@ export class UserStoryComponent implements OnInit {
 
   constructor(
     private userStoryService: UserStoryService,
+    private sprintService: SprintService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar
-  ) {
-    this.userStories = this.userStoryService.list().pipe(first());
-  }
+  ) {}
 
-  sprints: Sprint[] = [
-    {
-      id: '1',
-      title: 'Sprint atual',
-      assignmentDate: new Date(),
-      endDate: new Date(),
-      description: 'Sprint atual',
-      status: 'Em execução',
-    },
-  ];
+  sprints: Sprint[] = [];
 
   onAdd() {
     const dialogRef = this.dialog.open(UserStoryFormModalComponent, {});
 
     dialogRef.afterClosed().subscribe(() => {
-      this.loadTasks();
+      this.loadUserStories();
     });
   }
 
@@ -56,15 +48,26 @@ export class UserStoryComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      this.loadTasks();
+      this.loadUserStories();
     });
   }
 
-  loadTasks() {
+  loadUserStories() {
     this.userStories = this.userStoryService.list().pipe(first());
   }
 
+  loadSprints() {
+    this.sprintService
+      .list()
+      .subscribe((options) => (this.sprintOptions = options));
+  }
+
+  onSprintChange() {
+    this.loadUserStories();
+  }
+
   ngOnInit() {
-    this.loadTasks();
+    this.loadUserStories();
+    this.loadSprints();
   }
 }

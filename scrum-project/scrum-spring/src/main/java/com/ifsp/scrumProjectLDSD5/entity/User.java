@@ -34,7 +34,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@JsonIgnoreProperties({"password"})
+@JsonIgnoreProperties({"password", "role", "deleted", "enabled", "authorities", "accountNonExpired", "credentialsNonExpired", "accountNonLocked"})
 @SQLDelete(sql = "UPDATE users SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
 public class User implements UserDetails {
