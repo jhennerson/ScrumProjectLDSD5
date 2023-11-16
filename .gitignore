@@ -1,2 +1,8 @@
 /scrum-project/scrum-spring/data/teste.mv.db
 /scrum-project/scrum-spring/data/teste.trace.dbg
+data/teste.mv.db
+.vscode/launch.json
+.vscode/settings.json
+.gitignore
+.gitignore
+data/teste.trace.db
