@@ -10,14 +10,14 @@
       <mat-card align="center" class="user-story-mat-card">
         <div class="user-story-menu">
           <mat-toolbar class="user-story-mat-toolbar">
-            <mat-form-field class="user-story-menu-operations sprint-select">
-              <mat-label>Sprint</mat-label>
-              <mat-select class="sprint-select">
+            <mat-form-field class="user-story-menu-operations project-select">
+              <mat-label>Projeto</mat-label>
+              <mat-select class="project-select">
                 <mat-option
-                  *ngFor="let sprint of sprints"
-                  [value]="sprint.title"
+                  *ngFor="let project of projectOptions"
+                  [value]="project"
                 >
-                  {{ sprint.title }}
+                  {{ project }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -25,10 +25,10 @@
             <button
               mat-button
               class="user-story-menu-operations add-button"
-              aria-label="Adicionar tarefa"
+              aria-label="Adicionar história"
               (click)="onAdd()"
             >
-              <span class="text-nowrap">Nova História</span>
+              <span class="text-nowrap">Nova história</span>
               <mat-icon iconPositionEnd>add</mat-icon>
             </button>
           </mat-toolbar>

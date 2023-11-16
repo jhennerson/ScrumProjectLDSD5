@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, first } from 'rxjs';
 import { Sprint } from 'src/app/models/sprint/sprint';
 import { SprintFormModalComponent } from 'src/app/shared/components/sprint-form-modal/sprint-form-modal.component';
+import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-sprint',
@@ -48,8 +49,36 @@ export class SprintComponent implements OnInit {
     });
   }
 
-  onRemove(sprint: Sprint) {
-    this.sprintService.remove(sprint.id);
+  onDelete(sprint: Sprint) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: 'Deseja apagar essa sprint permanentemente?',
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.sprintService.remove(sprint.id).subscribe({
+          next: () => {
+            this.onHardDelete();
+            this.ngOnInit();
+          },
+          error: () => this.onError(),
+        });
+      }
+    });
+  }
+
+  private onHardDelete() {
+    this.snackBar.open('Sprint apagada com sucesso!', 'X', {
+      duration: 2000,
+      panelClass: 'task-status-snackbar',
+    });
+  }
+
+  private onError() {
+    this.snackBar.open('Erro ao apagar sprint!', 'X', {
+      duration: 2000,
+      panelClass: 'task-status-snackbar',
+    });
   }
 
   loadSprints() {

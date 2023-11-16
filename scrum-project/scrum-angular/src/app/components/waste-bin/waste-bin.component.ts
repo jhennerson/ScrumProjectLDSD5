@@ -84,6 +84,13 @@ export class WasteBinComponent {
     });
   }
 
+  private onHardDelete() {
+    this.snackBar.open('Tarefa apagada com sucesso!', 'X', {
+      duration: 2000,
+      panelClass: 'task-status-snackbar',
+    });
+  }
+
   private updateTaskStatus(task: Task) {
     this.taskService.save(task).subscribe({
       next: () => {
@@ -96,13 +103,6 @@ export class WasteBinComponent {
 
   private onSuccess() {
     this.snackBar.open('Tarefa restaurada com sucesso!', 'X', {
-      duration: 2000,
-      panelClass: 'task-status-snackbar',
-    });
-  }
-
-  private onHardDelete() {
-    this.snackBar.open('Tarefa apagada com sucesso!', 'X', {
       duration: 2000,
       panelClass: 'task-status-snackbar',
     });
@@ -126,7 +126,7 @@ export class WasteBinComponent {
               task.status === Status.Disabled
           );
         }
-        return tasks.filter((task) => task.status === Status.Disabled);
+        return tasks.filter((task) => task.status == Status.Disabled);
       })
     );
   }
