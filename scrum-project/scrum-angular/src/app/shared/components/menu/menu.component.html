@@ -1,0 +1,32 @@
+<mat-card class="menu-mat-card">
+  <div class="left-menu" cdkMenu>
+    <button mat-button class="left-menu-item" cdkMenuItem (click)="toBoard()">
+      Quadro
+    </button>
+
+    <button mat-button class="left-menu-item" cdkMenuItem (click)="toTasks()">
+      Backlog
+    </button>
+
+    <button mat-button class="left-menu-item" cdkMenuItem (click)="toSprints()">
+      Sprints
+    </button>
+
+    <button
+      mat-button
+      class="left-menu-item"
+      cdkMenuItem
+      (click)="toUserStories()"
+    >
+      Histórias de Usuário
+    </button>
+    <button
+      mat-button
+      class="left-menu-item"
+      cdkMenuItem
+      (click)="toWasteBin()"
+    >
+      Lixeira
+    </button>
+  </div>
+</mat-card>

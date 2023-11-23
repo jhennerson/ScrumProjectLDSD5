@@ -1,0 +1,77 @@
+[
+  {
+    "id": 1,
+    "title": "Criar Nova Tarefa",
+    "assignee": {
+      "id": 1,
+      "nome": "user1",
+      "email": "user1@mail.com"
+    },
+    "reporter": {
+      "id": 2,
+      "nome": "user2",
+      "email": "user2@mail.com"
+    },
+    "description": "Eu, como operador, gostaria de criar uma nova tarefa para acompanhar as solicitações dos clientes."
+  },
+  {
+    "id": 2,
+    "title": "Atribuir Tarefa aos Membros da Equipe",
+    "assignee": {
+      "id": 1,
+      "nome": "user1",
+      "email": "user1@mail.com"
+    },
+    "reporter": {
+      "id": 2,
+      "nome": "user2",
+      "email": "user2@mail.com"
+    },
+    "description": "Eu, como operador, gostaria de atribuir tarefas aos membros da equipe para melhorar a distribuição de trabalho."
+  },
+  {
+    "id": 3,
+    "title": "Visualizar Tarefas Pendentes",
+    "assignee": {
+      "id": 1,
+      "nome": "user1",
+      "email": "user1@mail.com"
+    },
+    "reporter": {
+      "id": 2,
+      "nome": "user2",
+      "email": "user2@mail.com"
+    },
+    "description": "Eu, como operador, gostaria de visualizar todas as tarefas pendentes para priorizar o trabalho."
+  },
+  {
+    "id": 4,
+    "title": "Receber Notificações por E-mail",
+    "assignee": {
+      "id": 1,
+      "nome": "user1",
+      "email": "user1@mail.com"
+    },
+    "reporter": {
+      "id": 2,
+      "nome": "user2",
+      "email": "user2@mail.com"
+    },
+    "description": "Eu, como operador, gostaria de receber notificações por e-mail sempre que uma tarefa for concluída para manter a equipe informada."
+  },
+  {
+    "id": 5,
+    "title": "Gerar Relatórios de Desempenho",
+    "assignee": {
+      "id": 1,
+      "nome": "user1",
+      "email": "user1@mail.com"
+    },
+    "reporter": {
+      "id": 2,
+      "nome": "user2",
+      "email": "user2@mail.com"
+    },
+    "description": "Eu, como operador, gostaria de gerar relatórios de desempenho para analisar o progresso da equipe."
+  }
+]
