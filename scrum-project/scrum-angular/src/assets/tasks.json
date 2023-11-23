@@ -1,0 +1,62 @@
+[
+  {
+    "id": "1",
+    "title": "Task 1",
+    "assignedTo": "User 1",
+    "assignmentDate": "03-09-2023",
+    "endDate": "14-09-2023",
+    "effort": 5,
+    "description": "Realizar a tarefa",
+    "status": "TO_DO"
+  },
+  {
+    "id": "2",
+    "title": "Task 2",
+    "assignedTo": "User 2",
+    "assignmentDate": "03-09-2023",
+    "endDate": "14-09-2023",
+    "effort": 5,
+    "description": "Realizar a tarefa 2",
+    "status": "IN_PROGRESS"
+  },
+  {
+    "id": "3",
+    "title": "Task 3",
+    "assignedTo": "User 3",
+    "assignmentDate": "03-09-2023",
+    "endDate": "14-09-2023",
+    "effort": 5,
+    "description": "Realizar a tarefa 3",
+    "status": "DONE"
+  },
+  {
+    "id": "4",
+    "title": "Task 4",
+    "assignedTo": "User 4",
+    "assignmentDate": "03-09-2023",
+    "endDate": "14-09-2023",
+    "effort": 5,
+    "description": "Realizar a tarefa 4",
+    "status": "TO_DO"
+  },
+  {
+    "id": "5",
+    "title": "Task 5",
+    "assignedTo": "User 5",
+    "assignmentDate": "03-09-2023",
+    "endDate": "14-09-2023",
+    "effort": 5,
+    "description": "Realizar a tarefa 5",
+    "status": "IN_PROGRESS"
+  },
+  {
+    "id": "6",
+    "title": "Task 6",
+    "assignedTo": "User 6",
+    "assignmentDate": "03-09-2023",
+    "endDate": "14-09-2023",
+    "effort": 5,
+    "description": "Realizar a tarefa 6",
+    "status": "DONE"
+  }
+]

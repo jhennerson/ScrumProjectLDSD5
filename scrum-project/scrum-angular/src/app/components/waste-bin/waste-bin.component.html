@@ -1,0 +1,139 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <div>
+        <app-menu></app-menu>
+      </div>
+    </div>
+    <div class="col-md-10">
+      <mat-card align="center" class="waste-bin-mat-card">
+        <div class="waste-bin-menu">
+          <mat-toolbar class="waste-bin-mat-toolbar">
+            <mat-form-field class="waste-bin-menu-operations sprint-select">
+              <mat-label>Sprint</mat-label>
+              <mat-select
+                class="sprint-select"
+                [(ngModel)]="selectedSprintId"
+                (selectionChange)="onSprintChange()"
+              >
+                <mat-option [value]="undefined" selected>Todas</mat-option>
+                <mat-option
+                  *ngFor="let option of sprintOptions"
+                  [value]="option.id"
+                >
+                  {{ option.title }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-toolbar>
+        </div>
+
+        <mat-card class="waste-bin-content">
+          <mat-table [dataSource]="disabledTasks" class="mat-elevation-z8">
+            <ng-container matColumnDef="title">
+              <mat-header-cell *matHeaderCellDef> Título </mat-header-cell>
+
+              <mat-cell *matCellDef="let task"> {{ task.title }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="assignee">
+              <mat-header-cell *matHeaderCellDef> Responsável </mat-header-cell>
+
+              <mat-cell *matCellDef="let task">
+                {{ task.assignee.id | username | async }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="reporter">
+              <mat-header-cell *matHeaderCellDef> Relator </mat-header-cell>
+
+              <mat-cell *matCellDef="let task">
+                {{ task.reporter.id | username | async }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="storyPoints">
+              <mat-header-cell *matHeaderCellDef>
+                Esforço atribuído
+              </mat-header-cell>
+
+              <mat-cell *matCellDef="let task">
+                {{ task.storyPoints }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="userStory">
+              <mat-header-cell *matHeaderCellDef>
+                História de usuário
+              </mat-header-cell>
+
+              <mat-cell *matCellDef="let task">
+                {{ task.userStory.title }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="assignmentDate">
+              <mat-header-cell *matHeaderCellDef>
+                Data de atribuição
+              </mat-header-cell>
+
+              <mat-cell *matCellDef="let task">
+                {{ task.assignmentDate }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="endDate">
+              <mat-header-cell *matHeaderCellDef>
+                Data de entrega
+              </mat-header-cell>
+
+              <mat-cell *matCellDef="let task"> {{ task.endDate }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+              <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+
+              <mat-cell
+                *matCellDef="let task"
+                [ngClass]="{
+                  'status-to-do': task.status == 'DISABLED',
+                }"
+              >
+                {{ task.status | status }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <mat-header-cell *matHeaderCellDef>Operações</mat-header-cell>
+
+              <mat-cell *matCellDef="let task">
+                <button
+                  mat-icon-button
+                  aria-label="Restaurar"
+                  (click)="onRestore(task)"
+                >
+                  <mat-icon>undo</mat-icon>
+                </button>
+
+                <button
+                  mat-icon-button
+                  aria-label="Deletar"
+                  color="warn"
+                  (click)="onDelete(task)"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row
+              *matHeaderRowDef="displayedColumns"
+            ></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+          </mat-table>
+        </mat-card>
+      </mat-card>
+    </div>
+  </div>
+</div>
