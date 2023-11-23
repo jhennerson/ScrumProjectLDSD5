@@ -1,0 +1,30 @@
+.user-story-form-content {
+  display: flex;
+  flex-direction: column;
+  margin: 1em auto;
+}
+
+.user-story-form-actions {
+  margin-right: 26px;
+  margin-bottom: 26px;
+}
+
+.save-button {
+  background-color: #00dc3e;
+}
+
+.cancel-button {
+  background-color: #d9d9d9;
+}
+
+.user-story-form {
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+textarea {
+  resize: none;
+}
