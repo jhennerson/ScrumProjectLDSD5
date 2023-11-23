@@ -1,4 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: #232526;
+  background: -webkit-linear-gradient(right, #414345, #232526);
+  background: linear-gradient(to right, #414345, #232526);
+}
+
+.task-status-snackbar {
+  --mdc-snackbar-container-color: #7b1fa2;
+  --mdc-snackbar-supporting-text-color: white;
+  --mat-mdc-snack-bar-button-color: white;
+}
