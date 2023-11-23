@@ -1,16 +1,14 @@
 package com.ifsp.scrumProjectLDSD5.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -26,6 +24,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
+@JsonIgnoreProperties("deleted")
 @SQLDelete(sql = "UPDATE sprints SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
 public class Sprint {
@@ -38,7 +37,10 @@ public class Sprint {
     @NotNull
     private String title;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Project project;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private User reporter;
 
     private String description;
@@ -46,6 +48,9 @@ public class Sprint {
     private Date assignmentDate;
 
 	private Date endDate;
+
+    @OneToMany(mappedBy = "sprint", fetch = FetchType.LAZY)
+    private List<Task> tasks = new ArrayList<>();
 
     private Boolean deleted = false;
 }

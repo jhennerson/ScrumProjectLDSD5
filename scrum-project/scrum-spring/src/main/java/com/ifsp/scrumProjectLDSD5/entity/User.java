@@ -1,8 +1,11 @@
 package com.ifsp.scrumProjectLDSD5.entity;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.Length;
@@ -13,12 +16,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ifsp.scrumProjectLDSD5.enumeration.UserRole;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -57,6 +54,10 @@ public class User implements UserDetails {
 	@NotNull
 	@Column(name = "email", nullable = false)
 	private String email;
+
+	@JsonBackReference
+	@ManyToMany(mappedBy = "teamMembers")
+	private List<Project> projects = new ArrayList<>();
 
 	@Column(name = "role")
 	private UserRole role = UserRole.USER;
