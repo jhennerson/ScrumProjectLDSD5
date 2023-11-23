@@ -1,0 +1,19 @@
+<mat-dialog-content mat-dialog-content>
+  <p>{{ data }}</p>
+</mat-dialog-content>
+<mat-dialog-actions align="center" class="confirmation-actions">
+  <button mat-fab extended mat-dialog-close class="confirm-button-no">
+    Não
+  </button>
+
+  <button
+    mat-fab
+    extended
+    [mat-dialog-close]="true"
+    cdkFocusInitial
+    class="confirm-button-yes"
+    (click)="onConfirm(true)"
+  >
+    Sim
+  </button>
+</mat-dialog-actions>
