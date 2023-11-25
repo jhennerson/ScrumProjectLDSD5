@@ -25,7 +25,7 @@ services:
        image : "scrum-angular:latest"
        container_name: web-application
        ports:
-           - "4200:4200"
+           - "4200:80"
        networks:
            - scrum-network
 
