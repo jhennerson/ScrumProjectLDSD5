@@ -1,8 +1,6 @@
 package com.ifsp.scrumProjectLDSD5.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -25,6 +23,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
+@JsonIgnoreProperties("deleted")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @SQLDelete(sql = "UPDATE user_stories SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
 public class UserStory {
@@ -37,24 +37,20 @@ public class UserStory {
 	@NotNull
 	private String title;
 
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "project_id")
 	private Project project;
 
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "assignee_id")
 	private User assignee;
 
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "reporter_id")
 	private User reporter;
 
 	private String description;
 
-	@JsonBackReference
 	@OneToMany(mappedBy = "userStory")
 	private List<Task> tasks = new ArrayList<>();
 

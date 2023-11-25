@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -14,7 +13,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ifsp.scrumProjectLDSD5.enumeration.UserRole;
 
 import jakarta.validation.constraints.NotBlank;
@@ -32,7 +30,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@JsonIgnoreProperties({"password", "role", "enabled", "authorities", "accountNonExpired", "credentialsNonExpired", "accountNonLocked"})
+@JsonIgnoreProperties({"deleted", "password", "role", "enabled", "authorities", "accountNonExpired", "credentialsNonExpired", "accountNonLocked"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @SQLDelete(sql = "UPDATE users SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
 public class User implements UserDetails {
@@ -57,7 +56,6 @@ public class User implements UserDetails {
 	@Column(name = "email", nullable = false)
 	private String email;
 
-	@JsonBackReference
 	@ManyToMany
 	@JoinTable(
 			name = "user_project",
@@ -66,27 +64,21 @@ public class User implements UserDetails {
 	)
 	private List<Project> memberProjects = new ArrayList<>();
 
-	@JsonBackReference
 	@OneToMany(mappedBy = "reporter")
 	private List<Project> reporterProjects = new ArrayList<>();
 
-	@JsonBackReference
 	@OneToMany(mappedBy = "reporter")
 	private List<Sprint> reporterSprints = new ArrayList<>();
 
-	@JsonBackReference
 	@OneToMany(mappedBy = "assignee")
 	private List<UserStory> assigneeUserStories = new ArrayList<>();
 
-	@JsonBackReference
 	@OneToMany(mappedBy = "reporter")
 	private List<UserStory> reporterUserStories = new ArrayList<>();
 
-	@JsonBackReference
 	@OneToMany(mappedBy = "assignee")
 	private List<Task> assigneeTasks = new ArrayList<>();
 
-	@JsonBackReference
 	@OneToMany(mappedBy = "reporter")
 	private List<Task> reporterTasks = new ArrayList<>();
 

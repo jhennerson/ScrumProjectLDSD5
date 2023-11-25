@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -26,6 +24,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
+@JsonIgnoreProperties("deleted")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @SQLDelete(sql = "UPDATE sprints SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
 public class Sprint {
@@ -38,12 +38,10 @@ public class Sprint {
     @NotNull
     private String title;
 
-    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
 
-    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "reporter_id")
     private User reporter;
@@ -54,7 +52,6 @@ public class Sprint {
 
 	private Date endDate;
 
-    @JsonBackReference
     @OneToMany(mappedBy = "sprint")
     private List<Task> tasks = new ArrayList<>();
 
