@@ -26,7 +26,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@JsonIgnoreProperties("deleted")
+@JsonIgnoreProperties({"deleted", "tasks"})
 @SQLDelete(sql = "UPDATE sprints SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
 public class Sprint implements Serializable {
@@ -34,8 +34,8 @@ public class Sprint implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+	private String id;
     
     @NotBlank
     @NotNull
@@ -55,7 +55,6 @@ public class Sprint implements Serializable {
 
 	private Date endDate;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "sprint")
     private List<Task> tasks = new ArrayList<>();
 

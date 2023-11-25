@@ -13,7 +13,7 @@ import jakarta.validation.constraints.NotNull;
 
 public record SprintDTO(
     @JsonProperty("id")
-    Long id,
+    String id,
     
     @NotBlank
     @NotNull

@@ -25,7 +25,7 @@ public class ProjectController {
     }
 
     @GetMapping("/{id}")
-    public ProjectDTO findById(@PathVariable @NotNull Long id) {
+    public ProjectDTO findById(@PathVariable @NotNull String id) {
         return projectService.findById(id);
     }
 
@@ -36,13 +36,13 @@ public class ProjectController {
     }
 
     @PutMapping("/{id}")
-    public ProjectDTO update(@PathVariable @NotNull Long id, @RequestBody @Valid @NotNull ProjectDTO projectDTO) {
+    public ProjectDTO update(@PathVariable @NotNull String id, @RequestBody @Valid @NotNull ProjectDTO projectDTO) {
         return projectService.update(id, projectDTO);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable @NotNull Long id) {
+    public void delete(@PathVariable @NotNull String id) {
         projectService.delete(id);
     }
 }

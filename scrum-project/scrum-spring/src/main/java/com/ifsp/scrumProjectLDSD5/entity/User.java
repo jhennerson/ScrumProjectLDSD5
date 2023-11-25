@@ -32,7 +32,23 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@JsonIgnoreProperties({"deleted", "password", "role", "enabled", "authorities", "accountNonExpired", "credentialsNonExpired", "accountNonLocked"})
+@JsonIgnoreProperties({
+		"deleted",
+		"password",
+		"role",
+		"enabled",
+		"authorities",
+		"accountNonExpired",
+		"credentialsNonExpired",
+		"accountNonLocked",
+		"memberProjects",
+		"reporterProjects",
+		"reporterSprints",
+		"assigneeUserStories",
+		"reporterUserStories",
+		"assigneeTasks",
+		"reporterTasks"
+})
 @SQLDelete(sql = "UPDATE users SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
 public class User implements UserDetails, Serializable {
@@ -40,8 +56,8 @@ public class User implements UserDetails, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private String id;
 	
 	@NotBlank
 	@NotNull
@@ -59,40 +75,28 @@ public class User implements UserDetails, Serializable {
 	@Column(name = "email", nullable = false)
 	private String email;
 
-	@JsonIgnore
-	@ManyToMany
-	@JoinTable(
-			name = "user_project",
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "project_id")
-	)
+	@ManyToMany(mappedBy = "members")
 	private List<Project> memberProjects = new ArrayList<>();
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "reporter")
 	private List<Project> reporterProjects = new ArrayList<>();
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "reporter")
 	private List<Sprint> reporterSprints = new ArrayList<>();
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "assignee")
 	private List<UserStory> assigneeUserStories = new ArrayList<>();
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "reporter")
 	private List<UserStory> reporterUserStories = new ArrayList<>();
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "assignee")
 	private List<Task> assigneeTasks = new ArrayList<>();
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "reporter")
 	private List<Task> reporterTasks = new ArrayList<>();
 
-	@Column(name = "role")
+	@Enumerated(EnumType.STRING)
 	private UserRole role = UserRole.USER;
 
 	private Boolean deleted = false;

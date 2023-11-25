@@ -18,7 +18,7 @@ import jakarta.validation.constraints.NotNull;
 
 public record TaskDTO(
 	@JsonProperty("id")
-	Long id,
+	String id,
 
 	@NotBlank
 	@NotNull

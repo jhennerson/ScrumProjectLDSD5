@@ -35,7 +35,7 @@ public class TaskController {
 	}
 
 	@GetMapping("/{id}")
-	public TaskDTO findById(@PathVariable @NotNull Long id) {
+	public TaskDTO findById(@PathVariable @NotNull String id) {
 		return taskService.findById(id);
 	}
 
@@ -46,13 +46,13 @@ public class TaskController {
 	}
 
 	@PutMapping("/{id}")
-	public TaskDTO update(@PathVariable @NotNull Long id, @RequestBody @Valid @NotNull TaskDTO task) {
+	public TaskDTO update(@PathVariable @NotNull String id, @RequestBody @Valid @NotNull TaskDTO task) {
 		return taskService.update(id, task);
 	}
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void delete(@PathVariable @NotNull Long id) {
+	public void delete(@PathVariable @NotNull String id) {
 		taskService.delete(id);
 	}
 } 

@@ -14,7 +14,7 @@ import java.util.List;
 @JsonIgnoreProperties("password")
 public record UserDTO(
 	@JsonProperty("id")
-	Long id,
+	String id,
 
 	@NotBlank
 	@NotNull

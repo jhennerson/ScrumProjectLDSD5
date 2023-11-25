@@ -27,7 +27,7 @@ public class ProjectService {
                 .collect(Collectors.toList());
     }
 
-    public ProjectDTO findById(@NotNull Long id) {
+    public ProjectDTO findById(@NotNull String id) {
         return projectRepository.findById(id)
                 .map(projectMapper::toDTO)
                 .orElseThrow(() -> new RecordNotFoundException(id));
@@ -37,7 +37,7 @@ public class ProjectService {
         return projectMapper.toDTO(projectRepository.save(projectMapper.toEntity(project)));
     }
 
-    public ProjectDTO update(@NotNull Long id, @Valid @NotNull ProjectDTO project) {
+    public ProjectDTO update(@NotNull String id, @Valid @NotNull ProjectDTO project) {
         return projectRepository.findById(id)
                 .map(recordFound -> {
                     recordFound.setTitle(project.title());
@@ -52,7 +52,7 @@ public class ProjectService {
                 }).orElseThrow(() -> new RecordNotFoundException(id));
     }
 
-    public void delete(@NotNull Long id) {
+    public void delete(@NotNull String id) {
         projectRepository.delete(projectRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException(id)));
     }

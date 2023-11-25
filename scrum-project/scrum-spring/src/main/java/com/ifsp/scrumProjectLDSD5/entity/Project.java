@@ -21,8 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@JsonIgnoreProperties("deleted")
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Project.class)
+@JsonIgnoreProperties({"deleted", "members", "userStories", "sprints"})
 @SQLDelete(sql = "UPDATE projects SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
 public class Project implements Serializable {
@@ -30,8 +29,8 @@ public class Project implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @NotNull
     @NotBlank
@@ -47,14 +46,18 @@ public class Project implements Serializable {
 
     private Boolean deleted = false;
 
-    @ManyToMany(mappedBy = "memberProjects")
+    @JsonBackReference
+    @ManyToMany
+    @JoinTable(
+            name = "project_user",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     private List<User> members = new ArrayList<>();
 
-    @JsonIgnore
     @OneToMany(mappedBy = "project")
     private List<UserStory> userStories = new ArrayList<>();
 
-    @JsonIgnore
     @OneToMany(mappedBy = "project")
     private List<Sprint> sprints = new ArrayList<>();
 }
