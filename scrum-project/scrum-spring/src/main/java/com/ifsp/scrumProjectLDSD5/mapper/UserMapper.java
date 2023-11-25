@@ -18,7 +18,13 @@ public class UserMapper {
             user.getUsername(),
             user.getPassword(),
             user.getEmail(),
-            user.getProjects()
+            user.getMemberProjects(),
+            user.getReporterProjects(),
+            user.getReporterSprints(),
+            user.getAssigneeUserStories(),
+            user.getReporterUserStories(),
+            user.getAssigneeTasks(),
+            user.getReporterTasks()
         );
     }
     
@@ -36,7 +42,13 @@ public class UserMapper {
         user.setUsername(userDTO.username());
         user.setPassword(userDTO.password());
         user.setEmail(userDTO.email());
-        user.setProjects(userDTO.projects());
+        user.setMemberProjects(userDTO.memberProjects());
+        user.setReporterProjects(userDTO.reporterProjects());
+        user.setReporterSprints(userDTO.reporterSprints());
+        user.setAssigneeUserStories(userDTO.assigneeUserStories());
+        user.setReporterUserStories(userDTO.reporterUserStories());
+        user.setAssigneeTasks(userDTO.assigneeTasks());
+        user.setReporterTasks(userDTO.reporterTasks());
 
         return user;
     }

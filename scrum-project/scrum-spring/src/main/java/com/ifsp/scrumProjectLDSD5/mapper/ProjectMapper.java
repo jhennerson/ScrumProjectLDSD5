@@ -15,10 +15,10 @@ public class ProjectMapper {
         return new ProjectDTO(
                 project.getId(),
                 project.getTitle(),
-                project.getAssignee(),
+                project.getReporter(),
                 project.getAssignmentDate(),
                 project.getEndDate(),
-                project.getUsers(),
+                project.getMembers(),
                 project.getUserStories(),
                 project.getSprints()
         );
@@ -31,10 +31,10 @@ public class ProjectMapper {
         Project project = new Project();
         project.setId(projectDTO.id());
         project.setTitle(projectDTO.title());
-        project.setAssignee(projectDTO.assignee());
+        project.setReporter(projectDTO.reporter());
         project.setAssignmentDate(projectDTO.assignmentDate());
         project.setEndDate(projectDTO.endDate());
-        project.setUsers(projectDTO.users());
+        project.setMembers(projectDTO.members());
         project.setUserStories(projectDTO.userStories());
         project.setSprints(projectDTO.sprints());
 

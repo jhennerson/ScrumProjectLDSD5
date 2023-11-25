@@ -1,6 +1,8 @@
 package com.ifsp.scrumProjectLDSD5.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -16,15 +18,14 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-@Table(name = "user-stories")
-@Entity(name = "user-stories")
+@Entity
+@Table(name = "user_stories")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@JsonIgnoreProperties("deleted")
-@SQLDelete(sql = "UPDATE user-stories SET deleted = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE user_stories SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
 public class UserStory {
 	
@@ -36,18 +37,25 @@ public class UserStory {
 	@NotNull
 	private String title;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonManagedReference
+	@ManyToOne
+	@JoinColumn(name = "project_id")
 	private Project project;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonManagedReference
+	@ManyToOne
+	@JoinColumn(name = "assignee_id")
 	private User assignee;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonManagedReference
+	@ManyToOne
+	@JoinColumn(name = "reporter_id")
 	private User reporter;
 
 	private String description;
 
-	@OneToMany(mappedBy = "userStory", fetch = FetchType.LAZY)
+	@JsonBackReference
+	@OneToMany(mappedBy = "userStory")
 	private List<Task> tasks = new ArrayList<>();
 
 	private Boolean deleted = false;

@@ -41,10 +41,10 @@ public class ProjectService {
         return projectRepository.findById(id)
                 .map(recordFound -> {
                     recordFound.setTitle(project.title());
-                    recordFound.setAssignee(project.assignee());
+                    recordFound.setReporter(project.reporter());
                     recordFound.setAssignmentDate(project.assignmentDate());
                     recordFound.setEndDate(project.endDate());
-                    recordFound.setUsers(project.users());
+                    recordFound.setMembers(project.members());
                     recordFound.setSprints(project.sprints());
                     recordFound.setUserStories(project.userStories());
 

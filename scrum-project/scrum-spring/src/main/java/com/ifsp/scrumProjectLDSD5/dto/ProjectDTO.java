@@ -25,13 +25,13 @@ public record ProjectDTO (
     @NotBlank
     String title,
 
-    User assignee,
+    User reporter,
 
     Date assignmentDate,
 
     Date endDate,
 
-    List<User> users,
+    List<User> members,
 
     List<UserStory> userStories,
 

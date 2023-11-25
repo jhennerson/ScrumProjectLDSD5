@@ -2,7 +2,9 @@ package com.ifsp.scrumProjectLDSD5.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -17,14 +19,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Entity
 @Table(name = "tasks")
-@Entity(name = "tasks")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@JsonIgnoreProperties("deleted")
 @SQLDelete(sql = "UPDATE tasks SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
 public class Task  {
@@ -37,16 +38,24 @@ public class Task  {
 	@NotNull
 	private String title;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonManagedReference
+	@ManyToOne
+	@JoinColumn(name = "sprint_id")
 	private Sprint sprint;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonBackReference
+	@ManyToOne
+	@JoinColumn(name = "user_story_id")
 	private UserStory userStory;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonManagedReference
+	@ManyToOne
+	@JoinColumn(name = "assignee_id")
 	private User assignee;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonManagedReference
+	@ManyToOne
+	@JoinColumn(name = "reporter_id")
 	private User reporter;	
 
 	private Date assignmentDate;

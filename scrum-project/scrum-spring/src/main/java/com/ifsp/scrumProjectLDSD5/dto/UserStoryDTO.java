@@ -25,6 +25,7 @@ public record UserStoryDTO(
 	User assignee,
 
 	User reporter,
+
 	String description,
 
 	List<Task> tasks
