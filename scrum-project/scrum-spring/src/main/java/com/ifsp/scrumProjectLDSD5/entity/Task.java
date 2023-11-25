@@ -1,5 +1,7 @@
 package com.ifsp.scrumProjectLDSD5.entity;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.*;
@@ -25,14 +27,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @JsonIgnoreProperties("deleted")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @SQLDelete(sql = "UPDATE tasks SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
-public class Task  {
-	
+public class Task  implements Serializable {
+	@Serial
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	private String id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	
 	@NotBlank
 	@NotNull

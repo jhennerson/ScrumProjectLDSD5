@@ -1,5 +1,7 @@
 package com.ifsp.scrumProjectLDSD5.entity;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -31,14 +33,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @JsonIgnoreProperties({"deleted", "password", "role", "enabled", "authorities", "accountNonExpired", "credentialsNonExpired", "accountNonLocked"})
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @SQLDelete(sql = "UPDATE users SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
-public class User implements UserDetails {
+public class User implements UserDetails, Serializable {
+	@Serial
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	private String id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	
 	@NotBlank
 	@NotNull
@@ -56,6 +59,7 @@ public class User implements UserDetails {
 	@Column(name = "email", nullable = false)
 	private String email;
 
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 			name = "user_project",
@@ -64,21 +68,27 @@ public class User implements UserDetails {
 	)
 	private List<Project> memberProjects = new ArrayList<>();
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "reporter")
 	private List<Project> reporterProjects = new ArrayList<>();
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "reporter")
 	private List<Sprint> reporterSprints = new ArrayList<>();
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "assignee")
 	private List<UserStory> assigneeUserStories = new ArrayList<>();
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "reporter")
 	private List<UserStory> reporterUserStories = new ArrayList<>();
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "assignee")
 	private List<Task> assigneeTasks = new ArrayList<>();
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "reporter")
 	private List<Task> reporterTasks = new ArrayList<>();
 

@@ -13,6 +13,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,14 +26,15 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @JsonIgnoreProperties("deleted")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @SQLDelete(sql = "UPDATE user_stories SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
-public class UserStory {
-	
+public class UserStory implements Serializable {
+	@Serial
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	private String id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	@NotBlank
 	@NotNull
@@ -51,6 +54,7 @@ public class UserStory {
 
 	private String description;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "userStory")
 	private List<Task> tasks = new ArrayList<>();
 

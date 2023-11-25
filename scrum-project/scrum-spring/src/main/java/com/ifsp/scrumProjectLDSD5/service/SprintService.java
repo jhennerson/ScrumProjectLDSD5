@@ -31,7 +31,7 @@ public class SprintService {
                                .collect(Collectors.toList());
     }
 
-    public SprintDTO findById(@PathVariable @NotNull String id) {
+    public SprintDTO findById(@PathVariable @NotNull Long id) {
         return sprintRepository.findById(id)
                                .map(sprintMapper::toDTO)
                                .orElseThrow(() -> new RecordNotFoundException(id));
@@ -41,7 +41,7 @@ public class SprintService {
         return sprintMapper.toDTO(sprintRepository.save(sprintMapper.toEntity(sprint)));
     }
 
-    public SprintDTO update(@NotNull String id, @Valid @NotNull SprintDTO sprint) {
+    public SprintDTO update(@NotNull Long id, @Valid @NotNull SprintDTO sprint) {
         return sprintRepository.findById(id)
                 .map(recordFound -> {
                     recordFound.setTitle(sprint.title());
@@ -55,7 +55,7 @@ public class SprintService {
                 }).orElseThrow(() -> new RecordNotFoundException(id));
     }
 
-    public void delete(@NotNull String id) {
+    public void delete(@NotNull Long id) {
         sprintRepository.delete(sprintRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(id)));
     }
 }

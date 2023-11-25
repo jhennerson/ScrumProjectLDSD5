@@ -36,7 +36,7 @@ public class SprintController {
     }
 
     @GetMapping("/{id}")
-    public SprintDTO findById(@PathVariable @NotNull String id) {
+    public SprintDTO findById(@PathVariable @NotNull Long id) {
         return sprintService.findById(id);
     }
 
@@ -47,13 +47,13 @@ public class SprintController {
     }
 
     @PutMapping("/{id}")
-    public SprintDTO update(@PathVariable @NotNull String id, @RequestBody @Valid @NotNull SprintDTO sprintDTO) {
+    public SprintDTO update(@PathVariable @NotNull Long id, @RequestBody @Valid @NotNull SprintDTO sprintDTO) {
         return sprintService.update(id, sprintDTO);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable @NotNull String id) {
+    public void delete(@PathVariable @NotNull Long id) {
         sprintService.delete(id);
     }
 }

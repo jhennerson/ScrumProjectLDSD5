@@ -6,6 +6,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.ifsp.scrumProjectLDSD5.entity.User;
 
 
-public interface UserRepository extends JpaRepository<User, String> {
+public interface UserRepository extends JpaRepository<User, Long> {
     UserDetails findByUsername(String username);
 }

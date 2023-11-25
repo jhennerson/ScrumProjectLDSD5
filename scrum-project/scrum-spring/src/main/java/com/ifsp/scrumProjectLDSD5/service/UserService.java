@@ -30,7 +30,7 @@ public class UserService implements UserDetailsService {
                                .collect(Collectors.toList());
     }
 
-    public UserDTO findById(@NotNull String id) {
+    public UserDTO findById(@NotNull Long id) {
         return userRepository.findById(id)
                                .map(userMapper::toDTO)
                                .orElseThrow(() -> new RecordNotFoundException(id));

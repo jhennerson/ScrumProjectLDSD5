@@ -31,7 +31,7 @@ public class TaskService {
 							 .collect(Collectors.toList());
 	}
 
-	public TaskDTO findById(@PathVariable @NotNull String id) {
+	public TaskDTO findById(@PathVariable @NotNull Long id) {
 		return taskRepository.findById(id)
 							 .map(taskMapper::toDTO)
 							 .orElseThrow(() -> new RecordNotFoundException(id));
@@ -41,7 +41,7 @@ public class TaskService {
 		return taskMapper.toDTO(taskRepository.save(taskMapper.toEntity(task)));
 	}
 
-	public TaskDTO update(@NotNull String id, @Valid @NotNull TaskDTO task) {
+	public TaskDTO update(@NotNull Long id, @Valid @NotNull TaskDTO task) {
 		return taskRepository.findById(id)
 				.map(recordFound -> {
 					recordFound.setTitle(task.title());
@@ -59,7 +59,7 @@ public class TaskService {
 				}).orElseThrow(() -> new RecordNotFoundException(id));
 	}
 
-	public void delete(@NotNull String id) {
+	public void delete(@NotNull Long id) {
 		taskRepository.delete(taskRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(id)));
 	}
 }

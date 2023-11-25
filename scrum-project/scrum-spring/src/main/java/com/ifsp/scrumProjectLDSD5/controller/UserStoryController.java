@@ -34,7 +34,7 @@ public class UserStoryController {
     }
 
     @GetMapping("/{id}")
-    public UserStoryDTO findById(@PathVariable @NotNull String id) {
+    public UserStoryDTO findById(@PathVariable @NotNull Long id) {
         return userStoryService.findById(id);
     }
 
@@ -45,13 +45,13 @@ public class UserStoryController {
     }
 
     @PutMapping("/{id}")
-    public UserStoryDTO update(@PathVariable @NotNull String id, @RequestBody @Valid @NotNull UserStoryDTO userStory) {
+    public UserStoryDTO update(@PathVariable @NotNull Long id, @RequestBody @Valid @NotNull UserStoryDTO userStory) {
         return userStoryService.update(id, userStory);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable @NotNull String id) {
+    public void delete(@PathVariable @NotNull Long id) {
         userStoryService.delete(id);
     }
 }

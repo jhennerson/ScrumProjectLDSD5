@@ -8,6 +8,7 @@ import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,14 +22,16 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @JsonIgnoreProperties("deleted")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Project.class)
 @SQLDelete(sql = "UPDATE projects SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
-public class Project {
+public class Project implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotNull
     @NotBlank
@@ -45,11 +48,13 @@ public class Project {
     private Boolean deleted = false;
 
     @ManyToMany(mappedBy = "memberProjects")
-    private List<User> members;
+    private List<User> members = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "project")
     private List<UserStory> userStories = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "project")
     private List<Sprint> sprints = new ArrayList<>();
 }

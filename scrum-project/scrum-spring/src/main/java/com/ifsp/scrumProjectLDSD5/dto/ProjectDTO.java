@@ -19,7 +19,7 @@ import java.util.List;
 
 public record ProjectDTO (
     @JsonProperty("id")
-    String id,
+    Long id,
 
     @NotBlank
     @NotBlank

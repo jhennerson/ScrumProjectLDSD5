@@ -28,7 +28,7 @@ public class UserStoryService {
                                   .collect(Collectors.toList());
     }
 
-    public UserStoryDTO findById(@PathVariable @NotNull  String id) {
+    public UserStoryDTO findById(@PathVariable @NotNull  Long id) {
         return userStoryRepository.findById(id)
                                   .map(userStoryMapper::toDTO)
                                   .orElseThrow(() -> new RecordNotFoundException(id));
@@ -38,7 +38,7 @@ public class UserStoryService {
         return userStoryMapper.toDTO(userStoryRepository.save(userStoryMapper.toEntity(userStory)));
     }
 
-    public UserStoryDTO update(@NotNull String id, @Valid @NotNull UserStoryDTO userStory) {
+    public UserStoryDTO update(@NotNull Long id, @Valid @NotNull UserStoryDTO userStory) {
         return userStoryRepository.findById(id)
                                     .map(recordFound -> {
                                     recordFound.setTitle(userStory.title());
@@ -51,7 +51,7 @@ public class UserStoryService {
                                   }).orElseThrow(() -> new RecordNotFoundException(id));
     }
 
-    public void delete(@NotNull String id) {
+    public void delete(@NotNull Long id) {
         userStoryRepository.delete(userStoryRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(id)));
     }
 }

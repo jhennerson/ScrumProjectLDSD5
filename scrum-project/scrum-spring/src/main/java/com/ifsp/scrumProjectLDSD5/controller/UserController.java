@@ -36,25 +36,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public UserDTO findById(@PathVariable @NotNull String id) {
+    public UserDTO findById(@PathVariable @NotNull Long id) {
         return userService.findById(id);
     }
-//
-//    @PostMapping
-//    @ResponseStatus(code = HttpStatus.CREATED)
-//    public UserDTO create(@RequestBody @Valid @NotNull UserDTO user) {
-//        return userService.create(user);
-//    }
-//
-//    @PatchMapping("/{id}")
-//    public UserDTO update(@PathVariable @NotNull String id, @RequestBody @Valid @NotNull UserDTO user) {
-//        return userService.update(id, user);
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    @ResponseStatus(code = HttpStatus.NO_CONTENT)
-//    public void delete(@PathVariable @NotNull String id) {
-//        userService.delete(id);
-//    }
 }
 

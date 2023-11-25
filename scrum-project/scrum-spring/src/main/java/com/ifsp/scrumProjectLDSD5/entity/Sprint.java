@@ -1,5 +1,7 @@
 package com.ifsp.scrumProjectLDSD5.entity;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,14 +27,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @JsonIgnoreProperties("deleted")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @SQLDelete(sql = "UPDATE sprints SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
-public class Sprint {
-    
+public class Sprint implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-	private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
     
     @NotBlank
     @NotNull
@@ -52,6 +55,7 @@ public class Sprint {
 
 	private Date endDate;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "sprint")
     private List<Task> tasks = new ArrayList<>();
 
