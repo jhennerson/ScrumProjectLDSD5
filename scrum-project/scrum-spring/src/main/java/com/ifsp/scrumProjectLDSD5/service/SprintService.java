@@ -45,6 +45,7 @@ public class SprintService {
         return sprintRepository.findById(id)
                 .map(recordFound -> {
                     recordFound.setTitle(sprint.title());
+                    recordFound.setProject(sprint.project());
                     recordFound.setReporter(sprint.reporter());
                     recordFound.setDescription(sprint.description());
                     recordFound.setAssignmentDate(sprint.assignmentDate());
