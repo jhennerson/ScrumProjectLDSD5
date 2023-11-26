@@ -6,7 +6,7 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, first } from 'rxjs';
+import { Observable, first, map } from 'rxjs';
 import { TaskFormModalComponent } from 'src/app/shared/components/task-form-modal/task-form-modal.component';
 
 import { Sprint } from '../../models/sprint/sprint';
@@ -36,8 +36,6 @@ export class BoardComponent implements OnInit {
   ) {
     this.tasks = this.taskService.list();
   }
-
-  sprints: Sprint[] = [];
 
   drop(event: CdkDragDrop<Task[]>) {
     if (event.previousContainer === event.container) {
@@ -72,7 +70,7 @@ export class BoardComponent implements OnInit {
   }
 
   private onSuccess() {
-    this.snackBar.open('Tarefa salva com sucesso!', 'X', {
+    this.snackBar.open('Status da tarefa aualizado!', 'X', {
       duration: 2000,
       panelClass: 'task-status-snackbar',
     });
@@ -104,13 +102,21 @@ export class BoardComponent implements OnInit {
   }
 
   loadTasks() {
-    this.tasks.subscribe((tasks) => {
-      if (this.selectedSprintId !== undefined) {
-        tasks = tasks.filter(
-          (task) => task.sprint.id === this.selectedSprintId
-        );
-      }
+    this.tasks = this.taskService.list().pipe(
+      first(),
+      map((tasks) => {
+        if (this.selectedSprintId !== undefined) {
+          return tasks.filter(
+            (task) =>
+              task.sprint.id === this.selectedSprintId &&
+              task.status !== Status.Disabled
+          );
+        }
+        return tasks.filter((task) => task.status !== Status.Disabled);
+      })
+    );
 
+    this.tasks.subscribe((tasks) => {
       this.todo = tasks.filter((task) => task.status === Status.ToDo);
       this.inprogress = tasks.filter(
         (task) => task.status === Status.InProgress

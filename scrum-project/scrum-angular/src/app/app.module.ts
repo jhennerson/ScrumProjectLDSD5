@@ -34,6 +34,8 @@ import { SharedModule } from './shared/modules/shared.module';
 import { StatusPipe } from './shared/pipes/status/status.pipe';
 import { TitlePipe } from './shared/pipes/title/title.pipe';
 import { UsernamePipe } from './shared/pipes/username/username.pipe';
+import { ProjectComponent } from './components/project/project.component';
+import { ProjectFormModalComponent } from './shared/components/project-form-modal/project-form-modal.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { UsernamePipe } from './shared/pipes/username/username.pipe';
     WasteBinComponent,
     LoginComponent,
     TitlePipe,
+    ProjectComponent,
+    ProjectFormModalComponent,
   ],
   imports: [
     BrowserModule,

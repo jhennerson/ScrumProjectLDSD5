@@ -1,0 +1,59 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <div>
+        <app-menu></app-menu>
+      </div>
+    </div>
+    <div class="col-md-10">
+      <mat-card align="center" class="project-mat-card">
+        <div class="project-menu">
+          <mat-toolbar class="project-mat-toolbar">
+            <button
+              mat-button
+              class="add-button"
+              aria-label="Adicionar projeto"
+              (click)="onAdd()"
+            >
+              <span class="text-nowrap">Novo projeto</span>
+              <mat-icon iconPositionEnd>add</mat-icon>
+            </button>
+          </mat-toolbar>
+        </div>
+
+        <mat-card class="project-content">
+          <div cdkDropListGroup>
+            <div class="project-container">
+              <div class="project-list" id="TO_DO">
+                <div
+                  class="project-box"
+                  *ngFor="let project of projects | async"
+                >
+                  <div class="container">
+                    <div class="project">
+                      <div class="project-card-top">
+                        <div class="my-1 fs-5">{{ project.title }}</div>
+                      </div>
+                      <hr />
+                      <div class="project-card-bottom">
+                        {{ project.reporter.username || "Não atribuído" }}
+                        <button
+                          mat-icon-button
+                          aria-label="Ver tudo"
+                          (click)="onEdit(project)"
+                        >
+                          <mat-icon iconPositionEnd>more_vert</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </mat-card>
+    </div>
+  </div>
+</div>
