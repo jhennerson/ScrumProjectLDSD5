@@ -29,7 +29,7 @@ export class ProjectFormModalComponent {
     this.form = this.formBuilder.group({
       id: ['', [Validators.required]],
       title: ['', [Validators.required]],
-      reporter: [''],
+      reporter: ['', [Validators.required]],
       assignmentDate: [''],
       endDate: [''],
     });

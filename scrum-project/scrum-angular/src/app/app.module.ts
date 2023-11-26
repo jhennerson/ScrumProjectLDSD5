@@ -25,6 +25,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BoardComponent } from './components/board/board.component';
 import { LoginComponent } from './components/login/login.component';
+import { ProjectComponent } from './components/project/project.component';
 import { SprintComponent } from './components/sprint/sprint.component';
 import { TaskComponent } from './components/task/task.component';
 import { UserStoryComponent } from './components/user-story/user-story.component';
@@ -34,8 +35,6 @@ import { SharedModule } from './shared/modules/shared.module';
 import { StatusPipe } from './shared/pipes/status/status.pipe';
 import { TitlePipe } from './shared/pipes/title/title.pipe';
 import { UsernamePipe } from './shared/pipes/username/username.pipe';
-import { ProjectComponent } from './components/project/project.component';
-import { ProjectFormModalComponent } from './shared/components/project-form-modal/project-form-modal.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +49,6 @@ import { ProjectFormModalComponent } from './shared/components/project-form-moda
     LoginComponent,
     TitlePipe,
     ProjectComponent,
-    ProjectFormModalComponent,
   ],
   imports: [
     BrowserModule,

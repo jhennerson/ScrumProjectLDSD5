@@ -7,9 +7,19 @@
     </mat-form-field>
 
     <mat-form-field class="full-width">
+      <mat-label>Projeto</mat-label>
+      <mat-select formControlName="project">
+        <mat-option disabled value="null"></mat-option>
+        <mat-option *ngFor="let option of projectOptions" [value]="option">
+          {{ option.title }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
       <mat-label>Relator</mat-label>
       <mat-select formControlName="reporter">
-        <mat-option value="null"></mat-option>
+        <mat-option disabled value="null"></mat-option>
         <mat-option *ngFor="let option of userOptions" [value]="option">
           {{ option.username }}
         </mat-option>
