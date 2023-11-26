@@ -42,6 +42,7 @@ public class UserStoryService {
         return userStoryRepository.findById(id)
                                     .map(recordFound -> {
                                     recordFound.setTitle(userStory.title());
+                                    recordFound.setProject(userStory.project());
                                     recordFound.setAssignee(userStory.assignee());
                                     recordFound.setReporter(userStory.reporter());
                                     recordFound.setDescription(userStory.description());
