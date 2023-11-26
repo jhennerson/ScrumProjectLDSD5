@@ -12,12 +12,17 @@
           <mat-toolbar class="user-story-mat-toolbar">
             <mat-form-field class="user-story-menu-operations project-select">
               <mat-label>Projeto</mat-label>
-              <mat-select class="project-select">
+              <mat-select
+                class="project-select"
+                [(ngModel)]="selectedProjectId"
+                (selectionChange)="onProjectChange()"
+              >
+                <mat-option [value]="undefined" selected>Todos</mat-option>
                 <mat-option
-                  *ngFor="let project of projectOptions"
-                  [value]="project"
+                  *ngFor="let option of projectOptions"
+                  [value]="option.id"
                 >
-                  {{ project }}
+                  {{ option.title }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -41,6 +46,14 @@
 
               <mat-cell *matCellDef="let userStory">
                 {{ userStory.title }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="project">
+              <mat-header-cell *matHeaderCellDef> Projeto </mat-header-cell>
+
+              <mat-cell *matCellDef="let userStory">
+                {{ userStory.project.title }}
               </mat-cell>
             </ng-container>
 
@@ -109,8 +122,9 @@
 
                 <button
                   mat-icon-button
-                  aria-label="Mover para a lixeira"
-                  (click)="onEdit(userStory)"
+                  aria-label="Apagar"
+                  color="warn"
+                  (click)="onDelete(userStory)"
                 >
                   <mat-icon>delete</mat-icon>
                 </button>
