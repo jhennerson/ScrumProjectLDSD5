@@ -39,9 +39,7 @@ export class TaskComponent implements OnInit {
     private sprintService: SprintService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar
-  ) {
-    this.tasks = this.taskService.list();
-  }
+  ) {}
 
   onAdd() {
     let modal = this.dialog.open(TaskFormModalComponent, {});

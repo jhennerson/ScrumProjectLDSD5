@@ -2,10 +2,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { SprintService } from './../../services/sprint/sprint.service';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, first } from 'rxjs';
+import { Observable, first, map } from 'rxjs';
 import { Sprint } from 'src/app/models/sprint/sprint';
 import { SprintFormModalComponent } from 'src/app/shared/components/sprint-form-modal/sprint-form-modal.component';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
+import { Project } from 'src/app/models/project/project';
+import { ProjectService } from 'src/app/services/project/project.service';
 
 @Component({
   selector: 'app-sprint',
@@ -14,10 +16,12 @@ import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmat
 })
 export class SprintComponent implements OnInit {
   sprints: Observable<Sprint[]> = new Observable<Sprint[]>();
-  projetos = [];
+  projectOptions: Project[] = [];
+  selectedProjectId: string | undefined;
 
   displayedColumns = [
     'title',
+    'project',
     'reporter',
     'description',
     'assignmentDate',
@@ -27,6 +31,7 @@ export class SprintComponent implements OnInit {
 
   constructor(
     private sprintService: SprintService,
+    private projectService: ProjectService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar
   ) {}
@@ -82,10 +87,36 @@ export class SprintComponent implements OnInit {
   }
 
   loadSprints() {
-    this.sprints = this.sprintService.list().pipe(first());
+    this.sprints = this.sprintService.list().pipe(
+      first(),
+      map((sprints) => {
+        if (this.selectedProjectId !== undefined) {
+          return sprints.filter(
+            (sprint) => sprint.project.id === this.selectedProjectId
+          );
+        }
+        return sprints;
+      })
+    );
+  }
+
+  loadProjects() {
+    this.projectService.list().subscribe((options) => {
+      this.projectOptions = options;
+
+      if (this.projectOptions.length > 0) {
+        this.selectedProjectId = this.projectOptions[0].id;
+        this.loadSprints();
+      }
+    });
+  }
+
+  onProjectChange() {
+    this.loadSprints();
   }
 
   ngOnInit() {
     this.loadSprints();
+    this.loadProjects();
   }
 }
