@@ -10,11 +10,19 @@
       <mat-card align="center" class="sprint-mat-card">
         <div class="sprint-menu">
           <mat-toolbar class="sprint-mat-toolbar">
-            <mat-form-field class="project-menu-operations project-select">
+            <mat-form-field class="sprint-menu-operations project-select">
               <mat-label>Projeto</mat-label>
-              <mat-select class="project-select">
-                <mat-option *ngFor="let projeto of projetos" [value]="projeto">
-                  {{ projeto }}
+              <mat-select
+                class="project-select"
+                [(ngModel)]="selectedProjectId"
+                (selectionChange)="onProjectChange()"
+              >
+                <mat-option [value]="undefined" selected>Todos</mat-option>
+                <mat-option
+                  *ngFor="let option of projectOptions"
+                  [value]="option.id"
+                >
+                  {{ option.title }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -37,6 +45,14 @@
               <mat-header-cell *matHeaderCellDef> Título </mat-header-cell>
 
               <mat-cell *matCellDef="let sprint"> {{ sprint.title }} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="project">
+              <mat-header-cell *matHeaderCellDef> Projeto </mat-header-cell>
+
+              <mat-cell *matCellDef="let sprint">
+                {{ sprint.project.title }}
+              </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="reporter">
