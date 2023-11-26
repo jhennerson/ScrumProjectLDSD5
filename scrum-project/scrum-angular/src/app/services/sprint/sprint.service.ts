@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { first } from 'rxjs';
 import { Sprint } from 'src/app/models/sprint/sprint';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SprintService {
-  private readonly API = 'api/sprints';
+  private readonly API = environment.apiUrl + 'sprints';
 
   constructor(private httpClient: HttpClient) {}
 

@@ -1,40 +1,35 @@
 version: '3.3'
 services:
-
-   api:
-       build: 
+    api:
+        build: 
             context: "."
             dockerfile: "scrum-project/scrum-spring/Dockerfile"
-       container_name: api-application
-       ports:
-           - "8080:8080"
-       networks:
-           - scrum-network
-       depends_on:
-           - db
-       environment:
-           - spring.datasource.url=jdbc:postgresql://db:5432/scrum
-
-
-
-
-   web:
-    #    build: 
-    #        context: "."
-    #        dockerfile: "scrum-project/scrum-angular/Dockerfile"
-       image : "scrum-angular:latest"
-       container_name: web-application
-       ports:
-           - "4200:80"
-       networks:
-           - scrum-network
-
-   db:
-       image: db:latest
-       container_name: database
-       ports:
-           - "5432:5432"
-       networks:
+        container_name: api-application
+        ports:
+        - "8080:8080"
+        networks:
+        - scrum-network
+        depends_on:
+        - db
+        environment:
+        - spring.datasource.url=jdbc:postgresql://db:5432/scrum
+    web:
+        build: 
+            context: "."
+            dockerfile: "scrum-project/scrum-angular/Dockerfile"
+        image : "scrum-angular:latest"
+        container_name: web-application
+        ports:
+        - "4200:80"
+        networks:
+         - scrum-network
+    db:
+        build:
+            context: "."
+            dockerfile: "Dockerfile"
+        ports:
+        - "5432:5432"
+        networks:
            - scrum-network 
 networks:
    scrum-network:

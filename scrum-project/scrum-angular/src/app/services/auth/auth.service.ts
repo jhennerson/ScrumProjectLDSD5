@@ -4,12 +4,12 @@ import { CookieService } from 'ngx-cookie-service';
 import { Observable, first } from 'rxjs';
 import { Token } from 'src/app/models/token/token';
 import { User } from 'src/app/models/user/user';
-
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly API = 'api/auth';
+  private readonly API = environment.apiUrl + 'auth';
 
   constructor(
     private httpClient: HttpClient,
