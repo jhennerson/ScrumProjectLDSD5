@@ -1,12 +1,12 @@
-import { Observable } from 'rxjs';
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User } from 'src/app/models/user/user';
-import { UserService } from 'src/app/services/user/user.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
 import { Project } from 'src/app/models/project/project';
+import { User } from 'src/app/models/user/user';
 import { ProjectService } from 'src/app/services/project/project.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-project-form-modal',
@@ -32,14 +32,17 @@ export class ProjectFormModalComponent {
       reporter: ['', [Validators.required]],
       assignmentDate: [''],
       endDate: [''],
+      members: [''],
     });
 
     if (data) {
       this.form.patchValue({
         id: data.id,
         title: data.title,
+        reporter: data.reporter,
         assignmentDate: data.assignmentDate,
         endDate: data.endDate,
+        members: data.members,
       });
     }
   }
@@ -54,14 +57,14 @@ export class ProjectFormModalComponent {
   private onSuccess() {
     this.snackBar.open('Projeto salvo com sucesso!', 'X', {
       duration: 2000,
-      panelClass: 'sprint-status-snackbar',
+      panelClass: 'success-snackbar',
     });
   }
 
   private onError() {
     this.snackBar.open('Erro ao salvar projeto!', 'X', {
-      duration: 2000,
-      panelClass: 'sprint-status-snackbar',
+      duration: 3000,
+      panelClass: 'error-snackbar',
     });
   }
 

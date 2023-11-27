@@ -63,14 +63,14 @@ export class UserStoryFormModalComponent implements OnInit {
   private onSuccess() {
     this.snackBar.open('História do usuário salva com sucesso!', 'X', {
       duration: 2000,
-      panelClass: 'task-status-snackbar',
+      panelClass: 'success-snackbar',
     });
   }
 
   private onError() {
     this.snackBar.open('Erro ao salvar história do usuário!', 'X', {
-      duration: 2000,
-      panelClass: 'task-status-snackbar',
+      duration: 3000,
+      panelClass: 'error-snackbar',
     });
   }
 

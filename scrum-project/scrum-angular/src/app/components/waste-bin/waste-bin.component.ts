@@ -87,7 +87,7 @@ export class WasteBinComponent {
   private onHardDelete() {
     this.snackBar.open('Tarefa apagada com sucesso!', 'X', {
       duration: 2000,
-      panelClass: 'task-status-snackbar',
+      panelClass: 'success-snackbar',
     });
   }
 

@@ -28,18 +28,33 @@
               <div class="container">
                 <div class="project">
                   <div class="project-card-top">
-                    <div class="my-1 fs-5">{{ project.title }}</div>
+                    <div class="my-1 fs-3">
+                      {{ project.title }}
+                    </div>
+                    <div class="my-1 fs-5">
+                      Líder: {{ project.reporter.username || "Não atribuído" }}
+                    </div>
                   </div>
                   <hr />
                   <div class="project-card-bottom">
-                    {{ project.reporter.username || "Não atribuído" }}
-                    <button
-                      mat-icon-button
-                      aria-label="Ver tudo"
-                      (click)="onEdit(project)"
-                    >
-                      <mat-icon iconPositionEnd>more_vert</mat-icon>
-                    </button>
+                    <div class="members-area my-1 fs-6">
+                      Equipe:
+                      <mat-card
+                        class="member-name"
+                        *ngFor="let member of project.members"
+                      >
+                        {{ member.username }}
+                      </mat-card>
+                    </div>
+                    <div class="operations">
+                      <button
+                        mat-icon-button
+                        aria-label="Ver tudo"
+                        (click)="onEdit(project)"
+                      >
+                        <mat-icon iconPositionEnd>more_vert</mat-icon>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

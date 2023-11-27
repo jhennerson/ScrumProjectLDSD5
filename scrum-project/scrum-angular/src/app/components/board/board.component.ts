@@ -72,14 +72,14 @@ export class BoardComponent implements OnInit {
   private onSuccess() {
     this.snackBar.open('Status da tarefa aualizado!', 'X', {
       duration: 2000,
-      panelClass: 'task-status-snackbar',
+      panelClass: 'success-snackbar',
     });
   }
 
   private onError() {
     this.snackBar.open('Erro ao salvar tarefa!', 'X', {
-      duration: 2000,
-      panelClass: 'task-status-snackbar',
+      duration: 3000,
+      panelClass: 'error-snackbar',
     });
   }
 

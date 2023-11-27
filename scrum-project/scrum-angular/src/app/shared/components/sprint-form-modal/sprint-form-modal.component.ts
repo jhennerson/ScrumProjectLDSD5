@@ -61,14 +61,14 @@ export class SprintFormModalComponent implements OnInit {
   private onSuccess() {
     this.snackBar.open('Sprint salva com sucesso!', 'X', {
       duration: 2000,
-      panelClass: 'sprint-status-snackbar',
+      panelClass: 'success-snackbar',
     });
   }
 
   private onError() {
     this.snackBar.open('Erro ao salvar sprint!', 'X', {
-      duration: 2000,
-      panelClass: 'sprint-status-snackbar',
+      duration: 3000,
+      panelClass: 'error-snackbar',
     });
   }
 

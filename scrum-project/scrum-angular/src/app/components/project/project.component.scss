@@ -26,12 +26,13 @@
 }
 
 .project-card {
-  background-color: white;
+  background-color: #ffffff;
   margin: 20px 100px 50px 50px;
 }
 
 .project-content {
   background-color: #ffffff;
+  flex-wrap: wrap;
 }
 
 .project-select {
@@ -42,7 +43,7 @@
 .project-list {
   border: solid 1px #ccc;
   min-height: 600px;
-  background: white;
+  background: #ffffff;
   border-radius: 4px;
   overflow: hidden;
   display: block;
@@ -52,20 +53,20 @@
   padding: 20px 10px;
   border: solid 2px #666262;
   border-radius: 5px;
-  color: rgba(0, 0, 0, 0.87);
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
-  background: white;
+  background: #ffffff;
   font-size: 14px;
   margin: 10px;
 }
 
 .project-card-top {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -75,9 +76,24 @@
   align-items: center;
 }
 
+.members-area {
+  max-width: fit-content;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.member-name {
+  padding: 0.2rem 0.5rem;
+  color: #ffffff;
+  background-color: #666262;
+  margin: 0.5rem;
+}
+
 .text {
   font-size: 20px;
-  color: white;
+  color: #ffffff;
 }
 
 @media (max-width: 768px) {
@@ -89,5 +105,15 @@
   }
   .project-list {
     min-height: 10rem;
+  }
+
+  .project-card-top,
+  .members-area {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .member-name {
+    margin: 0.5rem 0;
   }
 }
