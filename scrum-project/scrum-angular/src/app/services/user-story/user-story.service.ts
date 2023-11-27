@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { first } from 'rxjs';
 import { UserStory } from 'src/app/models/user-story/user-story';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserStoryService {
-  private readonly API = 'api/user-stories';
+  private readonly API =  environment.apiUrl + 'user-stories';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -37,7 +38,7 @@ export class UserStoryService {
 
   private update(record: Partial<UserStory>) {
     return this.httpClient
-      .patch<UserStory>(`${this.API}/${record.id}`, record)
+      .put<UserStory>(`${this.API}/${record.id}`, record)
       .pipe(first());
   }
 }

@@ -1,14 +1,17 @@
-import { Component, Inject, OnInit, Optional } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
+import { Status } from 'src/app/enum/status.enum';
+import { Sprint } from 'src/app/models/sprint/sprint';
 import { Task } from 'src/app/models/task/task';
 import { UserStory } from 'src/app/models/user-story/user-story';
-import { Person } from 'src/app/models/person/person';
+import { User } from 'src/app/models/user/user';
+import { SprintService } from 'src/app/services/sprint/sprint.service';
 import { TaskService } from 'src/app/services/task/task.service';
 import { UserStoryService } from 'src/app/services/user-story/user-story.service';
-import { PersonService } from 'src/app/services/person/person.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-task-form-modal',
@@ -17,56 +20,60 @@ import { PersonService } from 'src/app/services/person/person.service';
 })
 export class TaskFormModalComponent implements OnInit {
   form: FormGroup;
-  users: Observable<Person[]>;
-  userStories: Observable<UserStory[]>;
+  users: Observable<User[]> = new Observable<User[]>();
+  userStories: Observable<UserStory[]> = new Observable<UserStory[]>();
+  sprints: Observable<Sprint[]> = new Observable<Sprint[]>();
 
-  userOptions: Person[] = [];
+  userOptions: User[] = [];
   userStoryOptions: UserStory[] = [];
+  sprintOptions: Sprint[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private taskService: TaskService,
-    private personService: PersonService,
+    private userService: UserService,
+    private sprintService: SprintService,
     private userStoryService: UserStoryService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public data: { task: Task; enableable: boolean }
+    @Inject(MAT_DIALOG_DATA) public data: Task
   ) {
-    this.users = this.personService.list();
-    this.userStories = this.userStoryService.list();
-
     this.form = this.formBuilder.group({
       id: ['', [Validators.required]],
       title: ['', [Validators.required]],
-      person: [''],
+      sprint: ['', [Validators.required]],
+      userStory: ['', [Validators.required]],
+      assignee: [''],
+      reporter: [''],
+      storyPoints: [''],
       assignmentDate: [''],
       endDate: [''],
-      storyPoints: [''],
       description: [''],
-      status: ['TO_DO'],
-      userStory: ['', [Validators.required]],
+      status: [Status.ToDo],
     });
 
     if (data) {
       this.form.patchValue({
-        id: data.task.id,
-        title: data.task.title,
-        person: data.task.person,
-        assignmentDate: data.task.assignmentDate,
-        endDate: data.task.endDate,
-        storyPoints: data.task.storyPoints,
-        description: data.task.description,
-        userStory: data.task.userStory,
+        id: data.id,
+        title: data.title,
+        sprint: data.sprint,
+        userStory: data.userStory,
+        assignee: data.assignee,
+        reporter: data.reporter,
+        storyPoints: data.storyPoints,
+        assignmentDate: data.assignmentDate,
+        endDate: data.endDate,
+        description: data.description,
+        status: data.status,
       });
     }
   }
 
   onSubmit() {
-    console.log(this.form.value);
-    this.taskService.save(this.form.value).subscribe(
-      (result) => this.onSuccess(),
-      (error) => this.onError()
-    );
+    this.taskService.save(this.form.value).subscribe({
+      next: () => this.onSuccess(),
+      error: () => this.onError(),
+    });
   }
 
   onRestore() {
@@ -88,16 +95,26 @@ export class TaskFormModalComponent implements OnInit {
   }
 
   loadUsers() {
-    this.personService
+    this.userService
       .list()
       .subscribe((options) => (this.userOptions = options));
+  }
 
+  loadUserStories() {
     this.userStoryService
       .list()
       .subscribe((options) => (this.userStoryOptions = options));
   }
 
+  loadSprints() {
+    this.sprintService
+      .list()
+      .subscribe((options) => (this.sprintOptions = options));
+  }
+
   ngOnInit() {
     this.loadUsers();
+    this.loadUserStories();
+    this.loadSprints();
   }
 }

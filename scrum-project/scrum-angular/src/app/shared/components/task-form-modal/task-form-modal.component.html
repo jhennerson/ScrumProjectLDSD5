@@ -7,8 +7,38 @@
     </mat-form-field>
 
     <mat-form-field class="full-width">
+      <mat-label>Sprint</mat-label>
+      <mat-select formControlName="sprint">
+        <mat-option value="null"></mat-option>
+        <mat-option *ngFor="let option of sprintOptions" [value]="option">
+          {{ option.title }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>História de usuário</mat-label>
+      <mat-select formControlName="userStory">
+        <mat-option value="null"></mat-option>
+        <mat-option *ngFor="let option of userStoryOptions" [value]="option">
+          {{ option.title }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
       <mat-label>Responsável</mat-label>
-      <mat-select formControlName="person">
+      <mat-select formControlName="assignee">
+        <mat-option value="null"></mat-option>
+        <mat-option *ngFor="let option of userOptions" [value]="option">
+          {{ option.username }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Relator</mat-label>
+      <mat-select formControlName="reporter">
         <mat-option value="null"></mat-option>
         <mat-option *ngFor="let option of userOptions" [value]="option">
           {{ option.username }}
@@ -46,16 +76,6 @@
     </mat-form-field>
 
     <mat-form-field class="full-width">
-      <mat-label>História de usuário</mat-label>
-      <mat-select formControlName="userStory">
-        <mat-option value="null"></mat-option>
-        <mat-option *ngFor="let option of userStoryOptions" [value]="option">
-          {{ option.title }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field class="full-width">
       <mat-label>Descrição</mat-label>
       <textarea
         matInput
@@ -68,12 +88,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end" class="task-form-actions">
-  <!-- <ng-container *ngIf="data.task && data.enableable">
-    <button mat-fab extended (click)="onRestore()" class="restore-button">
-      Excluir
-    </button>
-  </ng-container> -->
-
   <button mat-fab extended mat-dialog-close class="cancel-button">
     Cancelar
   </button>

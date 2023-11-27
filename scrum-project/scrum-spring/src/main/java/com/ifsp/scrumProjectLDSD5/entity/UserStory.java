@@ -1,71 +1,62 @@
 package com.ifsp.scrumProjectLDSD5.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "user_story")
-public class UserStory {
-	
+@Table(name = "user_stories")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
+@JsonIgnoreProperties("deleted")
+@SQLDelete(sql = "UPDATE user_stories SET deleted = true WHERE id = ?")
+@Where(clause = "deleted = false")
+public class UserStory implements Serializable {
+	@Serial
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private String id;
 
 	@NotBlank
 	@NotNull
 	private String title;
 
 	@ManyToOne
-	private Person assignee;
+	@JoinColumn(name = "project_id")
+	private Project project;
 
 	@ManyToOne
-	private Person reporter;
+	@JoinColumn(name = "assignee_id")
+	private User assignee;
+
+	@ManyToOne
+	@JoinColumn(name = "reporter_id")
+	private User reporter;
 
 	private String description;
 
-	public Long getId() {
-		return id;
-	}
+	@JsonIgnore
+	@OneToMany(mappedBy = "userStory")
+	private List<Task> tasks = new ArrayList<>();
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public Person getAssignee() {
-		return assignee;
-	}
-
-	public void setAssignee(Person assignee) {
-		this.assignee = assignee;
-	}
-
-	public Person getReporter() {
-		return reporter;
-	}
-
-	public void setReporter(Person reporter) {
-		this.reporter = reporter;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-	
-	public void setDescription(String description) {
-		this.description = description;
-	}	
+	private Boolean deleted = false;
 }

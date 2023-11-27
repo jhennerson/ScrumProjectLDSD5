@@ -16,10 +16,12 @@ public class SprintMapper {
         return new SprintDTO(
             sprint.getId(),
             sprint.getTitle(),
+            sprint.getProject(),
             sprint.getReporter(),
             sprint.getDescription(),
             sprint.getAssignmentDate(),
-            sprint.getEndDate()
+            sprint.getEndDate(),
+            sprint.getTasks()
         );
     }
 
@@ -36,9 +38,11 @@ public class SprintMapper {
 
         sprint.setTitle(sprintDTO.title());
         sprint.setReporter(sprintDTO.reporter());
+        sprint.setProject(sprintDTO.project());
         sprint.setDescription(sprintDTO.description());
         sprint.setAssignmentDate(sprintDTO.assignmentDate());
         sprint.setEndDate(sprintDTO.endDate());
+        sprint.setTasks(sprintDTO.tasks());
 
         return sprint;
     }

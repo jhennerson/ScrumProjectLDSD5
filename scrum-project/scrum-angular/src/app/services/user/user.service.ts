@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { first } from 'rxjs';
 import { User } from 'src/app/models/user/user';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private readonly API = 'api/users';
+  private readonly API = environment.apiUrl +  'users';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -37,7 +38,7 @@ export class UserService {
 
   private update(record: Partial<User>) {
     return this.httpClient
-      .patch<User>(`${this.API}/${record.id}`, record)
+      .put<User>(`${this.API}/${record.id}`, record)
       .pipe(first());
   }
 }

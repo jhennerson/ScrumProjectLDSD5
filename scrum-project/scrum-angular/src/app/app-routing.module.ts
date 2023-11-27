@@ -1,30 +1,48 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { authGuard } from './guards/auth/auth.guard';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'board' },
+  { path: '', pathMatch: 'full', redirectTo: 'login' },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./modules/login/login.module').then((m) => m.LoginModule),
+  },
   {
     path: 'board',
+    canActivate: [authGuard],
     loadChildren: () =>
-      import('./modules/board/board.module').then((m) => m.BoardModule),
+      import('./modules/board/board.module').then(
+        (module) => module.BoardModule
+      ),
   },
   {
-    path: 'backlog',
+    path: 'tasks',
+    canActivate: [authGuard],
     loadChildren: () =>
-      import('./modules/backlog/backlog.module').then((m) => m.BacklogModule),
+      import('./modules/task/task.module').then((module) => module.TaskModule),
   },
   {
-    path: 'user-story',
+    path: 'sprints',
+    canActivate: [authGuard],
+    loadChildren: () =>
+      import('./modules/sprint/sprint.module').then((module) => module.SprintModule),
+  },
+  {
+    path: 'user-stories',
+    canActivate: [authGuard],
     loadChildren: () =>
       import('./modules/user-story/user-story.module').then(
-        (m) => m.UserStoryModule
+        (module) => module.UserStoryModule
       ),
   },
   {
     path: 'waste-bin',
+    canActivate: [authGuard],
     loadChildren: () =>
       import('./modules/waste-bin/waste-bin.module').then(
-        (m) => m.WasteBinModule
+        (module) => module.WasteBinModule
       ),
   },
 ];

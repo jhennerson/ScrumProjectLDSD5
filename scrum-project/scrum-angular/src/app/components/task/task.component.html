@@ -1,0 +1,137 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <div>
+        <app-menu></app-menu>
+      </div>
+    </div>
+    <div class="col-md-10">
+      <mat-card align="center" class="task-mat-card">
+        <div class="task-menu">
+          <mat-toolbar class="task-mat-toolbar">
+            <mat-form-field class="task-menu-operations sprint-select">
+              <mat-label>Sprint</mat-label>
+              <mat-select
+                class="sprint-select"
+                [(ngModel)]="selectedSprintId"
+                (selectionChange)="onSprintChange()"
+              >
+                <mat-option [value]="undefined" selected>Todas</mat-option>
+                <mat-option
+                  *ngFor="let option of sprintOptions"
+                  [value]="option.id"
+                >
+                  {{ option.title }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <button
+              mat-button
+              class="task-menu-operations add-button"
+              aria-label="Adicionar tarefa"
+              (click)="onAdd()"
+            >
+              <span class="text-nowrap">Nova tarefa</span>
+              <mat-icon iconPositionEnd>add</mat-icon>
+            </button>
+          </mat-toolbar>
+        </div>
+      </mat-card>
+
+      <mat-card align="center" class="task-mat-card">
+        <mat-card class="task-content">
+          <ng-container *ngFor="let task of tasks | async">
+            <div class="task-item">
+              <div class="task-pair">
+                <div class="task-label">Título</div>
+                <div class="task-value" id="task-more">
+                  {{ task.title }}
+                </div>
+              </div>
+
+              <div class="task-pair">
+                <div class="task-label">Responsável</div>
+                <div class="task-value" id="task-more2">
+                  {{ task.assignee.id | username | async }}
+                </div>
+              </div>
+
+              <div class="task-pair">
+                <div class="task-label">Relator</div>
+                <div class="task-value" id="task-more3">
+                  {{ task.reporter.id | username | async }}
+                </div>
+              </div>
+
+              <div class="task-pair">
+                <div class="task-label">Esforço atribuído</div>
+                <div class="task-value" id="task-more4">
+                  {{ task.storyPoints }}
+                </div>
+              </div>
+
+              <div class="task-pair">
+                <div class="task-label">História de usuário</div>
+                <div class="task-value" id="task-more4">
+                  {{ task.userStory.title }}
+                </div>
+              </div>
+
+              <div class="task-pair">
+                <div class="task-label">Data de atribuição</div>
+                <div class="task-value" id="date1">
+                  {{ task.assignmentDate }}
+                </div>
+              </div>
+
+              <div class="task-pair">
+                <div class="task-label">Data de entrega</div>
+                <div class="task-value" id="date2">
+                  {{ task.endDate }}
+                </div>
+              </div>
+
+              <div class="task-pair">
+                <div class="task-label">Status</div>
+                <div
+                  class="task-value"
+                  id="task-more5"
+                  [ngClass]="{
+                    'status-to-do': task.status == 'TO_DO',
+                    'status-in-progress': task.status == 'IN_PROGRESS',
+                    'status-done': task.status == 'DONE'
+                  }"
+                >
+                  {{ task.status | status }}
+                </div>
+              </div>
+
+              <div class="task-pair">
+                <div class="task-label">Operações</div>
+                <div class="task-value">
+                  <button
+                      mat-icon-button
+                      aria-label="Editar"
+                      (click)="onEdit(task)"
+                    >
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+
+                    <button
+                    mat-icon-button
+                    aria-label="Mover para a lixeira"
+                    (click)="onDisable(task)"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </mat-card>
+      </mat-card>
+    </div>
+  </div>
+</div>

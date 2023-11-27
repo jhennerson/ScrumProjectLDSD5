@@ -15,9 +15,11 @@ public class UserStoryMapper {
         return new UserStoryDTO(
             userStory.getId(),
             userStory.getTitle(),
+            userStory.getProject(),
             userStory.getAssignee(),
             userStory.getReporter(),
-            userStory.getDescription()
+            userStory.getDescription(),
+            userStory.getTasks()
         );
     }
 
@@ -33,9 +35,11 @@ public class UserStoryMapper {
         }
 
         userStory.setTitle(userStoryDTO.title());
+        userStory.setProject(userStoryDTO.project());
         userStory.setAssignee(userStoryDTO.assignee());
         userStory.setReporter(userStoryDTO.reporter());
         userStory.setDescription(userStoryDTO.description());
+        userStory.setTasks(userStoryDTO.tasks());
 
         return userStory;
     }

@@ -62,45 +62,93 @@
   color: lightgreen;
 }
 
-mat-table {
-  border-radius: 5px;
+
+.waste-bin-item {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
 }
 
-mat-row {
+.waste-bin-pair {
+  margin-left: 10px;
+}
+
+.waste-bin-label {
+  font-weight: bold;
+  margin-top: 5px;
+  font-size: 12px;
+  width: 100%;
+  margin-right: 10px;
+}
+
+#date1,
+#date2 {
+  word-break: break-word;
+  margin-top: 17px;
+  font-size: 10px;
+}
+
+#waster-more,
+#waster-more2,
+#waster-more3,
+#waster-more4,
+#waster-more5 {
+  margin-top: 17px;
+  font-size: 12px;
+}
+
+.waste-bin-value {
+  width: 100%;
+  flex-grow: 1;
+  margin-top: 17px;
+  font-size: 11px;
+}
+
+.waste-bin-content {
+  width: 100%;
   background-color: #ffffff;
 }
 
-mat-row:hover {
-  background-color: #eefdff;
-}
-
-mat-header-cell {
-  background-color: #595656;
-}
-
-mat-cell {
-  border-bottom: 1px solid #2c2c2c;
-  color: #2c2c2c;
-  word-break: break-word;
-}
-
-@media only screen and (max-width: 1124px) {
-  ng-container {
-    margin-left: 30px;
-  }
-
-  mat-header-cell {
-    font-size: 14px;
+@media (max-width: 1186px) {
+  .waste-bin-pair {
+    margin-left: 6px;
   }
 }
 
-@media only screen and (max-width: 1075px) {
-  ng-container {
-    margin-left: 30px;
+@media (max-width: 768px) {
+  .waste-bin-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
   }
 
-  mat-header-cell {
-    font-size: 13px;
-    word-break: break-word;
+  .waste-bin-pair {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 10px;
+  }
+
+  .waste-bin-label {
+    font-weight: bold;
+    margin-left: 5px;
+    font-size: 17px;
+  }
+
+  .waste-bin-value {
+    flex-grow: 1;
+  }
+
+  #waster-more,
+  #waster-more2,
+  #waster-more3,
+  #waster-more4,
+  #waster-more5,
+  #waster-more6,
+  #date1,
+  #date2 {
+    font-size: 15px;
   }
 }
+
+
+

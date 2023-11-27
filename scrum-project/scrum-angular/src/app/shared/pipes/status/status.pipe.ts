@@ -1,18 +1,20 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Status } from 'src/app/enum/status.enum';
 
 @Pipe({
-  name: 'status'
+  name: 'status',
 })
 export class StatusPipe implements PipeTransform {
-
   transform(value: string): string {
     switch (value) {
-      case 'TO_DO':
+      case Status.ToDo:
         return 'A fazer';
-      case 'IN_PROGRESS':
+      case Status.InProgress:
         return 'Em progresso';
-      case 'DONE':
+      case Status.Done:
         return 'Finalizada';
+      case Status.Disabled:
+        return 'Excluída';
       default:
         throw new Error(`Status inválido: ${value}`);
     }

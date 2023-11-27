@@ -1,8 +1,11 @@
 package com.ifsp.scrumProjectLDSD5.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ifsp.scrumProjectLDSD5.entity.Project;
+import com.ifsp.scrumProjectLDSD5.entity.Task;
 import com.ifsp.scrumProjectLDSD5.entity.User;
 
 import jakarta.validation.constraints.NotBlank;
@@ -15,6 +18,8 @@ public record SprintDTO(
     @NotBlank
     @NotNull
     String title,
+
+    Project project,
     
     User reporter,
 
@@ -22,5 +27,7 @@ public record SprintDTO(
 
     Date assignmentDate,
 
-	Date endDate
+	Date endDate,
+
+    List<Task> tasks
 ) {}

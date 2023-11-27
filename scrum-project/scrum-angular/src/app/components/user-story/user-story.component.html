@@ -1,79 +1,115 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <div>
+        <app-menu></app-menu>
+      </div>
+    </div>
+    <div class="col-md-10">
+      <mat-card align="center" class="user-story-mat-card">
+        <div class="user-story-menu">
+          <mat-toolbar class="user-story-mat-toolbar">
+            <mat-form-field class="user-story-menu-operations project-select">
+              <mat-label>Projeto</mat-label>
+              <mat-select class="project-select">
+                <mat-option
+                  *ngFor="let project of projectOptions"
+                  [value]="project"
+                >
+                  {{ project }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <button
+              mat-button
+              class="user-story-menu-operations add-button"
+              aria-label="Adicionar história"
+              (click)="onAdd()"
+            >
+              <span class="text-nowrap">Nova história</span>
+              <mat-icon iconPositionEnd>add</mat-icon>
+            </button>
+          </mat-toolbar>
+        </div>
+      </mat-card>
+
+
 <mat-card align="center" class="user-story-mat-card">
-  <div class="user-story-menu">
-    <mat-toolbar class="user-story-mat-toolbar">
-      <mat-form-field class="user-story-menu-operations sprint-select">
-        <mat-label>Sprint</mat-label>
-        <mat-select class="sprint-select">
-          <mat-option *ngFor="let sprint of sprints" [value]="sprint.title">
-            {{ sprint.title }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <button
-        mat-button
-        class="user-story-menu-operations add-button"
-        aria-label="Adicionar tarefa"
-        (click)="onAdd()"
-      >
-        <span class="text-nowrap">Nova História</span>
-        <mat-icon iconPositionEnd>add</mat-icon>
-      </button>
-    </mat-toolbar>
-  </div>
-
   <mat-card class="user-story-content">
-    <mat-table [dataSource]="userStories" class="mat-elevation-z8">
-      <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef>Operações</mat-header-cell>
+    <ng-container *ngFor="let userStory of userStories | async">
+      <div class="user-story-item">
+        <div class="user-story-pair">
+          <div class="user-story-label">Título</div>
+          <div class="user-story-value" id="user-more">
+            {{ userStory.title }}
+          </div>
+        </div>
 
-        <mat-cell *matCellDef="let userStory">
-          <button
-            mat-icon-button
-            aria-label="Ver tudo"
-            (click)="onEdit(userStory)"
-          >
-            <mat-icon>more_vert</mat-icon>
-          </button>
-        </mat-cell>
-      </ng-container>
+        <div class="user-story-pair">
+          <div class="user-story-label">Responsável</div>
+          <div class="user-story-value" id="user-more2">
+            {{ userStory.assignee.id | username | async }}
+          </div>
+        </div>
 
-      <ng-container matColumnDef="title">
-        <mat-header-cell *matHeaderCellDef> Título </mat-header-cell>
+        <div class="user-story-pair">
+          <div class="user-story-label">Relator</div>
+          <div class="user-story-value" id="user-more3">
+            {{ userStory.assignee.id | username | async }}
+          </div>
+        </div>
 
-        <mat-cell *matCellDef="let userStory"> {{ userStory.title }} </mat-cell>
-      </ng-container>
+        <div class="user-story-pair">
+          <div class="user-story-label">Data de atribuição</div>
+          <div class="user-story-value" id="user-more3">
+            {{  userStory.assignmentDate }}
+          </div>
+        </div>
 
-      <ng-container matColumnDef="assignee">
-        <mat-header-cell *matHeaderCellDef> Responsável </mat-header-cell>
+        <div class="user-story-pair">
+          <div class="user-story-label">Data de entrega</div>
+          <div class="user-story-value" id="user-more3">
+            {{ userStory.endDate }}
+          </div>
+        </div>
 
-        <mat-cell *matCellDef="let userStory">
-          {{ userStory.assignee.id | username | async }}
-        </mat-cell>
-      </ng-container>
+        <div class="user-story-pair">
+          <div class="user-story-label">Descrição</div>
+          <div class="user-story-value user-story-description" id="user-more4">
+            {{
+              userStory.description.length > 32
+                ? (userStory.description | slice : 0 : 32) + "..."
+                : userStory.description
+            }}
+          </div>
+        </div>
 
-      <ng-container matColumnDef="reporter">
-        <mat-header-cell *matHeaderCellDef> Relator </mat-header-cell>
+        <div class="user-story-pair">
+          <div class="user-story-label">Operações</div>
+          <div class="user-story-value">
+            <button
+              mat-icon-button
+              aria-label="Editar"
+              (click)="onEdit(userStory)"
+            >
+              <mat-icon>more_vert</mat-icon>
+            </button>
 
-        <mat-cell *matCellDef="let userStory">
-          {{ userStory.reporter.id | username | async }}
-        </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="description">
-        <mat-header-cell *matHeaderCellDef> Descrição </mat-header-cell>
-
-        <mat-cell *matCellDef="let userStory" class="user-story-description">
-          {{
-            userStory.description.length > 32
-              ? (userStory.description | slice : 0 : 32) + "..."
-              : userStory.description
-          }}
-        </mat-cell>
-      </ng-container>
-
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-    </mat-table>
+            <button
+              mat-icon-button
+              aria-label="Mover para a lixeira"
+              (click)="onEdit(userStory)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
   </mat-card>
 </mat-card>
+    </div>
+  </div>
+</div>

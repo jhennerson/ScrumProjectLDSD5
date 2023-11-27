@@ -13,15 +13,19 @@ public class TaskMapper {
             return null;
         }
 
-        return new TaskDTO(task.getId(),
-                task.getTitle(),
-                task.getPerson(),
-                task.getAssignmentDate(),
-                task.getEndDate(),
-                task.getStoryPoints(),
-                task.getDescription(),
-                task.getUserStory(),
-                task.getStatus());
+        return new TaskDTO(
+            task.getId(),
+            task.getTitle(),
+            task.getSprint(),
+            task.getUserStory(),
+            task.getAssignee(),
+            task.getReporter(),                
+            task.getAssignmentDate(),
+            task.getEndDate(),
+            task.getStoryPoints(),
+            task.getDescription(),
+            task.getStatus()
+        );
     }
 
     public Task toEntity(TaskDTO taskDTO) {
@@ -36,12 +40,14 @@ public class TaskMapper {
         }
 
         task.setTitle(taskDTO.title());
-        task.setPerson(taskDTO.person());
+        task.setSprint(taskDTO.sprint());
+        task.setUserStory(taskDTO.userStory());
+        task.setAssignee(taskDTO.assignee());
+        task.setReporter(taskDTO.reporter());        
         task.setAssignmentDate(taskDTO.assignmentDate());
         task.setEndDate(taskDTO.endDate());
         task.setStoryPoints(taskDTO.storyPoints());
-        task.setDescription(taskDTO.description());
-        task.setUserStory(taskDTO.userStory());
+        task.setDescription(taskDTO.description());        
         task.setStatus(taskDTO.status());
 
         return task;

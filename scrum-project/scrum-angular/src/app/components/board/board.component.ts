@@ -12,6 +12,8 @@ import { TaskFormModalComponent } from 'src/app/shared/components/task-form-moda
 import { Sprint } from '../../models/sprint/sprint';
 import { Task } from '../../models/task/task';
 import { TaskService } from '../../services/task/task.service';
+import { Status } from 'src/app/enum/status.enum';
+import { SprintService } from 'src/app/services/sprint/sprint.service';
 
 @Component({
   selector: 'app-board',
@@ -19,30 +21,23 @@ import { TaskService } from '../../services/task/task.service';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
-  tasks: Observable<Task[]>;
-
+  tasks: Observable<Task[]> = new Observable<Task[]>();
+  sprintOptions: Sprint[] = [];
   todo: Task[] = [];
   inprogress: Task[] = [];
   done: Task[] = [];
+  selectedSprintId: string | undefined;
 
   constructor(
     private taskService: TaskService,
+    private sprintService: SprintService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar
   ) {
-    this.tasks = this.taskService.list().pipe(first());
+    this.tasks = this.taskService.list();
   }
 
-  sprints: Sprint[] = [
-    {
-      id: '1',
-      title: 'Sprint atual',
-      assignmentDate: new Date(),
-      endDate: new Date(),
-      description: 'Sprint atual',
-      status: 'Em execução',
-    },
-  ];
+  sprints: Sprint[] = [];
 
   drop(event: CdkDragDrop<Task[]>) {
     if (event.previousContainer === event.container) {
@@ -68,7 +63,10 @@ export class BoardComponent implements OnInit {
 
   private updateTaskStatus(task: Task) {
     this.taskService.save(task).subscribe({
-      next: () => this.onSuccess(),
+      next: () => {
+        this.onSuccess();
+        this.loadTasks();
+      },
       error: () => this.onError(),
     });
   }
@@ -88,35 +86,56 @@ export class BoardComponent implements OnInit {
   }
 
   onAdd() {
-    let _modal = this.dialog.open(TaskFormModalComponent, {});
+    const dialogRef = this.dialog.open(TaskFormModalComponent, {});
 
-    _modal.afterClosed().subscribe(() => {
-      this.ngOnInit();
+    dialogRef.afterClosed().subscribe(() => {
+      this.loadTasks();
     });
   }
 
   onEdit(task: Task) {
-    let _modal = this.dialog.open(TaskFormModalComponent, {
-      data: {
-        task: task,
-        enableable: false,
-      },
+    const dialogRef = this.dialog.open(TaskFormModalComponent, {
+      data: task,
     });
 
-    _modal.afterClosed().subscribe(() => {
-      this.ngOnInit();
+    dialogRef.afterClosed().subscribe(() => {
+      this.loadTasks();
     });
   }
 
   loadTasks() {
     this.tasks.subscribe((tasks) => {
-      this.todo = tasks.filter((task) => task.status === 'TO_DO');
-      this.inprogress = tasks.filter((task) => task.status === 'IN_PROGRESS');
-      this.done = tasks.filter((task) => task.status === 'DONE');
+      if (this.selectedSprintId !== undefined) {
+        tasks = tasks.filter(
+          (task) => task.sprint.id === this.selectedSprintId
+        );
+      }
+
+      this.todo = tasks.filter((task) => task.status === Status.ToDo);
+      this.inprogress = tasks.filter(
+        (task) => task.status === Status.InProgress
+      );
+      this.done = tasks.filter((task) => task.status === Status.Done);
     });
+  }
+
+  loadSprints() {
+    this.sprintService.list().subscribe((options) => {
+      this.sprintOptions = options;
+
+      if (this.sprintOptions.length > 0) {
+        this.selectedSprintId = this.sprintOptions[0].id;
+        this.loadTasks();
+      }
+    });
+  }
+
+  onSprintChange() {
+    this.loadTasks();
   }
 
   ngOnInit() {
     this.loadTasks();
+    this.loadSprints();
   }
 }

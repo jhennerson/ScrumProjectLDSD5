@@ -1,0 +1,70 @@
+<mat-dialog-content class="sprint-form-content">
+  <p>Campos marcados com * são obrigatórios</p>
+  <form [formGroup]="form" class="sprint-form">
+    <mat-form-field class="full-width">
+      <mat-label>Título</mat-label>
+      <input matInput type="text" formControlName="title" />
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Relator</mat-label>
+      <mat-select formControlName="reporter">
+        <mat-option value="null"></mat-option>
+        <mat-option *ngFor="let option of userOptions" [value]="option">
+          {{ option.username }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Data de atribuição</mat-label>
+      <input
+        matInput
+        [matDatepicker]="assignmentDate"
+        formControlName="assignmentDate"
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="assignmentDate"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #assignmentDate></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Data de entrega</mat-label>
+      <input matInput [matDatepicker]="endDate" formControlName="endDate" />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="endDate"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #endDate></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Descrição</mat-label>
+      <textarea
+        matInput
+        placeholder="Insira a descrição"
+        formControlName="description"
+        rows="3"
+      ></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="sprint-form-actions">
+  <button mat-fab extended mat-dialog-close class="cancel-button">
+    Cancelar
+  </button>
+
+  <button
+    mat-fab
+    extended
+    [mat-dialog-close]="true"
+    cdkFocusInitial
+    class="save-button"
+    (click)="onSubmit()"
+  >
+    Salvar
+  </button>
+</mat-dialog-actions>
