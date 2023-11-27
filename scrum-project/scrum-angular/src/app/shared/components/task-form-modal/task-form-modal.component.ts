@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
 import { Status } from 'src/app/enum/status.enum';
 import { Sprint } from 'src/app/models/sprint/sprint';
 import { Task } from 'src/app/models/task/task';
@@ -20,9 +19,6 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class TaskFormModalComponent implements OnInit {
   form: FormGroup;
-  users: Observable<User[]> = new Observable<User[]>();
-  userStories: Observable<UserStory[]> = new Observable<UserStory[]>();
-  sprints: Observable<Sprint[]> = new Observable<Sprint[]>();
 
   userOptions: User[] = [];
   userStoryOptions: UserStory[] = [];
@@ -43,11 +39,11 @@ export class TaskFormModalComponent implements OnInit {
       title: ['', [Validators.required]],
       sprint: ['', [Validators.required]],
       userStory: ['', [Validators.required]],
-      assignee: [''],
-      reporter: [''],
+      assignee: ['', [Validators.required]],
+      reporter: ['', [Validators.required]],
       storyPoints: [''],
-      assignmentDate: [''],
-      endDate: [''],
+      assignmentDate: ['', [Validators.required]],
+      endDate: ['', [Validators.required]],
       description: [''],
       status: [Status.ToDo],
     });
@@ -83,14 +79,14 @@ export class TaskFormModalComponent implements OnInit {
   private onSuccess() {
     this.snackBar.open('Tarefa salva com sucesso!', 'X', {
       duration: 2000,
-      panelClass: 'task-status-snackbar',
+      panelClass: 'success-snackbar',
     });
   }
 
   private onError() {
     this.snackBar.open('Erro ao salvar tarefa!', 'X', {
-      duration: 2000,
-      panelClass: 'task-status-snackbar',
+      duration: 3000,
+      panelClass: 'error-snackbar',
     });
   }
 

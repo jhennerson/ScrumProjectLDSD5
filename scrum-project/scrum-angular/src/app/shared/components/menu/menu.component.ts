@@ -9,6 +9,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class MenuComponent {
   constructor(private router: Router, private route: ActivatedRoute) {}
 
+  toProjects() {
+    this.router.navigate(['projects']);
+  }
+
   toBoard() {
     this.router.navigate(['board']);
   }

@@ -1,19 +1,9 @@
-<mat-dialog-content class="sprint-form-content">
+<mat-dialog-content class="project-form-content">
   <p>Campos marcados com * são obrigatórios</p>
-  <form [formGroup]="form" class="sprint-form">
+  <form [formGroup]="form" class="project-form">
     <mat-form-field class="full-width">
       <mat-label>Título</mat-label>
       <input matInput type="text" formControlName="title" />
-    </mat-form-field>
-
-    <mat-form-field class="full-width">
-      <mat-label>Projeto</mat-label>
-      <mat-select formControlName="project">
-        <mat-option disabled value="null"></mat-option>
-        <mat-option *ngFor="let option of projectOptions" [value]="option">
-          {{ option.title }}
-        </mat-option>
-      </mat-select>
     </mat-form-field>
 
     <mat-form-field class="full-width">
@@ -51,18 +41,17 @@
     </mat-form-field>
 
     <mat-form-field class="full-width">
-      <mat-label>Descrição</mat-label>
-      <textarea
-        matInput
-        placeholder="Insira a descrição"
-        formControlName="description"
-        rows="3"
-      ></textarea>
+      <mat-label>Membros da Equipe</mat-label>
+      <mat-select formControlName="members" multiple>
+        <mat-option *ngFor="let option of userOptions" [value]="option">
+          {{ option.username }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
   </form>
 </mat-dialog-content>
 
-<mat-dialog-actions align="end" class="sprint-form-actions">
+<mat-dialog-actions align="end" class="project-form-actions">
   <button mat-fab extended mat-dialog-close class="cancel-button">
     Cancelar
   </button>

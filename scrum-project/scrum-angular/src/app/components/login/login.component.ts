@@ -68,21 +68,21 @@ export class LoginComponent {
   private onLoginSuccess(username: string) {
     this.snackBar.open('Seja bem vindo ', 'X', {
       duration: 2000,
-      panelClass: 'task-status-snackbar',
+      panelClass: 'success-snackbar',
     });
   }
 
   private onSignupSuccess() {
     this.snackBar.open('Usuário cadastrado com sucesso!', 'X', {
-      duration: 2000,
-      panelClass: 'task-status-snackbar',
+      duration: 3000,
+      panelClass: 'error-snackbar',
     });
   }
 
   private onError() {
     this.snackBar.open('Dados inválidos!', 'X', {
-      duration: 2000,
-      panelClass: 'task-status-snackbar',
+      duration: 3000,
+      panelClass: 'error-snackbar',
     });
   }
 }

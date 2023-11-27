@@ -9,7 +9,7 @@
     <mat-form-field class="full-width">
       <mat-label>Sprint</mat-label>
       <mat-select formControlName="sprint">
-        <mat-option value="null"></mat-option>
+        <mat-option disabled value="null"></mat-option>
         <mat-option *ngFor="let option of sprintOptions" [value]="option">
           {{ option.title }}
         </mat-option>
@@ -19,7 +19,7 @@
     <mat-form-field class="full-width">
       <mat-label>História de usuário</mat-label>
       <mat-select formControlName="userStory">
-        <mat-option value="null"></mat-option>
+        <mat-option disabled value="null"></mat-option>
         <mat-option *ngFor="let option of userStoryOptions" [value]="option">
           {{ option.title }}
         </mat-option>
@@ -29,7 +29,7 @@
     <mat-form-field class="full-width">
       <mat-label>Responsável</mat-label>
       <mat-select formControlName="assignee">
-        <mat-option value="null"></mat-option>
+        <mat-option disabled value="null"></mat-option>
         <mat-option *ngFor="let option of userOptions" [value]="option">
           {{ option.username }}
         </mat-option>
@@ -39,7 +39,7 @@
     <mat-form-field class="full-width">
       <mat-label>Relator</mat-label>
       <mat-select formControlName="reporter">
-        <mat-option value="null"></mat-option>
+        <mat-option disabled value="null"></mat-option>
         <mat-option *ngFor="let option of userOptions" [value]="option">
           {{ option.username }}
         </mat-option>

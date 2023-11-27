@@ -75,14 +75,14 @@ export class SprintComponent implements OnInit {
   private onHardDelete() {
     this.snackBar.open('Sprint apagada com sucesso!', 'X', {
       duration: 2000,
-      panelClass: 'task-status-snackbar',
+      panelClass: 'success-snackbar',
     });
   }
 
   private onError() {
     this.snackBar.open('Erro ao apagar sprint!', 'X', {
-      duration: 2000,
-      panelClass: 'task-status-snackbar',
+      duration: 3000,
+      panelClass: 'error-snackbar',
     });
   }
 

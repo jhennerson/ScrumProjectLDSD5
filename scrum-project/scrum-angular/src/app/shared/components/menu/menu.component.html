@@ -1,5 +1,14 @@
 <mat-card class="menu-mat-card">
   <div class="left-menu" cdkMenu>
+    <button
+      mat-button
+      class="left-menu-item"
+      cdkMenuItem
+      (click)="toProjects()"
+    >
+      Projetos
+    </button>
+
     <button mat-button class="left-menu-item" cdkMenuItem (click)="toBoard()">
       Quadro
     </button>

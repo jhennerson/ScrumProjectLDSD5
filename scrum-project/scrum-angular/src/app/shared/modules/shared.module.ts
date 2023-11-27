@@ -18,6 +18,7 @@ import { NavbarComponent } from '../components/navbar/navbar.component';
 import { SprintFormModalComponent } from '../components/sprint-form-modal/sprint-form-modal.component';
 import { TaskFormModalComponent } from '../components/task-form-modal/task-form-modal.component';
 import { UserStoryFormModalComponent } from '../components/user-story-form-modal/user-story-form-modal.component';
+import { ProjectFormModalComponent } from '../components/project-form-modal/project-form-modal.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { UserStoryFormModalComponent } from '../components/user-story-form-modal
     TaskFormModalComponent,
     UserStoryFormModalComponent,
     SprintFormModalComponent,
+    ProjectFormModalComponent,
   ],
   imports: [
     CommonModule,
@@ -50,6 +52,7 @@ import { UserStoryFormModalComponent } from '../components/user-story-form-modal
     TaskFormModalComponent,
     UserStoryFormModalComponent,
     SprintFormModalComponent,
+    ProjectFormModalComponent,
   ],
 })
 export class SharedModule {}

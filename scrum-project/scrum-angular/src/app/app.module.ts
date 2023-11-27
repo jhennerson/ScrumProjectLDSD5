@@ -25,6 +25,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BoardComponent } from './components/board/board.component';
 import { LoginComponent } from './components/login/login.component';
+import { ProjectComponent } from './components/project/project.component';
 import { SprintComponent } from './components/sprint/sprint.component';
 import { TaskComponent } from './components/task/task.component';
 import { UserStoryComponent } from './components/user-story/user-story.component';
@@ -47,6 +48,7 @@ import { UsernamePipe } from './shared/pipes/username/username.pipe';
     WasteBinComponent,
     LoginComponent,
     TitlePipe,
+    ProjectComponent,
   ],
   imports: [
     BrowserModule,

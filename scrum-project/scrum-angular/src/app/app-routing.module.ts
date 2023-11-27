@@ -10,6 +10,14 @@ const routes: Routes = [
       import('./modules/login/login.module').then((m) => m.LoginModule),
   },
   {
+    path: 'projects',
+    canActivate: [authGuard],
+    loadChildren: () =>
+      import('./modules/project/project.module').then(
+        (module) => module.ProjectModule
+      ),
+  },
+  {
     path: 'board',
     canActivate: [authGuard],
     loadChildren: () =>
@@ -27,7 +35,9 @@ const routes: Routes = [
     path: 'sprints',
     canActivate: [authGuard],
     loadChildren: () =>
-      import('./modules/sprint/sprint.module').then((module) => module.SprintModule),
+      import('./modules/sprint/sprint.module').then(
+        (module) => module.SprintModule
+      ),
   },
   {
     path: 'user-stories',
