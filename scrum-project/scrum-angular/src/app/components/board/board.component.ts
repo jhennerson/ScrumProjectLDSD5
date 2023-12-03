@@ -22,11 +22,11 @@ import { SprintService } from 'src/app/services/sprint/sprint.service';
 })
 export class BoardComponent implements OnInit {
   tasks: Observable<Task[]> = new Observable<Task[]>();
-  sprintOptions: Sprint[] = [];
+  sprints: Observable<Sprint[]> = new Observable<Sprint[]>();
   todo: Task[] = [];
   inprogress: Task[] = [];
   done: Task[] = [];
-  selectedSprintId: string | undefined;
+  selectedSprintId: string | undefined = undefined;
 
   constructor(
     private taskService: TaskService,
@@ -126,14 +126,15 @@ export class BoardComponent implements OnInit {
   }
 
   loadSprints() {
-    this.sprintService.list().subscribe((options) => {
-      this.sprintOptions = options;
-
-      if (this.sprintOptions.length > 0) {
-        this.selectedSprintId = this.sprintOptions[0].id;
-        this.loadTasks();
-      }
-    });
+    this.sprints = this.sprintService.list().pipe(
+      first(),
+      map((sprints) => {
+        if (sprints.length > 0) {
+          this.selectedSprintId = sprints[0].id;
+        }
+        return sprints;
+      })
+    );
   }
 
   onSprintChange() {

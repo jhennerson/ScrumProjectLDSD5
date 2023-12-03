@@ -1,10 +1,10 @@
-<div class="signin-content">
+<div class="login-content">
   <mat-card>
     <mat-toolbar color="primary">{{
-      signinCard ? "Logar" : "Cadastrar"
+      loginCard ? "Logar" : "Cadastrar"
     }}</mat-toolbar>
     <mat-card-content>
-      <form [formGroup]="signinForm" *ngIf="signinCard" (ngSubmit)="signin()">
+      <form [formGroup]="loginForm" *ngIf="loginCard" (ngSubmit)="login()">
         <mat-form-field class="full-width-input">
           <mat-label>Usuário</mat-label>
           <input matInput type="text" formControlName="username" />
@@ -26,7 +26,7 @@
         </button>
       </form>
 
-      <form [formGroup]="signupForm" *ngIf="!signinCard" (ngSubmit)="signup()">
+      <form [formGroup]="signupForm" *ngIf="!loginCard" (ngSubmit)="register()">
         <mat-form-field class="full-width-input">
           <mat-label>Usuário</mat-label>
           <input matInput type="text" formControlName="username" />
@@ -56,10 +56,10 @@
     <mat-card-actions>
       <div>
         <span>{{
-          signinCard ? "Ainda não possui cadastro?" : "Já é cadastrado?"
+          loginCard ? "Ainda não possui cadastro?" : "Já é cadastrado?"
         }}</span>
-        <span class="form-change" (click)="signinCard = !signinCard">{{
-          signinCard ? " cadastre-se" : " entrar"
+        <span class="form-change" (click)="loginCard = !loginCard">{{
+          loginCard ? " cadastre-se" : " entrar"
         }}</span>
       </div>
     </mat-card-actions>

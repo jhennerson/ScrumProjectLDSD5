@@ -10,7 +10,7 @@
       <mat-label>Sprint</mat-label>
       <mat-select formControlName="sprint">
         <mat-option disabled value="null"></mat-option>
-        <mat-option *ngFor="let option of sprintOptions" [value]="option">
+        <mat-option *ngFor="let option of sprints | async" [value]="option">
           {{ option.title }}
         </mat-option>
       </mat-select>
@@ -20,7 +20,7 @@
       <mat-label>História de usuário</mat-label>
       <mat-select formControlName="userStory">
         <mat-option disabled value="null"></mat-option>
-        <mat-option *ngFor="let option of userStoryOptions" [value]="option">
+        <mat-option *ngFor="let option of userStories | async" [value]="option">
           {{ option.title }}
         </mat-option>
       </mat-select>
@@ -30,7 +30,7 @@
       <mat-label>Responsável</mat-label>
       <mat-select formControlName="assignee">
         <mat-option disabled value="null"></mat-option>
-        <mat-option *ngFor="let option of userOptions" [value]="option">
+        <mat-option *ngFor="let option of users | async" [value]="option">
           {{ option.username }}
         </mat-option>
       </mat-select>
@@ -40,7 +40,7 @@
       <mat-label>Relator</mat-label>
       <mat-select formControlName="reporter">
         <mat-option disabled value="null"></mat-option>
-        <mat-option *ngFor="let option of userOptions" [value]="option">
+        <mat-option *ngFor="let option of users | async" [value]="option">
           {{ option.username }}
         </mat-option>
       </mat-select>

@@ -18,7 +18,7 @@
                 (selectionChange)="onSprintChange()"
               >
                 <mat-option
-                  *ngFor="let option of sprintOptions"
+                  *ngFor="let option of sprints | async"
                   [value]="option.id"
                 >
                   {{ option.title }}

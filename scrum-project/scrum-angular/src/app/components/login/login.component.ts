@@ -11,9 +11,9 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  signinForm: FormGroup;
+  loginForm: FormGroup;
   signupForm: FormGroup;
-  signinCard = true;
+  loginCard = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -22,7 +22,7 @@ export class LoginComponent {
     private router: Router,
     public snackBar: MatSnackBar
   ) {
-    this.signinForm = this.formBuilder.group({
+    this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
@@ -34,16 +34,16 @@ export class LoginComponent {
     });
   }
 
-  signin() {
-    if (this.signinForm.value && this.signinForm.valid) {
-      this.authService.signin(this.signinForm.value).subscribe({
+  login() {
+    if (this.loginForm.value && this.loginForm.valid) {
+      this.authService.login(this.loginForm.value).subscribe({
         next: (response) => {
           let currentDate = new Date();
           let expirationDate = new Date(currentDate.getTime() + 60 * 60000);
           this.cookieService.set('JWT_TOKEN', response?.token, expirationDate);
-          this.signinForm.reset();
-          this.signinCard = true;
-          this.onLoginSuccess(this.signinForm.value.username);
+          this.loginForm.reset();
+          this.loginCard = true;
+          this.onLoginSuccess(this.loginForm.value.username);
           this.router.navigate(['/board']);
         },
         error: () => this.onError(),
@@ -51,12 +51,12 @@ export class LoginComponent {
     }
   }
 
-  signup() {
+  register() {
     if (this.signupForm.value && this.signupForm.valid) {
-      this.authService.signup(this.signupForm.value).subscribe({
+      this.authService.register(this.signupForm.value).subscribe({
         next: () => {
-          this.signinForm.reset();
-          this.signinCard = true;
+          this.loginForm.reset();
+          this.loginCard = true;
           this.onSignupSuccess();
           this.router.navigate(['/login']);
         },
@@ -75,7 +75,7 @@ export class LoginComponent {
   private onSignupSuccess() {
     this.snackBar.open('Usuário cadastrado com sucesso!', 'X', {
       duration: 3000,
-      panelClass: 'error-snackbar',
+      panelClass: 'success-snackbar',
     });
   }
 
