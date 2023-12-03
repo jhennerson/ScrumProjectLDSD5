@@ -75,25 +75,25 @@ public class User implements UserDetails, Serializable {
 	@Column(name = "email", nullable = false)
 	private String email;
 
-	@ManyToMany(mappedBy = "members")
+	@ManyToMany(mappedBy = "members", fetch = FetchType.EAGER)
 	private List<Project> memberProjects = new ArrayList<>();
 
-	@OneToMany(mappedBy = "reporter")
+	@OneToMany(mappedBy = "reporter", fetch = FetchType.EAGER)
 	private List<Project> reporterProjects = new ArrayList<>();
 
-	@OneToMany(mappedBy = "reporter")
+	@OneToMany(mappedBy = "reporter", fetch = FetchType.EAGER)
 	private List<Sprint> reporterSprints = new ArrayList<>();
 
-	@OneToMany(mappedBy = "assignee")
+	@OneToMany(mappedBy = "assignee", fetch = FetchType.EAGER)
 	private List<UserStory> assigneeUserStories = new ArrayList<>();
 
-	@OneToMany(mappedBy = "reporter")
+	@OneToMany(mappedBy = "reporter", fetch = FetchType.EAGER)
 	private List<UserStory> reporterUserStories = new ArrayList<>();
 
-	@OneToMany(mappedBy = "assignee")
+	@OneToMany(mappedBy = "assignee", fetch = FetchType.EAGER)
 	private List<Task> assigneeTasks = new ArrayList<>();
 
-	@OneToMany(mappedBy = "reporter")
+	@OneToMany(mappedBy = "reporter", fetch = FetchType.EAGER)
 	private List<Task> reporterTasks = new ArrayList<>();
 
 	@Enumerated(EnumType.STRING)
