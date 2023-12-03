@@ -3,15 +3,18 @@ package com.ifsp.scrumProjectLDSD5.service;
 import com.ifsp.scrumProjectLDSD5.dto.AuthRequestDTO;
 import com.ifsp.scrumProjectLDSD5.dto.AuthResponseDTO;
 import com.ifsp.scrumProjectLDSD5.dto.RegisterDTO;
+import com.ifsp.scrumProjectLDSD5.dto.UserDTO;
 import com.ifsp.scrumProjectLDSD5.entity.User;
 import com.ifsp.scrumProjectLDSD5.exception.UserAlreadyExistsException;
 import com.ifsp.scrumProjectLDSD5.mapper.RegisterMapper;
+import com.ifsp.scrumProjectLDSD5.mapper.UserMapper;
 import com.ifsp.scrumProjectLDSD5.repository.UserRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +28,7 @@ public class AuthService /*implements UserDetailsService*/ {
     private final TokenService tokenService;
     private final PasswordEncoder passwordEncoder;
     private final RegisterMapper registerMapper;
+    private final UserMapper userMapper;
 
     public AuthResponseDTO login(@RequestBody @Valid AuthRequestDTO user){
         UsernamePasswordAuthenticationToken usernamePassword = new UsernamePasswordAuthenticationToken(
@@ -46,5 +50,13 @@ public class AuthService /*implements UserDetailsService*/ {
         newUser.setPassword(passwordEncoder.encode(user.password()));
 
         return registerMapper.toDTO(userRepository.save(newUser));
+    }
+
+    public UserDTO getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.getPrincipal() instanceof User currentUser) {
+            return userMapper.toDTO((User) authentication.getPrincipal());
+        }
+        return null;
     }
 }
