@@ -6,7 +6,7 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, first, map } from 'rxjs';
+import { Observable, first, map, mergeMap, combineLatest } from 'rxjs';
 import { TaskFormModalComponent } from 'src/app/shared/components/task-form-modal/task-form-modal.component';
 
 import { Sprint } from '../../models/sprint/sprint';
@@ -14,6 +14,9 @@ import { Task } from '../../models/task/task';
 import { TaskService } from '../../services/task/task.service';
 import { Status } from 'src/app/enum/status.enum';
 import { SprintService } from 'src/app/services/sprint/sprint.service';
+import { ProjectService } from 'src/app/services/project/project.service';
+import { Project } from 'src/app/models/project/project';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-board',
@@ -23,6 +26,7 @@ import { SprintService } from 'src/app/services/sprint/sprint.service';
 export class BoardComponent implements OnInit {
   tasks: Observable<Task[]> = new Observable<Task[]>();
   sprints: Observable<Sprint[]> = new Observable<Sprint[]>();
+  projects: Observable<Project[]> = new Observable<Project[]>();
   todo: Task[] = [];
   inprogress: Task[] = [];
   done: Task[] = [];
@@ -31,6 +35,8 @@ export class BoardComponent implements OnInit {
   constructor(
     private taskService: TaskService,
     private sprintService: SprintService,
+    private projectService: ProjectService,
+    private authService: AuthService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar
   ) {
@@ -102,37 +108,83 @@ export class BoardComponent implements OnInit {
   }
 
   loadTasks() {
-    this.tasks = this.taskService.list().pipe(
-      first(),
-      map((tasks) => {
-        if (this.selectedSprintId !== undefined) {
-          return tasks.filter(
-            (task) =>
-              task.sprint.id === this.selectedSprintId &&
-              task.status !== Status.Disabled
-          );
-        }
-        return tasks.filter((task) => task.status !== Status.Disabled);
+    this.tasks = combineLatest([this.taskService.list(), this.sprints]).pipe(
+      map(([allTasks, loadedSprints]) => {
+        return allTasks.filter(
+          (task) =>
+            loadedSprints.some(
+              (loadedSprint) => task.sprint.id === loadedSprint.id
+            ) && task.status !== Status.Disabled
+        );
       })
     );
 
     this.tasks.subscribe((tasks) => {
-      this.todo = tasks.filter((task) => task.status === Status.ToDo);
-      this.inprogress = tasks.filter(
-        (task) => task.status === Status.InProgress
+      this.todo = tasks.filter(
+        (task) =>
+          task.sprint.id === this.selectedSprintId &&
+          task.status === Status.ToDo
       );
-      this.done = tasks.filter((task) => task.status === Status.Done);
+      this.inprogress = tasks.filter(
+        (task) =>
+          task.sprint.id === this.selectedSprintId &&
+          task.status === Status.InProgress
+      );
+      this.done = tasks.filter(
+        (task) =>
+          task.sprint.id === this.selectedSprintId &&
+          task.status === Status.Done
+      );
     });
   }
 
   loadSprints() {
-    this.sprints = this.sprintService.list().pipe(
-      first(),
-      map((sprints) => {
-        if (sprints.length > 0) {
-          this.selectedSprintId = sprints[0].id;
+    this.sprints = combineLatest([
+      this.sprintService.list(),
+      this.projects,
+    ]).pipe(
+      map(([allSprints, loadedProjects]) => {
+        const filteredSprints = allSprints.filter((sprint) =>
+          loadedProjects.some(
+            (loadedProject) => sprint.project.id === loadedProject.id
+          )
+        );
+
+        if (this.selectedSprintId === undefined && filteredSprints.length > 0) {
+          this.selectedSprintId = filteredSprints[0].id;
         }
-        return sprints;
+
+        return filteredSprints;
+      })
+    );
+  }
+
+  loadProjects() {
+    this.projects = this.authService.getCurrentUser().pipe(
+      mergeMap((user) => {
+        const memberProjects = user.memberProjects || [];
+        const reporterProjects = user.reporterProjects || [];
+
+        const distinctProjects = [
+          ...memberProjects,
+          ...reporterProjects.filter(
+            (reporterProject) =>
+              !memberProjects.some(
+                (memberProject) => memberProject.id === reporterProject.id
+              )
+          ),
+        ];
+
+        return this.projectService.list().pipe(
+          first(),
+          map((allProjects) => {
+            return allProjects.filter((project) =>
+              distinctProjects.some(
+                (distinctProject) => distinctProject.id === project.id
+              )
+            );
+          })
+        );
       })
     );
   }
@@ -142,7 +194,8 @@ export class BoardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadTasks();
+    this.loadProjects();
     this.loadSprints();
+    this.loadTasks();
   }
 }

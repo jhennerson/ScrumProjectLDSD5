@@ -14,10 +14,10 @@
               <mat-label>Sprint</mat-label>
               <mat-select
                 class="sprint-select"
-                [(ngModel)]="selectedSprintId"
+                [(value)]="selectedSprintId"
                 (selectionChange)="onSprintChange()"
               >
-                <mat-option [value]="undefined" selected>Todas</mat-option>
+                <mat-option value="undefined" selected>Todas</mat-option>
                 <mat-option
                   *ngFor="let option of sprints | async"
                   [value]="option.id"

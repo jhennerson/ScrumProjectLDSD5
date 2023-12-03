@@ -42,6 +42,7 @@ export class LoginComponent {
           let expirationDate = new Date(currentDate.getTime() + 60 * 60000);
           this.cookieService.set('JWT_TOKEN', response?.token, expirationDate);
           this.loginForm.reset();
+          this.signupForm.reset();
           this.loginCard = true;
           this.onLoginSuccess(this.loginForm.value.username);
           this.router.navigate(['/board']);
@@ -56,6 +57,7 @@ export class LoginComponent {
       this.authService.register(this.signupForm.value).subscribe({
         next: () => {
           this.loginForm.reset();
+          this.signupForm.reset();
           this.loginCard = true;
           this.onSignupSuccess();
           this.router.navigate(['/login']);
