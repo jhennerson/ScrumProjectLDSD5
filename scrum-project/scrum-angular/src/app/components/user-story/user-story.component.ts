@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, first, map, mergeMap, combineLatest } from 'rxjs';
+import { Observable, first, map, mergeMap } from 'rxjs';
 import { Project } from 'src/app/models/project/project';
+import { Sprint } from 'src/app/models/sprint/sprint';
 import { UserStory } from 'src/app/models/user-story/user-story';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ProjectService } from 'src/app/services/project/project.service';
@@ -88,21 +89,15 @@ export class UserStoryComponent implements OnInit {
   }
 
   loadUserStories() {
-    if (!this.selectedProjectId) {
-      this.userStories = new Observable<UserStory[]>();
-      return;
-    }
-
-    this.userStories = combineLatest([
-      this.userStoryService.list(),
-      this.projects,
-    ]).pipe(
-      map(([allUserStories, loadedProjects]) => {
-        return allUserStories.filter((userStory) =>
-          loadedProjects.some(
-            (loadedProject) => userStory.project.id === loadedProject.id
-          )
-        );
+    this.userStories = this.userStoryService.list().pipe(
+      first(),
+      map((userStories) => {
+        if (this.selectedProjectId !== undefined) {
+          return userStories.filter(
+            (userStory) => userStory.project.id === this.selectedProjectId
+          );
+        }
+        return userStories;
       })
     );
   }
@@ -128,11 +123,10 @@ export class UserStoryComponent implements OnInit {
           map((allProjects) => {
             if (allProjects.length > 0) {
               this.selectedProjectId = allProjects[0].id;
-              this.loadUserStories();
             }
             return allProjects.filter((project) =>
               distinctProjects.some(
-                (distinctProject) => distinctProject.id === project.id
+                (uniqueProject) => uniqueProject.id === project.id
               )
             );
           })
@@ -146,6 +140,7 @@ export class UserStoryComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadUserStories();
     this.loadProjects();
   }
 }

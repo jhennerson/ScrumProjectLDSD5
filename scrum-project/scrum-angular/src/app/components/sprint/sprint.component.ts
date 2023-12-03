@@ -2,7 +2,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SprintService } from './../../services/sprint/sprint.service';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, first, map, mergeMap, combineLatest } from 'rxjs';
+import { Observable, first, map, mergeMap } from 'rxjs';
 import { Sprint } from 'src/app/models/sprint/sprint';
 import { SprintFormModalComponent } from 'src/app/shared/components/sprint-form-modal/sprint-form-modal.component';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
@@ -19,8 +19,6 @@ export class SprintComponent implements OnInit {
   sprints: Observable<Sprint[]> = new Observable<Sprint[]>();
   projects: Observable<Project[]> = new Observable<Project[]>();
   selectedProjectId: string | undefined = undefined;
-
-  loadedProjects: Project[] = [];
 
   displayedColumns = [
     'title',
@@ -91,21 +89,15 @@ export class SprintComponent implements OnInit {
   }
 
   loadSprints() {
-    if (!this.selectedProjectId) {
-      this.sprints = new Observable<Sprint[]>();
-      return;
-    }
-
-    this.sprints = combineLatest([
-      this.sprintService.list(),
-      this.projects,
-    ]).pipe(
-      map(([allSprints, loadedProjects]) => {
-        return allSprints.filter((sprint) =>
-          loadedProjects.some(
-            (loadedProject) => sprint.project.id === loadedProject.id
-          )
-        );
+    this.sprints = this.sprintService.list().pipe(
+      first(),
+      map((sprints) => {
+        if (this.selectedProjectId !== undefined) {
+          return sprints.filter(
+            (sprint) => sprint.project.id === this.selectedProjectId
+          );
+        }
+        return sprints;
       })
     );
   }
@@ -131,12 +123,10 @@ export class SprintComponent implements OnInit {
           map((allProjects) => {
             if (allProjects.length > 0) {
               this.selectedProjectId = allProjects[0].id;
-              this.loadedProjects = allProjects;
-              this.loadSprints();
             }
             return allProjects.filter((project) =>
               distinctProjects.some(
-                (distinctProject) => distinctProject.id === project.id
+                (uniqueProject) => uniqueProject.id === project.id
               )
             );
           })
@@ -151,5 +141,6 @@ export class SprintComponent implements OnInit {
 
   ngOnInit() {
     this.loadProjects();
+    this.loadSprints();
   }
 }

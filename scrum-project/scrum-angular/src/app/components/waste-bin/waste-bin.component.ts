@@ -1,13 +1,10 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, first, map, combineLatest, mergeMap } from 'rxjs';
+import { Observable, first, map } from 'rxjs';
 import { Status } from 'src/app/enum/status.enum';
-import { Project } from 'src/app/models/project/project';
 import { Sprint } from 'src/app/models/sprint/sprint';
 import { Task } from 'src/app/models/task/task';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { ProjectService } from 'src/app/services/project/project.service';
 import { SprintService } from 'src/app/services/sprint/sprint.service';
 import { TaskService } from 'src/app/services/task/task.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
@@ -21,8 +18,7 @@ import { TaskFormModalComponent } from 'src/app/shared/components/task-form-moda
 export class WasteBinComponent {
   disabledTasks: Observable<Task[]> = new Observable<Task[]>();
   sprints: Observable<Sprint[]> = new Observable<Sprint[]>();
-  projects: Observable<Project[]> = new Observable<Project[]>();
-  selectedSprintId = 'undefined';
+  selectedSprintId: string | undefined = undefined;
 
   displayedColumns = [
     'title',
@@ -39,8 +35,6 @@ export class WasteBinComponent {
   constructor(
     private taskService: TaskService,
     private sprintService: SprintService,
-    private projectService: ProjectService,
-    private authService: AuthService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar
   ) {}
@@ -120,62 +114,29 @@ export class WasteBinComponent {
   }
 
   loadTasks() {
-    this.disabledTasks = combineLatest([
-      this.taskService.list(),
-      this.sprints,
-    ]).pipe(
-      map(([allTasks, loadedSprints]) => {
-        return allTasks.filter(
-          (disabledTask) =>
-            loadedSprints.some(
-              (loadedSprint) => disabledTask.sprint.id === loadedSprint.id
-            ) && disabledTask.status === Status.Disabled
-        );
+    this.disabledTasks = this.taskService.list().pipe(
+      first(),
+      map((tasks) => {
+        if (this.selectedSprintId !== undefined) {
+          return tasks.filter(
+            (task) =>
+              task.sprint.id === this.selectedSprintId &&
+              task.status === Status.Disabled
+          );
+        }
+        return tasks.filter((task) => task.status == Status.Disabled);
       })
     );
   }
 
   loadSprints() {
-    this.sprints = combineLatest([
-      this.sprintService.list(),
-      this.projects,
-    ]).pipe(
-      map(([allSprints, loadedProjects]) => {
-        return allSprints.filter((sprint) =>
-          loadedProjects.some(
-            (loadedProject) => sprint.project.id === loadedProject.id
-          )
-        );
-      })
-    );
-  }
-
-  loadProjects() {
-    this.projects = this.authService.getCurrentUser().pipe(
-      mergeMap((user) => {
-        const memberProjects = user.memberProjects || [];
-        const reporterProjects = user.reporterProjects || [];
-
-        const distinctProjects = [
-          ...memberProjects,
-          ...reporterProjects.filter(
-            (reporterProject) =>
-              !memberProjects.some(
-                (memberProject) => memberProject.id === reporterProject.id
-              )
-          ),
-        ];
-
-        return this.projectService.list().pipe(
-          first(),
-          map((allProjects) => {
-            return allProjects.filter((project) =>
-              distinctProjects.some(
-                (distinctProject) => distinctProject.id === project.id
-              )
-            );
-          })
-        );
+    this.sprints = this.sprintService.list().pipe(
+      first(),
+      map((sprints) => {
+        if (sprints.length > 0) {
+          this.selectedSprintId = sprints[0].id;
+        }
+        return sprints;
       })
     );
   }
@@ -185,8 +146,7 @@ export class WasteBinComponent {
   }
 
   ngOnInit() {
-    this.loadProjects();
-    this.loadSprints();
     this.loadTasks();
+    this.loadSprints();
   }
 }
