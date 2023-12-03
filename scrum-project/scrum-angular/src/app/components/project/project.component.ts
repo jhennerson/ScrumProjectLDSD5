@@ -1,10 +1,11 @@
-import { Observable, first } from 'rxjs';
+import { Observable, first, map, mergeMap, of } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Project } from 'src/app/models/project/project';
 import { ProjectService } from 'src/app/services/project/project.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProjectFormModalComponent } from 'src/app/shared/components/project-form-modal/project-form-modal.component';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-project',
@@ -16,6 +17,7 @@ export class ProjectComponent implements OnInit {
 
   constructor(
     private projectService: ProjectService,
+    private authService: AuthService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar
   ) {}
@@ -39,7 +41,33 @@ export class ProjectComponent implements OnInit {
   }
 
   loadProjects() {
-    this.projects = this.projectService.list().pipe(first());
+    this.projects = this.authService.getCurrentUser().pipe(
+      mergeMap((user) => {
+        const memberProjects = user.memberProjects || [];
+        const reporterProjects = user.reporterProjects || [];
+
+        const distinctProjects = [
+          ...memberProjects,
+          ...reporterProjects.filter(
+            (reporterProject) =>
+              !memberProjects.some(
+                (memberProject) => memberProject.id === reporterProject.id
+              )
+          ),
+        ];
+
+        return this.projectService.list().pipe(
+          first(),
+          map((allProjects) =>
+            allProjects.filter((project) =>
+              distinctProjects.some(
+                (uniqueProject) => uniqueProject.id === project.id
+              )
+            )
+          )
+        );
+      })
+    );
   }
 
   ngOnInit() {

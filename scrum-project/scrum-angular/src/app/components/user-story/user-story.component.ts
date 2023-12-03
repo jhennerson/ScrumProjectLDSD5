@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, first, map } from 'rxjs';
+import { Observable, first, map, mergeMap } from 'rxjs';
 import { Project } from 'src/app/models/project/project';
 import { Sprint } from 'src/app/models/sprint/sprint';
 import { UserStory } from 'src/app/models/user-story/user-story';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { ProjectService } from 'src/app/services/project/project.service';
 import { UserStoryService } from 'src/app/services/user-story/user-story.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
@@ -17,8 +18,8 @@ import { UserStoryFormModalComponent } from 'src/app/shared/components/user-stor
 })
 export class UserStoryComponent implements OnInit {
   userStories: Observable<UserStory[]> = new Observable<UserStory[]>();
-  projectOptions: Project[] = [];
-  selectedProjectId: string | undefined;
+  projects: Observable<Project[]> = new Observable<Project[]>();
+  selectedProjectId: string | undefined = undefined;
 
   displayedColumns = [
     'title',
@@ -31,12 +32,11 @@ export class UserStoryComponent implements OnInit {
 
   constructor(
     private userStoryService: UserStoryService,
+    private authService: AuthService,
     private projectService: ProjectService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar
   ) {}
-
-  sprints: Sprint[] = [];
 
   onAdd() {
     const dialogRef = this.dialog.open(UserStoryFormModalComponent, {});
@@ -103,14 +103,36 @@ export class UserStoryComponent implements OnInit {
   }
 
   loadProjects() {
-    this.projectService.list().subscribe((options) => {
-      this.projectOptions = options;
+    this.projects = this.authService.getCurrentUser().pipe(
+      mergeMap((user) => {
+        const memberProjects = user.memberProjects || [];
+        const reporterProjects = user.reporterProjects || [];
 
-      if (this.projectOptions.length > 0) {
-        this.selectedProjectId = this.projectOptions[0].id;
-        this.loadUserStories();
-      }
-    });
+        const distinctProjects = [
+          ...memberProjects,
+          ...reporterProjects.filter(
+            (reporterProject) =>
+              !memberProjects.some(
+                (memberProject) => memberProject.id === reporterProject.id
+              )
+          ),
+        ];
+
+        return this.projectService.list().pipe(
+          first(),
+          map((allProjects) => {
+            if (allProjects.length > 0) {
+              this.selectedProjectId = allProjects[0].id;
+            }
+            return allProjects.filter((project) =>
+              distinctProjects.some(
+                (uniqueProject) => uniqueProject.id === project.id
+              )
+            );
+          })
+        );
+      })
+    );
   }
 
   onProjectChange() {

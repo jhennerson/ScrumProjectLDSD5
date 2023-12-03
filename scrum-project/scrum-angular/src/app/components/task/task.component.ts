@@ -18,8 +18,8 @@ import { TaskService } from '../../services/task/task.service';
 })
 export class TaskComponent implements OnInit {
   tasks: Observable<Task[]> = new Observable<Task[]>();
-  sprintOptions: Sprint[] = [];
-  selectedSprintId: string | undefined;
+  sprints: Observable<Sprint[]> = new Observable<Sprint[]>();
+  selectedSprintId: string | undefined = undefined;
 
   displayedColumns = [
     'title',
@@ -113,14 +113,15 @@ export class TaskComponent implements OnInit {
   }
 
   loadSprints() {
-    this.sprintService.list().subscribe((options) => {
-      this.sprintOptions = options;
-
-      if (this.sprintOptions.length > 0) {
-        this.selectedSprintId = this.sprintOptions[0].id;
-        this.loadTasks();
-      }
-    });
+    this.sprints = this.sprintService.list().pipe(
+      first(),
+      map((sprints) => {
+        if (sprints.length > 0) {
+          this.selectedSprintId = sprints[0].id;
+        }
+        return sprints;
+      })
+    );
   }
 
   onSprintChange() {
@@ -128,7 +129,7 @@ export class TaskComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadTasks();
     this.loadSprints();
+    this.loadTasks();
   }
 }

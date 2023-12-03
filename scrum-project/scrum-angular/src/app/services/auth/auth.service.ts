@@ -16,13 +16,13 @@ export class AuthService {
     private cookieService: CookieService
   ) {}
 
-  signin(record: Partial<User>): Observable<Token> {
+  login(record: Partial<User>): Observable<Token> {
     return this.httpClient
       .post<Token>(`${this.API}/login`, record)
       .pipe(first());
   }
 
-  signup(record: Partial<User>): Observable<User> {
+  register(record: Partial<User>): Observable<User> {
     return this.httpClient
       .post<User>(`${this.API}/register`, record)
       .pipe(first());
@@ -31,5 +31,9 @@ export class AuthService {
   isLoggedIn(): boolean {
     const JWT_TOKEN = this.cookieService.get('JWT_TOKEN');
     return !!JWT_TOKEN;
+  }
+
+  getCurrentUser(): Observable<User> {
+    return this.httpClient.get<User>(`${this.API}/current-user`).pipe(first());
   }
 }

@@ -10,7 +10,7 @@
       <mat-label>Relator</mat-label>
       <mat-select formControlName="reporter">
         <mat-option disabled value="null"></mat-option>
-        <mat-option *ngFor="let option of userOptions" [value]="option">
+        <mat-option *ngFor="let option of users | async" [value]="option">
           {{ option.username }}
         </mat-option>
       </mat-select>
@@ -43,7 +43,7 @@
     <mat-form-field class="full-width">
       <mat-label>Membros da Equipe</mat-label>
       <mat-select formControlName="members" multiple>
-        <mat-option *ngFor="let option of userOptions" [value]="option">
+        <mat-option *ngFor="let option of users | async" [value]="option">
           {{ option.username }}
         </mat-option>
       </mat-select>

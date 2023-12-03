@@ -1,3 +1,4 @@
+import { Observable, first } from 'rxjs';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
@@ -20,9 +21,9 @@ import { UserService } from 'src/app/services/user/user.service';
 export class TaskFormModalComponent implements OnInit {
   form: FormGroup;
 
-  userOptions: User[] = [];
-  userStoryOptions: UserStory[] = [];
-  sprintOptions: Sprint[] = [];
+  users: Observable<User[]> = new Observable<User[]>();
+  userStories: Observable<UserStory[]> = new Observable<UserStory[]>();
+  sprints: Observable<Sprint[]> = new Observable<Sprint[]>();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -91,21 +92,15 @@ export class TaskFormModalComponent implements OnInit {
   }
 
   loadUsers() {
-    this.userService
-      .list()
-      .subscribe((options) => (this.userOptions = options));
+    this.users = this.userService.list().pipe(first());
   }
 
   loadUserStories() {
-    this.userStoryService
-      .list()
-      .subscribe((options) => (this.userStoryOptions = options));
+    this.userStories = this.userStoryService.list().pipe(first());
   }
 
   loadSprints() {
-    this.sprintService
-      .list()
-      .subscribe((options) => (this.sprintOptions = options));
+    this.sprints = this.sprintService.list().pipe(first());
   }
 
   ngOnInit() {

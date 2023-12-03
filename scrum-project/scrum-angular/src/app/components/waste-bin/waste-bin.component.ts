@@ -17,8 +17,8 @@ import { TaskFormModalComponent } from 'src/app/shared/components/task-form-moda
 })
 export class WasteBinComponent {
   disabledTasks: Observable<Task[]> = new Observable<Task[]>();
-  sprintOptions: Sprint[] = [];
-  selectedSprintId: string | undefined;
+  sprints: Observable<Sprint[]> = new Observable<Sprint[]>();
+  selectedSprintId: string | undefined = undefined;
 
   displayedColumns = [
     'title',
@@ -38,8 +38,6 @@ export class WasteBinComponent {
     public dialog: MatDialog,
     public snackBar: MatSnackBar
   ) {}
-
-  sprints: Sprint[] = [];
 
   onAdd() {
     const dialogRef = this.dialog.open(TaskFormModalComponent, {});
@@ -132,9 +130,15 @@ export class WasteBinComponent {
   }
 
   loadSprints() {
-    this.sprintService
-      .list()
-      .subscribe((options) => (this.sprintOptions = options));
+    this.sprints = this.sprintService.list().pipe(
+      first(),
+      map((sprints) => {
+        if (sprints.length > 0) {
+          this.selectedSprintId = sprints[0].id;
+        }
+        return sprints;
+      })
+    );
   }
 
   onSprintChange() {

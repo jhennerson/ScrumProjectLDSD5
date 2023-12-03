@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
+import { Observable, first } from 'rxjs';
 import { Project } from 'src/app/models/project/project';
 import { User } from 'src/app/models/user/user';
 import { ProjectService } from 'src/app/services/project/project.service';
@@ -16,8 +16,6 @@ import { UserService } from 'src/app/services/user/user.service';
 export class ProjectFormModalComponent {
   form: FormGroup;
   users: Observable<User[]> = new Observable<User[]>();
-
-  userOptions: User[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -69,9 +67,7 @@ export class ProjectFormModalComponent {
   }
 
   loadUsers() {
-    this.userService
-      .list()
-      .subscribe((options) => (this.userOptions = options));
+    this.users = this.userService.list().pipe(first());
   }
 
   ngOnInit(): void {

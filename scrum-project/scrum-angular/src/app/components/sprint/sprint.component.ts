@@ -2,12 +2,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { SprintService } from './../../services/sprint/sprint.service';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, first, map } from 'rxjs';
+import { Observable, first, map, mergeMap } from 'rxjs';
 import { Sprint } from 'src/app/models/sprint/sprint';
 import { SprintFormModalComponent } from 'src/app/shared/components/sprint-form-modal/sprint-form-modal.component';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { Project } from 'src/app/models/project/project';
 import { ProjectService } from 'src/app/services/project/project.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-sprint',
@@ -16,8 +17,8 @@ import { ProjectService } from 'src/app/services/project/project.service';
 })
 export class SprintComponent implements OnInit {
   sprints: Observable<Sprint[]> = new Observable<Sprint[]>();
-  projectOptions: Project[] = [];
-  selectedProjectId: string | undefined;
+  projects: Observable<Project[]> = new Observable<Project[]>();
+  selectedProjectId: string | undefined = undefined;
 
   displayedColumns = [
     'title',
@@ -31,6 +32,7 @@ export class SprintComponent implements OnInit {
 
   constructor(
     private sprintService: SprintService,
+    private authService: AuthService,
     private projectService: ProjectService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar
@@ -101,14 +103,36 @@ export class SprintComponent implements OnInit {
   }
 
   loadProjects() {
-    this.projectService.list().subscribe((options) => {
-      this.projectOptions = options;
+    this.projects = this.authService.getCurrentUser().pipe(
+      mergeMap((user) => {
+        const memberProjects = user.memberProjects || [];
+        const reporterProjects = user.reporterProjects || [];
 
-      if (this.projectOptions.length > 0) {
-        this.selectedProjectId = this.projectOptions[0].id;
-        this.loadSprints();
-      }
-    });
+        const distinctProjects = [
+          ...memberProjects,
+          ...reporterProjects.filter(
+            (reporterProject) =>
+              !memberProjects.some(
+                (memberProject) => memberProject.id === reporterProject.id
+              )
+          ),
+        ];
+
+        return this.projectService.list().pipe(
+          first(),
+          map((allProjects) => {
+            if (allProjects.length > 0) {
+              this.selectedProjectId = allProjects[0].id;
+            }
+            return allProjects.filter((project) =>
+              distinctProjects.some(
+                (uniqueProject) => uniqueProject.id === project.id
+              )
+            );
+          })
+        );
+      })
+    );
   }
 
   onProjectChange() {
@@ -116,7 +140,7 @@ export class SprintComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadSprints();
     this.loadProjects();
+    this.loadSprints();
   }
 }

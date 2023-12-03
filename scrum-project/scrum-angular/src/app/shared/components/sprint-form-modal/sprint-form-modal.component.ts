@@ -1,3 +1,4 @@
+import { Observable, first } from 'rxjs';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -17,8 +18,8 @@ import { SprintService } from './../../../services/sprint/sprint.service';
 export class SprintFormModalComponent implements OnInit {
   form: FormGroup;
 
-  userOptions: User[] = [];
-  projectOptions: Project[] = [];
+  users: Observable<User[]> = new Observable<User[]>();
+  projects: Observable<Project[]> = new Observable<Project[]>();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -73,15 +74,11 @@ export class SprintFormModalComponent implements OnInit {
   }
 
   loadUsers() {
-    this.userService
-      .list()
-      .subscribe((options) => (this.userOptions = options));
+    this.users = this.userService.list().pipe(first());
   }
 
   loadProjects() {
-    this.projectService.list().subscribe((options) => {
-      this.projectOptions = options;
-    });
+    this.projects = this.projectService.list().pipe(first());
   }
 
   ngOnInit(): void {
