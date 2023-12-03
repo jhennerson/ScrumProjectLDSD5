@@ -61,7 +61,7 @@ export class ProjectComponent implements OnInit {
           map((allProjects) =>
             allProjects.filter((project) =>
               distinctProjects.some(
-                (uniqueProject) => uniqueProject.id === project.id
+                (distinctProject) => distinctProject.id === project.id
               )
             )
           )
