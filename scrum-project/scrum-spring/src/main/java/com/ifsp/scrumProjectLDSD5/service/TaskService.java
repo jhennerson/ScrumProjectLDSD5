@@ -62,4 +62,11 @@ public class TaskService {
 	public void delete(@NotNull String id) {
 		taskRepository.delete(taskRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(id)));
 	}
+
+	public List<TaskDTO> listBySprintId(String sprintId) {
+		return taskRepository.findBySprintId(sprintId)
+				.stream()
+				.map(taskMapper::toDTO)
+				.collect(Collectors.toList());
+	}
 }

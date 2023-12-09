@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class UserStoryService {
-  private readonly API =  environment.apiUrl + 'user-stories';
+  private readonly API = environment.apiUrl + 'user-stories';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -40,5 +40,10 @@ export class UserStoryService {
     return this.httpClient
       .put<UserStory>(`${this.API}/${record.id}`, record)
       .pipe(first());
+  }
+
+  listByProjectId(projectId: string) {
+    const url = `${this.API}/project/${projectId}`;
+    return this.httpClient.get<UserStory[]>(url).pipe(first());
   }
 }

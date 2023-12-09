@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class TaskService {
-  private readonly API = environment.apiUrl +  'tasks';
+  private readonly API = environment.apiUrl + 'tasks';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -41,5 +41,9 @@ export class TaskService {
     return this.httpClient
       .put<Task>(`${this.API}/${record.id}`, record)
       .pipe(first());
+  }
+
+  listBySprintId(sprintId: string) {
+    return this.httpClient.get<Task[]>(`${this.API}/sprint/${sprintId}`);
   }
 }

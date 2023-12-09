@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, first, map, combineLatest, mergeMap } from 'rxjs';
+import { Observable, first, map, mergeMap, combineLatestWith } from 'rxjs';
 import { Status } from 'src/app/enum/status.enum';
 import { Project } from 'src/app/models/project/project';
 import { Sprint } from 'src/app/models/sprint/sprint';
@@ -49,7 +49,7 @@ export class WasteBinComponent {
     const dialogRef = this.dialog.open(TaskFormModalComponent, {});
 
     dialogRef.afterClosed().subscribe(() => {
-      this.loadTasks();
+      this.ngOnInit();
     });
   }
 
@@ -61,7 +61,7 @@ export class WasteBinComponent {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      this.loadTasks();
+      this.ngOnInit();
     });
   }
 
@@ -80,7 +80,7 @@ export class WasteBinComponent {
         this.taskService.remove(task.id).subscribe({
           next: () => {
             this.onHardDelete();
-            this.loadTasks();
+            this.ngOnInit();
           },
           error: () => this.onError(),
         });
@@ -99,7 +99,7 @@ export class WasteBinComponent {
     this.taskService.save(task).subscribe({
       next: () => {
         this.onSuccess();
-        this.loadTasks();
+        this.ngOnInit();
       },
       error: () => this.onError(),
     });
@@ -120,10 +120,8 @@ export class WasteBinComponent {
   }
 
   loadTasks() {
-    this.disabledTasks = combineLatest([
-      this.taskService.list(),
-      this.sprints,
-    ]).pipe(
+    this.disabledTasks = this.taskService.list().pipe(
+      combineLatestWith(this.sprints),
       map(([allTasks, loadedSprints]) => {
         return allTasks.filter(
           (disabledTask) =>
@@ -136,10 +134,8 @@ export class WasteBinComponent {
   }
 
   loadSprints() {
-    this.sprints = combineLatest([
-      this.sprintService.list(),
-      this.projects,
-    ]).pipe(
+    this.sprints = this.sprintService.list().pipe(
+      combineLatestWith(this.projects),
       map(([allSprints, loadedProjects]) => {
         return allSprints.filter((sprint) =>
           loadedProjects.some(
@@ -181,12 +177,16 @@ export class WasteBinComponent {
   }
 
   onSprintChange() {
-    this.loadTasks();
+    if (this.selectedSprintId) {
+      this.loadTasks();
+    }
   }
 
   ngOnInit() {
     this.loadProjects();
     this.loadSprints();
-    this.loadTasks();
+    if (this.selectedSprintId) {
+      this.loadTasks();
+    }
   }
 }

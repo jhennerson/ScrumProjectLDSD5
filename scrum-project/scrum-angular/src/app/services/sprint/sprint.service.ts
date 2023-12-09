@@ -41,4 +41,9 @@ export class SprintService {
       .put<Sprint>(`${this.API}/${record.id}`, record)
       .pipe(first());
   }
+
+  listByProjectId(projectId: string) {
+    const url = `${this.API}/project/${projectId}`;
+    return this.httpClient.get<Sprint[]>(url).pipe(first());
+  }
 }

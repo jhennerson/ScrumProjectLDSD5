@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, first, map, mergeMap, combineLatest } from 'rxjs';
+import { Observable, first, map, mergeMap } from 'rxjs';
 import { Project } from 'src/app/models/project/project';
 import { UserStory } from 'src/app/models/user-story/user-story';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -41,7 +41,7 @@ export class UserStoryComponent implements OnInit {
     const dialogRef = this.dialog.open(UserStoryFormModalComponent, {});
 
     dialogRef.afterClosed().subscribe(() => {
-      this.loadUserStories();
+      this.ngOnInit();
     });
   }
 
@@ -51,7 +51,7 @@ export class UserStoryComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      this.loadUserStories();
+      this.ngOnInit();
     });
   }
 
@@ -87,24 +87,26 @@ export class UserStoryComponent implements OnInit {
     });
   }
 
-  loadUserStories() {
-    if (!this.selectedProjectId) {
-      this.userStories = new Observable<UserStory[]>();
-      return;
-    }
+  loadUserStories(projectId: string) {
+    if (projectId) {
+      this.authService.getCurrentUser().subscribe((user) => {
+        const currentUserId = user.id;
 
-    this.userStories = combineLatest([
-      this.userStoryService.list(),
-      this.projects,
-    ]).pipe(
-      map(([allUserStories, loadedProjects]) => {
-        return allUserStories.filter((userStory) =>
-          loadedProjects.some(
-            (loadedProject) => userStory.project.id === loadedProject.id
-          )
-        );
-      })
-    );
+        this.userStories = this.userStoryService
+          .listByProjectId(projectId)
+          .pipe(
+            map((userStory) =>
+              userStory.filter(
+                (userStory) =>
+                  (userStory.reporter &&
+                    userStory.reporter.id === currentUserId) ||
+                  (userStory.assignee &&
+                    userStory.assignee.id === currentUserId)
+              )
+            )
+          );
+      });
+    }
   }
 
   loadProjects() {
@@ -125,27 +127,29 @@ export class UserStoryComponent implements OnInit {
 
         return this.projectService.list().pipe(
           first(),
-          map((allProjects) => {
-            if (allProjects.length > 0) {
-              this.selectedProjectId = allProjects[0].id;
-              this.loadUserStories();
-            }
-            return allProjects.filter((project) =>
+          map((allProjects) =>
+            allProjects.filter((project) =>
               distinctProjects.some(
                 (distinctProject) => distinctProject.id === project.id
               )
-            );
-          })
+            )
+          )
         );
       })
     );
   }
 
   onProjectChange() {
-    this.loadUserStories();
+    if (this.selectedProjectId) {
+      this.loadUserStories(this.selectedProjectId);
+    }
   }
 
   ngOnInit() {
     this.loadProjects();
+
+    if (this.selectedProjectId) {
+      this.loadUserStories(this.selectedProjectId);
+    }
   }
 }
