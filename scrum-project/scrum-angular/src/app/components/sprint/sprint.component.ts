@@ -1,9 +1,9 @@
-import { MatDialog } from '@angular/material/dialog';
-import { SprintService } from './../../services/sprint/sprint.service';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, first, map, mergeMap, combineLatest } from 'rxjs';
+import { Observable, mergeMap, first, map } from 'rxjs';
 import { Sprint } from 'src/app/models/sprint/sprint';
+import { SprintService } from 'src/app/services/sprint/sprint.service';
 import { SprintFormModalComponent } from 'src/app/shared/components/sprint-form-modal/sprint-form-modal.component';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { Project } from 'src/app/models/project/project';
@@ -19,8 +19,6 @@ export class SprintComponent implements OnInit {
   sprints: Observable<Sprint[]> = new Observable<Sprint[]>();
   projects: Observable<Project[]> = new Observable<Project[]>();
   selectedProjectId: string | undefined = undefined;
-
-  loadedProjects: Project[] = [];
 
   displayedColumns = [
     'title',
@@ -44,7 +42,7 @@ export class SprintComponent implements OnInit {
     const dialogRef = this.dialog.open(SprintFormModalComponent, {});
 
     dialogRef.afterClosed().subscribe(() => {
-      this.loadSprints();
+      this.ngOnInit();
     });
   }
 
@@ -54,7 +52,7 @@ export class SprintComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      this.loadSprints();
+      this.ngOnInit();
     });
   }
 
@@ -90,24 +88,23 @@ export class SprintComponent implements OnInit {
     });
   }
 
-  loadSprints() {
-    if (!this.selectedProjectId) {
-      this.sprints = new Observable<Sprint[]>();
-      return;
-    }
+  loadSprints(projectId: string) {
+    if (projectId) {
+      this.authService.getCurrentUser().subscribe((user) => {
+        const currentUserId = user.id;
 
-    this.sprints = combineLatest([
-      this.sprintService.list(),
-      this.projects,
-    ]).pipe(
-      map(([allSprints, loadedProjects]) => {
-        return allSprints.filter((sprint) =>
-          loadedProjects.some(
-            (loadedProject) => sprint.project.id === loadedProject.id
-          )
-        );
-      })
-    );
+        this.sprints = this.sprintService
+          .listByProjectId(projectId)
+          .pipe(
+            map((sprints) =>
+              sprints.filter(
+                (sprint) =>
+                  sprint.reporter && sprint.reporter.id === currentUserId
+              )
+            )
+          );
+      });
+    }
   }
 
   loadProjects() {
@@ -128,28 +125,29 @@ export class SprintComponent implements OnInit {
 
         return this.projectService.list().pipe(
           first(),
-          map((allProjects) => {
-            if (allProjects.length > 0) {
-              this.selectedProjectId = allProjects[0].id;
-              this.loadedProjects = allProjects;
-              this.loadSprints();
-            }
-            return allProjects.filter((project) =>
+          map((allProjects) =>
+            allProjects.filter((project) =>
               distinctProjects.some(
                 (distinctProject) => distinctProject.id === project.id
               )
-            );
-          })
+            )
+          )
         );
       })
     );
   }
 
   onProjectChange() {
-    this.loadSprints();
+    if (this.selectedProjectId) {
+      this.loadSprints(this.selectedProjectId);
+    }
   }
 
   ngOnInit() {
     this.loadProjects();
+
+    if (this.selectedProjectId) {
+      this.loadSprints(this.selectedProjectId);
+    }
   }
 }

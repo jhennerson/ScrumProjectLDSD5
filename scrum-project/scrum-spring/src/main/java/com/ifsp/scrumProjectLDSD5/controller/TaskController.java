@@ -55,4 +55,9 @@ public class TaskController {
 	public void delete(@PathVariable @NotNull String id) {
 		taskService.delete(id);
 	}
+
+	@GetMapping("/sprint/{sprintId}")
+	public List<TaskDTO> listBySprintId(@PathVariable String sprintId) {
+		return taskService.listBySprintId(sprintId);
+	}
 } 

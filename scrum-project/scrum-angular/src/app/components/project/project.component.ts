@@ -1,4 +1,4 @@
-import { Observable, first, map, mergeMap, of } from 'rxjs';
+import { Observable, first, map, mergeMap } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Project } from 'src/app/models/project/project';
 import { ProjectService } from 'src/app/services/project/project.service';

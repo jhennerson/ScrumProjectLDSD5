@@ -58,4 +58,11 @@ public class SprintService {
     public void delete(@NotNull String id) {
         sprintRepository.delete(sprintRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(id)));
     }
+
+    public List<SprintDTO> listByProjectId(@PathVariable @NotNull String projectId) {
+        return sprintRepository.findByProjectId(projectId)
+                .stream()
+                .map(sprintMapper::toDTO)
+                .collect(Collectors.toList());
+    }
 }

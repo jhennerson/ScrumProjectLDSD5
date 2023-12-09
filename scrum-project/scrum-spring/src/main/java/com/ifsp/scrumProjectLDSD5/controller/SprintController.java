@@ -56,4 +56,9 @@ public class SprintController {
     public void delete(@PathVariable @NotNull String id) {
         sprintService.delete(id);
     }
+
+    @GetMapping("/project/{projectId}")
+    public List<SprintDTO> listByProjectId(@PathVariable @NotNull String projectId) {
+        return sprintService.listByProjectId(projectId);
+    }
 }

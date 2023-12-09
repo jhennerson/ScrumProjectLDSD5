@@ -2,6 +2,7 @@ package com.ifsp.scrumProjectLDSD5.controller;
 
 import java.util.List;
 
+import com.ifsp.scrumProjectLDSD5.dto.SprintDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -53,5 +54,10 @@ public class UserStoryController {
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable @NotNull String id) {
         userStoryService.delete(id);
+    }
+
+    @GetMapping("/project/{projectId}")
+    public List<UserStoryDTO> listByProjectId(@PathVariable @NotNull String projectId) {
+        return userStoryService.listByProjectId(projectId);
     }
 }

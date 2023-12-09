@@ -3,6 +3,7 @@ package com.ifsp.scrumProjectLDSD5.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.ifsp.scrumProjectLDSD5.dto.SprintDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,5 +54,12 @@ public class UserStoryService {
 
     public void delete(@NotNull String id) {
         userStoryRepository.delete(userStoryRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(id)));
+    }
+
+    public List<UserStoryDTO> listByProjectId(@PathVariable @NotNull String projectId) {
+        return userStoryRepository.findByProjectId(projectId)
+                .stream()
+                .map(userStoryMapper::toDTO)
+                .collect(Collectors.toList());
     }
 }

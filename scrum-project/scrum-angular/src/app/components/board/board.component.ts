@@ -6,7 +6,7 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, first, map, mergeMap, combineLatest } from 'rxjs';
+import { Observable, first, map, mergeMap, combineLatestWith } from 'rxjs';
 import { TaskFormModalComponent } from 'src/app/shared/components/task-form-modal/task-form-modal.component';
 
 import { Sprint } from '../../models/sprint/sprint';
@@ -108,7 +108,8 @@ export class BoardComponent implements OnInit {
   }
 
   loadTasks() {
-    this.tasks = combineLatest([this.taskService.list(), this.sprints]).pipe(
+    this.tasks = this.taskService.list().pipe(
+      combineLatestWith(this.sprints),
       map(([allTasks, loadedSprints]) => {
         return allTasks.filter(
           (task) =>
@@ -139,10 +140,8 @@ export class BoardComponent implements OnInit {
   }
 
   loadSprints() {
-    this.sprints = combineLatest([
-      this.sprintService.list(),
-      this.projects,
-    ]).pipe(
+    this.sprints = this.sprintService.list().pipe(
+      combineLatestWith(this.projects),
       map(([allSprints, loadedProjects]) => {
         const filteredSprints = allSprints.filter((sprint) =>
           loadedProjects.some(
