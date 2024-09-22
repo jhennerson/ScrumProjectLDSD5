@@ -1,7 +1,7 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -36,59 +36,53 @@ import { StatusPipe } from './shared/pipes/status/status.pipe';
 import { TitlePipe } from './shared/pipes/title/title.pipe';
 import { UsernamePipe } from './shared/pipes/username/username.pipe';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    BoardComponent,
-    SprintComponent,
-    TaskComponent,
-    StatusPipe,
-    UsernamePipe,
-    UserStoryComponent,
-    WasteBinComponent,
-    LoginComponent,
-    TitlePipe,
-    ProjectComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    SharedModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatCardModule,
-    MatIconModule,
-    DragDropModule,
-    CdkMenuModule,
-    MatButtonModule,
-    ScrollingModule,
-    MatSidenavModule,
-    MatListModule,
-    HttpClientModule,
-    MatSnackBarModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    FormsModule,
-    MatOptionModule,
-  ],
-  providers: [
-    {
-      provide: MatDialogRef,
-      useValue: {},
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-    },
-  ],
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [
+        AppComponent,
+        BoardComponent,
+        SprintComponent,
+        TaskComponent,
+        StatusPipe,
+        UsernamePipe,
+        UserStoryComponent,
+        WasteBinComponent,
+        LoginComponent,
+        TitlePipe,
+        ProjectComponent,
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        SharedModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatCardModule,
+        MatIconModule,
+        DragDropModule,
+        CdkMenuModule,
+        MatButtonModule,
+        ScrollingModule,
+        MatSidenavModule,
+        MatListModule,
+        MatSnackBarModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatTableModule,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        FormsModule,
+        MatOptionModule], providers: [
+        {
+            provide: MatDialogRef,
+            useValue: {},
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
+        },
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule {}
