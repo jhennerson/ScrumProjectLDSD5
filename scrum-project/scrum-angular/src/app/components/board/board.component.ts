@@ -1,8 +1,4 @@
-import {
-  CdkDragDrop,
-  moveItemInArray,
-  transferArrayItem,
-} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropListGroup, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -17,11 +13,43 @@ import { SprintService } from 'src/app/services/sprint/sprint.service';
 import { ProjectService } from 'src/app/services/project/project.service';
 import { Project } from 'src/app/models/project/project';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
+import { MenuComponent } from '../../shared/components/menu/menu.component';
+import { MatCard } from '@angular/material/card';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgFor, AsyncPipe } from '@angular/common';
+import { MatOption } from '@angular/material/core';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-board',
-  templateUrl: './board.component.html',
-  styleUrls: ['./board.component.scss'],
+    selector: 'app-board',
+    templateUrl: './board.component.html',
+    styleUrls: ['./board.component.scss'],
+    standalone: true,
+    imports: [
+        NavbarComponent,
+        MenuComponent,
+        MatCard,
+        MatToolbar,
+        MatFormField,
+        MatLabel,
+        MatSelect,
+        ReactiveFormsModule,
+        FormsModule,
+        NgFor,
+        MatOption,
+        MatButton,
+        MatIcon,
+        CdkDropListGroup,
+        CdkDropList,
+        CdkDrag,
+        MatIconButton,
+        AsyncPipe,
+    ],
 })
 export class BoardComponent implements OnInit {
   tasks: Observable<Task[]> = new Observable<Task[]>();

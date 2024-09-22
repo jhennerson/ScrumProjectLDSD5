@@ -8,8 +8,8 @@ describe('UserStoryFormModalComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [UserStoryFormModalComponent]
-    });
+    imports: [UserStoryFormModalComponent]
+});
     fixture = TestBed.createComponent(UserStoryFormModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

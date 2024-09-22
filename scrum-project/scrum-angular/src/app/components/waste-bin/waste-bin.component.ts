@@ -12,11 +12,52 @@ import { SprintService } from 'src/app/services/sprint/sprint.service';
 import { TaskService } from 'src/app/services/task/task.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { TaskFormModalComponent } from 'src/app/shared/components/task-form-modal/task-form-modal.component';
+import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
+import { MenuComponent } from '../../shared/components/menu/menu.component';
+import { MatCard } from '@angular/material/card';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { NgFor, NgClass, AsyncPipe } from '@angular/common';
+import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { StatusPipe } from '../../shared/pipes/status/status.pipe';
+import { UsernamePipe } from '../../shared/pipes/username/username.pipe';
 
 @Component({
-  selector: 'app-waste-bin',
-  templateUrl: './waste-bin.component.html',
-  styleUrls: ['./waste-bin.component.scss'],
+    selector: 'app-waste-bin',
+    templateUrl: './waste-bin.component.html',
+    styleUrls: ['./waste-bin.component.scss'],
+    standalone: true,
+    imports: [
+        NavbarComponent,
+        MenuComponent,
+        MatCard,
+        MatToolbar,
+        MatFormField,
+        MatLabel,
+        MatSelect,
+        MatOption,
+        NgFor,
+        MatTable,
+        MatColumnDef,
+        MatHeaderCellDef,
+        MatHeaderCell,
+        MatCellDef,
+        MatCell,
+        NgClass,
+        MatIconButton,
+        MatIcon,
+        MatHeaderRowDef,
+        MatHeaderRow,
+        MatRowDef,
+        MatRow,
+        AsyncPipe,
+        StatusPipe,
+        UsernamePipe,
+    ],
 })
 export class WasteBinComponent {
   disabledTasks: Observable<Task[]> = new Observable<Task[]>();

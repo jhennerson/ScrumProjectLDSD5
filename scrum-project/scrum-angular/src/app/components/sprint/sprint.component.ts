@@ -9,11 +9,51 @@ import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmat
 import { Project } from 'src/app/models/project/project';
 import { ProjectService } from 'src/app/services/project/project.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
+import { MenuComponent } from '../../shared/components/menu/menu.component';
+import { MatCard } from '@angular/material/card';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgFor, AsyncPipe } from '@angular/common';
+import { MatOption } from '@angular/material/core';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 
 @Component({
-  selector: 'app-sprint',
-  templateUrl: './sprint.component.html',
-  styleUrls: ['./sprint.component.scss'],
+    selector: 'app-sprint',
+    templateUrl: './sprint.component.html',
+    styleUrls: ['./sprint.component.scss'],
+    standalone: true,
+    imports: [
+        NavbarComponent,
+        MenuComponent,
+        MatCard,
+        MatToolbar,
+        MatFormField,
+        MatLabel,
+        MatSelect,
+        ReactiveFormsModule,
+        FormsModule,
+        NgFor,
+        MatOption,
+        MatButton,
+        MatIcon,
+        MatTable,
+        MatColumnDef,
+        MatHeaderCellDef,
+        MatHeaderCell,
+        MatCellDef,
+        MatCell,
+        MatIconButton,
+        MatHeaderRowDef,
+        MatHeaderRow,
+        MatRowDef,
+        MatRow,
+        AsyncPipe,
+    ],
 })
 export class SprintComponent implements OnInit {
   sprints: Observable<Sprint[]> = new Observable<Sprint[]>();

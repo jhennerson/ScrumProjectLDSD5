@@ -6,11 +6,30 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProjectFormModalComponent } from 'src/app/shared/components/project-form-modal/project-form-modal.component';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
+import { MenuComponent } from '../../shared/components/menu/menu.component';
+import { MatCard } from '@angular/material/card';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-project',
-  templateUrl: './project.component.html',
-  styleUrls: ['./project.component.scss'],
+    selector: 'app-project',
+    templateUrl: './project.component.html',
+    styleUrls: ['./project.component.scss'],
+    standalone: true,
+    imports: [
+        NavbarComponent,
+        MenuComponent,
+        MatCard,
+        MatToolbar,
+        MatButton,
+        MatIcon,
+        NgFor,
+        MatIconButton,
+        AsyncPipe,
+    ],
 })
 export class ProjectComponent implements OnInit {
   projects: Observable<Project[]> = new Observable<Project[]>();

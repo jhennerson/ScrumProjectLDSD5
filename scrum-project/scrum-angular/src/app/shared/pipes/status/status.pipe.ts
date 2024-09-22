@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Status } from 'src/app/enum/status.enum';
 
 @Pipe({
-  name: 'status',
+    name: 'status',
+    standalone: true,
 })
 export class StatusPipe implements PipeTransform {
   transform(value: string): string {

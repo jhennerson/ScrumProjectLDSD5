@@ -13,11 +13,53 @@ import { TaskService } from '../../services/task/task.service';
 import { Project } from 'src/app/models/project/project';
 import { ProjectService } from 'src/app/services/project/project.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
+import { MenuComponent } from '../../shared/components/menu/menu.component';
+import { MatCard } from '@angular/material/card';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { NgFor, NgClass, AsyncPipe } from '@angular/common';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
+import { StatusPipe } from '../../shared/pipes/status/status.pipe';
+import { UsernamePipe } from '../../shared/pipes/username/username.pipe';
 
 @Component({
-  selector: 'app-task',
-  templateUrl: './task.component.html',
-  styleUrls: ['./task.component.scss'],
+    selector: 'app-task',
+    templateUrl: './task.component.html',
+    styleUrls: ['./task.component.scss'],
+    standalone: true,
+    imports: [
+        NavbarComponent,
+        MenuComponent,
+        MatCard,
+        MatToolbar,
+        MatFormField,
+        MatLabel,
+        MatSelect,
+        MatOption,
+        NgFor,
+        MatButton,
+        MatIcon,
+        MatTable,
+        MatColumnDef,
+        MatHeaderCellDef,
+        MatHeaderCell,
+        MatCellDef,
+        MatCell,
+        NgClass,
+        MatIconButton,
+        MatHeaderRowDef,
+        MatHeaderRow,
+        MatRowDef,
+        MatRow,
+        AsyncPipe,
+        StatusPipe,
+        UsernamePipe,
+    ],
 })
 export class TaskComponent implements OnInit {
   tasks: Observable<Task[]> = new Observable<Task[]>();

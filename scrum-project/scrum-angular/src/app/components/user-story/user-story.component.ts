@@ -9,11 +9,54 @@ import { ProjectService } from 'src/app/services/project/project.service';
 import { UserStoryService } from 'src/app/services/user-story/user-story.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { UserStoryFormModalComponent } from 'src/app/shared/components/user-story-form-modal/user-story-form-modal.component';
+import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
+import { MenuComponent } from '../../shared/components/menu/menu.component';
+import { MatCard } from '@angular/material/card';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgFor, AsyncPipe, SlicePipe } from '@angular/common';
+import { MatOption } from '@angular/material/core';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
+import { UsernamePipe } from '../../shared/pipes/username/username.pipe';
 
 @Component({
-  selector: 'app-user-story',
-  templateUrl: './user-story.component.html',
-  styleUrls: ['./user-story.component.scss'],
+    selector: 'app-user-story',
+    templateUrl: './user-story.component.html',
+    styleUrls: ['./user-story.component.scss'],
+    standalone: true,
+    imports: [
+        NavbarComponent,
+        MenuComponent,
+        MatCard,
+        MatToolbar,
+        MatFormField,
+        MatLabel,
+        MatSelect,
+        ReactiveFormsModule,
+        FormsModule,
+        NgFor,
+        MatOption,
+        MatButton,
+        MatIcon,
+        MatTable,
+        MatColumnDef,
+        MatHeaderCellDef,
+        MatHeaderCell,
+        MatCellDef,
+        MatCell,
+        MatIconButton,
+        MatHeaderRowDef,
+        MatHeaderRow,
+        MatRowDef,
+        MatRow,
+        AsyncPipe,
+        SlicePipe,
+        UsernamePipe,
+    ],
 })
 export class UserStoryComponent implements OnInit {
   userStories: Observable<UserStory[]> = new Observable<UserStory[]>();

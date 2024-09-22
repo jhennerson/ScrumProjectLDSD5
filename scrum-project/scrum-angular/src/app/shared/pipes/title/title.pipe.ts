@@ -4,7 +4,8 @@ import { Sprint } from 'src/app/models/sprint/sprint';
 import { SprintService } from 'src/app/services/sprint/sprint.service';
 
 @Pipe({
-  name: 'title',
+    name: 'title',
+    standalone: true,
 })
 export class TitlePipe implements PipeTransform {
   constructor(private sprintService: SprintService) {}

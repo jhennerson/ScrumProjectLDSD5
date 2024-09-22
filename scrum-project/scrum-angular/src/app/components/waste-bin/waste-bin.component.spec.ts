@@ -8,8 +8,8 @@ describe('WasteBinComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [WasteBinComponent]
-    });
+    imports: [WasteBinComponent]
+});
     fixture = TestBed.createComponent(WasteBinComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

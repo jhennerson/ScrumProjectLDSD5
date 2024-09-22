@@ -8,8 +8,8 @@ describe('SprintFormModalComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SprintFormModalComponent]
-    });
+    imports: [SprintFormModalComponent]
+});
     fixture = TestBed.createComponent(SprintFormModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

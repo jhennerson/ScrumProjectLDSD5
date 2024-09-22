@@ -36,19 +36,7 @@ import { StatusPipe } from './shared/pipes/status/status.pipe';
 import { TitlePipe } from './shared/pipes/title/title.pipe';
 import { UsernamePipe } from './shared/pipes/username/username.pipe';
 
-@NgModule({ declarations: [
-        AppComponent,
-        BoardComponent,
-        SprintComponent,
-        TaskComponent,
-        StatusPipe,
-        UsernamePipe,
-        UserStoryComponent,
-        WasteBinComponent,
-        LoginComponent,
-        TitlePipe,
-        ProjectComponent,
-    ],
+@NgModule({ declarations: [AppComponent],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,
         SharedModule,
@@ -73,7 +61,16 @@ import { UsernamePipe } from './shared/pipes/username/username.pipe';
         MatDatepickerModule,
         MatNativeDateModule,
         FormsModule,
-        MatOptionModule], providers: [
+        MatOptionModule, BoardComponent,
+        SprintComponent,
+        TaskComponent,
+        StatusPipe,
+        UsernamePipe,
+        UserStoryComponent,
+        WasteBinComponent,
+        LoginComponent,
+        TitlePipe,
+        ProjectComponent], providers: [
         {
             provide: MatDialogRef,
             useValue: {},

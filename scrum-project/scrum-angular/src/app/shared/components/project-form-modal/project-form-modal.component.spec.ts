@@ -8,8 +8,8 @@ describe('ProjectFormModalComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ProjectFormModalComponent]
-    });
+    imports: [ProjectFormModalComponent]
+});
     fixture = TestBed.createComponent(ProjectFormModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

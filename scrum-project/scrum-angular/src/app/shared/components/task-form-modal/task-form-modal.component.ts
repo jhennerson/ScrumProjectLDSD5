@@ -1,7 +1,7 @@
 import { Observable, first } from 'rxjs';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Status } from 'src/app/enum/status.enum';
 import { Sprint } from 'src/app/models/sprint/sprint';
@@ -12,11 +12,39 @@ import { SprintService } from 'src/app/services/sprint/sprint.service';
 import { TaskService } from 'src/app/services/task/task.service';
 import { UserStoryService } from 'src/app/services/user-story/user-story.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { NgFor, AsyncPipe } from '@angular/common';
+import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker';
+import { MatFabButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-task-form-modal',
-  templateUrl: './task-form-modal.component.html',
-  styleUrls: ['./task-form-modal.component.scss'],
+    selector: 'app-task-form-modal',
+    templateUrl: './task-form-modal.component.html',
+    styleUrls: ['./task-form-modal.component.scss'],
+    standalone: true,
+    imports: [
+        CdkScrollable,
+        MatDialogContent,
+        ReactiveFormsModule,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        MatSelect,
+        MatOption,
+        NgFor,
+        MatDatepickerInput,
+        MatDatepickerToggle,
+        MatSuffix,
+        MatDatepicker,
+        MatDialogActions,
+        MatFabButton,
+        MatDialogClose,
+        AsyncPipe,
+    ],
 })
 export class TaskFormModalComponent implements OnInit {
   form: FormGroup;

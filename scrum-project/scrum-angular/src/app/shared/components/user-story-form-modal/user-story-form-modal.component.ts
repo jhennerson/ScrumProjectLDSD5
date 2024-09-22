@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, first } from 'rxjs';
 import { Project } from 'src/app/models/project/project';
@@ -9,11 +9,34 @@ import { User } from 'src/app/models/user/user';
 import { ProjectService } from 'src/app/services/project/project.service';
 import { UserStoryService } from 'src/app/services/user-story/user-story.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { NgFor, AsyncPipe } from '@angular/common';
+import { MatFabButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-user-story-modal',
-  templateUrl: './user-story-form-modal.component.html',
-  styleUrls: ['./user-story-form-modal.component.scss'],
+    selector: 'app-user-story-modal',
+    templateUrl: './user-story-form-modal.component.html',
+    styleUrls: ['./user-story-form-modal.component.scss'],
+    standalone: true,
+    imports: [
+        CdkScrollable,
+        MatDialogContent,
+        ReactiveFormsModule,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        MatSelect,
+        MatOption,
+        NgFor,
+        MatDialogActions,
+        MatFabButton,
+        MatDialogClose,
+        AsyncPipe,
+    ],
 })
 export class UserStoryFormModalComponent implements OnInit {
   form: FormGroup;

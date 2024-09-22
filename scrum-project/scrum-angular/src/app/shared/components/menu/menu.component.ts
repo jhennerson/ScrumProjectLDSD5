@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatCard } from '@angular/material/card';
+import { MatButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-menu',
-  templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss'],
+    selector: 'app-menu',
+    templateUrl: './menu.component.html',
+    styleUrls: ['./menu.component.scss'],
+    standalone: true,
+    imports: [MatCard, MatButton],
 })
 export class MenuComponent {
   constructor(private router: Router, private route: ActivatedRoute) {}

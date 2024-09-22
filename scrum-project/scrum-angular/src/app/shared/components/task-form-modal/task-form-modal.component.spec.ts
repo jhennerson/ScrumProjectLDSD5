@@ -8,8 +8,8 @@ describe('TaskFormModalComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TaskFormModalComponent]
-    });
+    imports: [TaskFormModalComponent]
+});
     fixture = TestBed.createComponent(TaskFormModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

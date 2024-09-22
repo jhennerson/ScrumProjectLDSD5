@@ -8,8 +8,8 @@ describe('SprintComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SprintComponent]
-    });
+    imports: [SprintComponent]
+});
     fixture = TestBed.createComponent(SprintComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
