@@ -5,53 +5,53 @@ export const APP_ROUTES: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
   {
     path: 'login',
-    loadChildren: () =>
-      import('./modules/login/login.routes').then((route) => route.LOGIN_ROUTES),
+    loadComponent: () =>
+      import('./components/login/login.component').then((component) => component.LoginComponent),
   },
   {
     path: 'projects',
     canActivate: [authGuard],
-    loadChildren: () =>
-      import('./modules/project/project.routes').then(
-        (route) => route.PROJECT_ROUTES
+    loadComponent: () =>
+      import('./components/project/project.component').then(
+        (component) => component.ProjectComponent
       ),
   },
   {
     path: 'board',
     canActivate: [authGuard],
-    loadChildren: () =>
-      import('./modules/board/board.routes').then(
-        (route) => route.BOARD_ROUTES
+    loadComponent: () =>
+      import('./components/board/board.component').then(
+        (component) => component.BoardComponent
       ),
   },
   {
     path: 'tasks',
     canActivate: [authGuard],
-    loadChildren: () =>
-      import('./modules/task/task.routes').then((route) => route.TASK_ROUTES),
+    loadComponent: () =>
+      import('./components/task/task.component').then((component) => component.TaskComponent),
   },
   {
     path: 'sprints',
     canActivate: [authGuard],
-    loadChildren: () =>
-      import('./modules/sprint/sprint.routes').then(
-        (route) => route.SPRINT_ROUTES
+    loadComponent: () =>
+      import('./components/sprint/sprint.component').then(
+        (component) => component.SprintComponent
       ),
   },
   {
     path: 'user-stories',
     canActivate: [authGuard],
-    loadChildren: () =>
-      import('./modules/user-story/user-story.routes').then(
-        (route) => route.USER_STORY_ROUTES
+    loadComponent: () =>
+      import('./components/user-story/user-story.component').then(
+        (component) => component.UserStoryComponent
       ),
   },
   {
     path: 'waste-bin',
     canActivate: [authGuard],
-    loadChildren: () =>
-      import('./modules/waste-bin/waste-bin.routes').then(
-        (route) => route.WASTE_BIN_ROUTES
+    loadComponent: () =>
+      import('./components/waste-bin/waste-bin.component').then(
+        (component) => component.WasteBinComponent
       ),
   },
 ];

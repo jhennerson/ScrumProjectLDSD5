@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { BoardRoutingModule } from './board-routing.module';
-
 @NgModule({
   declarations: [],
-  imports: [CommonModule, BoardRoutingModule],
+  imports: [CommonModule],
 })
 export class BoardModule {}
+Used component lazy loading cus is a single component in route
