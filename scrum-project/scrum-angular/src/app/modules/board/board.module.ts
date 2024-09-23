@@ -6,4 +6,3 @@ import { NgModule } from '@angular/core';
   imports: [CommonModule],
 })
 export class BoardModule {}
-Used component lazy loading cus is a single component in route
